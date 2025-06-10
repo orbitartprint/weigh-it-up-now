@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { User, Weight, Car, Smartphone, Bike, WashingMachine, Star } from 'lucide-react';
 import { WeightItem } from '@/data/weightItems';
@@ -102,9 +101,9 @@ const ScaleComparison: React.FC<ScaleComparisonProps> = ({
             transform: `translateX(-50%) rotate(${rotationAngle}deg)`
           }}
         >
-          {/* Triangle Pivot Point in the middle */}
-          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1">
-            <div className="w-0 h-0 border-l-2 border-r-2 border-t-3 border-transparent border-t-gray-700"></div>
+          {/* Triangle Pivot Point in the middle of the bar */}
+          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-2">
+            <div className="w-0 h-0 border-l-3 border-r-3 border-t-4 border-transparent border-t-gray-700"></div>
           </div>
           
           {/* Left Scale Pan */}
