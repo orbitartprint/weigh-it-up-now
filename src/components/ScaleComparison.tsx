@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { User, Weight, Car, Smartphone, Bike, Washing, Bowl, Star } from 'lucide-react';
+import { User, Weight, Car, Smartphone, Bike, WashingMachine, Star } from 'lucide-react';
 import { WeightItem } from '@/data/weightItems';
 import { cn } from '@/lib/utils';
 
@@ -60,7 +60,7 @@ const ScaleComparison: React.FC<ScaleComparisonProps> = ({
       
       // Objects
       case 'washing-machine':
-        return <Washing size={16} className="text-primary" />;
+        return <WashingMachine size={16} className="text-primary" />;
       case 'car':
         return <Car size={16} className="text-primary" />;
       case 'smartphone':
