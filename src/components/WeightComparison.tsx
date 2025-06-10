@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -8,8 +7,9 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { WeightItem, weightItems, getItemsByCategory } from "@/data/weightItems";
-import { ArrowLeft, ArrowRight, Weight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Weight, BarChart3, Scale } from "lucide-react";
 import { cn } from "@/lib/utils";
+import ScaleComparison from "./ScaleComparison";
 
 const WeightComparison = () => {
   const [weight, setWeight] = useState<number>(70);
@@ -24,6 +24,9 @@ const WeightComparison = () => {
     theirWeight: number;
   } | null>(null);
   const [compareItem, setCompareItem] = useState<WeightItem | null>(null);
+  
+  // Neue State für Ansichts-Umschaltung
+  const [showScale, setShowScale] = useState<boolean>(false);
 
   useEffect(() => {
     // Set initial comparison items based on the selected category
@@ -208,8 +211,27 @@ const WeightComparison = () => {
 
       {comparison && compareItem && (
         <Card className="mb-8 scale-appear">
-          <CardHeader>
+          <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>Comparison Result</CardTitle>
+            {/* Umschalt-Button für Ansichten */}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowScale(!showScale)}
+              className="flex items-center gap-2"
+            >
+              {showScale ? (
+                <>
+                  <BarChart3 size={16} />
+                  Diagramm
+                </>
+              ) : (
+                <>
+                  <Scale size={16} />
+                  Waage
+                </>
+              )}
+            </Button>
           </CardHeader>
           <CardContent>
             <div className="mb-6">
@@ -223,38 +245,50 @@ const WeightComparison = () => {
               )}
             </div>
 
-            <div className="comparison-container mt-8 mb-12">
-              <div
-                className="weight-bar bg-weightBlue"
-                style={{
-                  height: `${Math.min(300, comparison.yourWeight * (300 / Math.max(comparison.yourWeight, comparison.theirWeight)))}px`,
-                  width: '40%',
-                  left: '10%'
-                }}
-              >
-                <div className="bar-label">
-                  <span className="font-bold">You</span>
-                  <br />
-                  {comparison.yourWeight.toFixed(1)} kg
-                  {!useKg && ` (${(comparison.yourWeight * 2.20462).toFixed(1)} lbs)`}
+            {/* Balkendiagramm Container (standardmäßig sichtbar) */}
+            {!showScale && (
+              <div className="comparison-container mt-8 mb-12">
+                <div
+                  className="weight-bar bg-weightBlue"
+                  style={{
+                    height: `${Math.min(300, comparison.yourWeight * (300 / Math.max(comparison.yourWeight, comparison.theirWeight)))}px`,
+                    width: '40%',
+                    left: '10%'
+                  }}
+                >
+                  <div className="bar-label">
+                    <span className="font-bold">You</span>
+                    <br />
+                    {comparison.yourWeight.toFixed(1)} kg
+                    {!useKg && ` (${(comparison.yourWeight * 2.20462).toFixed(1)} lbs)`}
+                  </div>
+                </div>
+                <div
+                  className="weight-bar bg-primary/70"
+                  style={{
+                    height: `${Math.min(300, comparison.theirWeight * (300 / Math.max(comparison.yourWeight, comparison.theirWeight)))}px`,
+                    width: '40%',
+                    right: '10%'
+                  }}
+                >
+                  <div className="bar-label">
+                    <span className="font-bold">{compareItem.name}</span>
+                    <br />
+                    {comparison.theirWeight.toFixed(1)} kg
+                    {!useKg && ` (${(comparison.theirWeight * 2.20462).toFixed(1)} lbs)`}
+                  </div>
                 </div>
               </div>
-              <div
-                className="weight-bar bg-primary/70"
-                style={{
-                  height: `${Math.min(300, comparison.theirWeight * (300 / Math.max(comparison.yourWeight, comparison.theirWeight)))}px`,
-                  width: '40%',
-                  right: '10%'
-                }}
-              >
-                <div className="bar-label">
-                  <span className="font-bold">{compareItem.name}</span>
-                  <br />
-                  {comparison.theirWeight.toFixed(1)} kg
-                  {!useKg && ` (${(comparison.theirWeight * 2.20462).toFixed(1)} lbs)`}
-                </div>
-              </div>
-            </div>
+            )}
+
+            {/* Waage Container (versteckt standardmäßig) */}
+            {showScale && (
+              <ScaleComparison 
+                userWeight={weight}
+                compareItem={compareItem}
+                comparison={comparison}
+              />
+            )}
 
             <div className="flex justify-center">
               <Button onClick={handleShare} className="mt-4">
