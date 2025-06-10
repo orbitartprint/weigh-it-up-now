@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -25,7 +26,7 @@ const WeightComparison = () => {
   } | null>(null);
   const [compareItem, setCompareItem] = useState<WeightItem | null>(null);
   
-  // Neue State für Ansichts-Umschaltung
+  // State for view switching
   const [showScale, setShowScale] = useState<boolean>(false);
 
   useEffect(() => {
@@ -213,7 +214,7 @@ const WeightComparison = () => {
         <Card className="mb-8 scale-appear">
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>Comparison Result</CardTitle>
-            {/* Umschalt-Button für Ansichten */}
+            {/* Toggle Button for Views */}
             <Button
               variant="outline"
               size="sm"
@@ -223,19 +224,19 @@ const WeightComparison = () => {
               {showScale ? (
                 <>
                   <BarChart3 size={16} />
-                  Diagramm
+                  Chart
                 </>
               ) : (
                 <>
                   <Scale size={16} />
-                  Waage
+                  Scale
                 </>
               )}
             </Button>
           </CardHeader>
           <CardContent>
             <div className="mb-6">
-              <h3 className="text-xl font-bold text-center text-weightBlue-dark mb-2">
+              <h3 className="text-xl font-bold text-center text-blue-600 mb-2">
                 {comparison.message}
               </h3>
               {compareItem.fact && (
@@ -245,11 +246,11 @@ const WeightComparison = () => {
               )}
             </div>
 
-            {/* Balkendiagramm Container (standardmäßig sichtbar) */}
+            {/* Bar Chart Container (visible by default) */}
             {!showScale && (
               <div className="comparison-container mt-8 mb-12">
                 <div
-                  className="weight-bar bg-weightBlue"
+                  className="weight-bar bg-blue-500"
                   style={{
                     height: `${Math.min(300, comparison.yourWeight * (300 / Math.max(comparison.yourWeight, comparison.theirWeight)))}px`,
                     width: '40%',
@@ -281,7 +282,7 @@ const WeightComparison = () => {
               </div>
             )}
 
-            {/* Waage Container (versteckt standardmäßig) */}
+            {/* Scale Container (hidden by default) */}
             {showScale && (
               <ScaleComparison 
                 userWeight={weight}
