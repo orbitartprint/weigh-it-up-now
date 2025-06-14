@@ -188,13 +188,13 @@ const ScaleComparison: React.FC<ScaleComparisonProps> = ({
         
         {/* Weight Displays */}
         <div className="absolute bottom-4 left-8 text-center">
-          <div className="text-sm font-bold text-blue-600">You</div>
-          <div className="text-xs">{comparison?.yourWeight.toFixed(1)} kg</div>
+          <div className="text-sm font-bold text-blue-600">Left Side</div>
+          <div className="text-xs">{comparison?.leftWeight.toFixed(1)} kg</div>
         </div>
         
         <div className="absolute bottom-4 right-8 text-center">
-          <div className="text-sm font-bold text-primary">{getDisplayName()}</div>
-          <div className="text-xs">{comparison?.theirWeight.toFixed(1)} kg</div>
+          <div className="text-sm font-bold text-primary">Right Side</div>
+          <div className="text-xs">{comparison?.rightWeight.toFixed(1)} kg</div>
         </div>
       </div>
       

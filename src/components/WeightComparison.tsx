@@ -126,11 +126,12 @@ const WeightComparison = () => {
     if (selectedComparisonItems.length === 0) return "";
     
     const userWeightKg = getUserWeight();
+    const totalItemsWeight = selectedComparisonItems.reduce((sum, item) => sum + item.weight, 0);
+    
+    const ratio = userWeightKg / totalItemsWeight;
     const itemsText = selectedComparisonItems.length === 1 
       ? selectedComparisonItems[0].name.toLowerCase()
       : `${selectedComparisonItems.length} selected items combined`;
-    
-    const ratio = userWeightKg / totalWeightRight;
     
     if (ratio < 0.1) {
       return `You weigh less than 1/10 of ${itemsText}!`;
@@ -373,7 +374,7 @@ const WeightComparison = () => {
                 {getComparisonMessage()}
               </h3>
               <p className="text-muted-foreground text-center">
-                Your weight: {getUserWeight().toFixed(1)} kg vs Combined weight: {totalWeightRight.toFixed(1)} kg
+                Left side: {totalWeightLeft.toFixed(1)} kg vs Right side: {totalWeightRight.toFixed(1)} kg
               </p>
             </div>
 
@@ -383,28 +384,28 @@ const WeightComparison = () => {
                 <div
                   className="weight-bar bg-blue-500"
                   style={{
-                    height: `${Math.min(300, getUserWeight() * (300 / Math.max(getUserWeight(), totalWeightRight)))}px`,
+                    height: `${Math.min(300, totalWeightLeft * (300 / Math.max(totalWeightLeft, totalWeightRight)))}px`,
                     width: '40%',
                     left: '10%'
                   }}
                 >
                   <div className="bar-label">
-                    <span className="font-bold">You</span>
+                    <span className="font-bold">Left Side</span>
                     <br />
-                    {getUserWeight().toFixed(1)} kg
-                    {!useKg && ` (${weight.toFixed(1)} lbs)`}
+                    {totalWeightLeft.toFixed(1)} kg
+                    {!useKg && ` (${(totalWeightLeft * 2.20462).toFixed(1)} lbs)`}
                   </div>
                 </div>
                 <div
                   className="weight-bar bg-primary/70"
                   style={{
-                    height: `${Math.min(300, totalWeightRight * (300 / Math.max(getUserWeight(), totalWeightRight)))}px`,
+                    height: `${Math.min(300, totalWeightRight * (300 / Math.max(totalWeightLeft, totalWeightRight)))}px`,
                     width: '40%',
                     right: '10%'
                   }}
                 >
                   <div className="bar-label">
-                    <span className="font-bold">Selected Items</span>
+                    <span className="font-bold">Right Side</span>
                     <br />
                     {totalWeightRight.toFixed(1)} kg
                     {!useKg && ` (${(totalWeightRight * 2.20462).toFixed(1)} lbs)`}
