@@ -152,26 +152,61 @@ const WeightComparison = () => {
   };
 
   const handleShare = () => {
-    if (selectedComparisonItems.length > 0) {
-      const message = getComparisonMessage();
-      const text = `I just compared my weight with multiple items on WeightComparison.com! ${message}`;
-      
-      if (navigator.share) {
-        navigator.share({
-          title: 'WeightComparison.com',
-          text: text,
-          url: window.location.href,
-        })
-        .catch(() => {
-          navigator.clipboard.writeText(text + ' ' + window.location.href)
-            .then(() => toast.success("Link copied to clipboard!"))
-            .catch(() => toast.error("Failed to copy link."));
-        });
-      } else {
-        navigator.clipboard.writeText(text + ' ' + window.location.href)
-          .then(() => toast.success("Link copied to clipboard!"))
-          .catch(() => toast.error("Failed to copy link."));
-      }
+    if (selectedComparisonItems.length === 0) return;
+    
+    const userWeightKg = getUserWeight();
+    const itemNames = selectedComparisonItems.map(item => item.name).join(', ');
+    const itemCount = selectedComparisonItems.length;
+    const totalItemsWeight = selectedComparisonItems.reduce((sum, item) => sum + item.weight, 0);
+    
+    // Create more detailed share text
+    const comparisonText = itemCount === 1 
+      ? `${selectedComparisonItems[0].name} (${totalItemsWeight.toFixed(1)} kg)`
+      : `${itemCount} items weighing ${totalItemsWeight.toFixed(1)} kg combined`;
+    
+    const shareText = `🎯 I just compared my weight (${userWeightKg.toFixed(1)} kg) with ${comparisonText} on this cool weight comparison tool! ${getComparisonMessage()} #WeightComparison #HowMuchDoIWeigh #WeightVs`;
+    const shareUrl = window.location.href;
+    
+    // Try native sharing first (mobile devices)
+    if (navigator.share) {
+      navigator.share({
+        title: 'WeightVs: Amazing Weight Comparison Results!',
+        text: shareText,
+        url: shareUrl,
+      })
+      .catch(() => {
+        // Fallback to manual sharing options
+        showShareOptions(shareText, shareUrl);
+      });
+    } else {
+      // Desktop - show sharing options
+      showShareOptions(shareText, shareUrl);
+    }
+  };
+
+  const showShareOptions = (text: string, url: string) => {
+    const encodedText = encodeURIComponent(text);
+    const encodedUrl = encodeURIComponent(url);
+    
+    // Create share URLs for different platforms
+    const shareUrls = {
+      twitter: `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`,
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}`,
+      whatsapp: `https://wa.me/?text=${encodedText}%20${encodedUrl}`,
+      email: `mailto:?subject=${encodeURIComponent('My Weight Comparison Results!')}&body=${encodedText}%0A%0A${encodedUrl}`,
+      copy: text + ' ' + url
+    };
+    
+    // For now, try Twitter first, then fallback to clipboard
+    const newWindow = window.open(shareUrls.twitter, '_blank', 'width=600,height=400');
+    
+    if (!newWindow) {
+      // If popup blocked, copy to clipboard
+      navigator.clipboard.writeText(shareUrls.copy)
+        .then(() => toast.success("Share text copied to clipboard!"))
+        .catch(() => toast.error("Failed to copy. Please try again."));
+    } else {
+      toast.success("Share window opened!");
     }
   };
 
