@@ -1,19 +1,21 @@
 import React from 'react';
-import { X, User, Weight, Car, Smartphone, Bike, WashingMachine, Star } from 'lucide-react';
+import { X, User, Weight, Car, Smartphone, Bike, WashingMachine, Star, ArrowLeft, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { WeightItem } from '@/data/weightItems';
 import { cn } from '@/lib/utils';
 
 interface ComparisonItemWidgetProps {
-  item: WeightItem;
+  item: WeightItem & { side: 'left' | 'right' };
   onRemove: (id: string) => void;
+  onToggleSide?: (id: string) => void;
   useKg: boolean;
 }
 
 const ComparisonItemWidget: React.FC<ComparisonItemWidgetProps> = ({
   item,
   onRemove,
+  onToggleSide,
   useKg
 }) => {
   const getItemIcon = () => {
@@ -71,14 +73,28 @@ const ComparisonItemWidget: React.FC<ComparisonItemWidgetProps> = ({
         </div>
       </div>
       
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={() => onRemove(item.id)}
-        className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive"
-      >
-        <X size={14} />
-      </Button>
+      <div className="flex gap-1">
+        {onToggleSide && (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => onToggleSide(item.id)}
+            className="h-6 w-6 p-0 text-muted-foreground hover:text-primary"
+            title={`Move to ${item.side === 'left' ? 'right' : 'left'} side`}
+          >
+            {item.side === 'left' ? <ArrowRight size={14} /> : <ArrowLeft size={14} />}
+          </Button>
+        )}
+        
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => onRemove(item.id)}
+          className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive"
+        >
+          <X size={14} />
+        </Button>
+      </div>
     </Card>
   );
 };

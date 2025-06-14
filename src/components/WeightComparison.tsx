@@ -11,6 +11,7 @@ import { ArrowLeft, ArrowRight, Weight, BarChart3, Scale, Plus } from "lucide-re
 import { cn } from "@/lib/utils";
 import ScaleComparison from "./ScaleComparison";
 import ComparisonItemWidget from "./ComparisonItemWidget";
+import UserWeightWidget from "./UserWeightWidget";
 
 const WeightComparison = () => {
   const [weight, setWeight] = useState<number>(70);
@@ -19,9 +20,11 @@ const WeightComparison = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("animals");
   const [compareToItems, setCompareToItems] = useState<WeightItem[]>([]);
   
-  // New state for multiple selected items
-  const [selectedComparisonItems, setSelectedComparisonItems] = useState<WeightItem[]>([]);
+  // New state for multiple selected items with side tracking
+  const [selectedComparisonItems, setSelectedComparisonItems] = useState<(WeightItem & { side: 'left' | 'right' })[]>([]);
+  const [totalWeightLeft, setTotalWeightLeft] = useState<number>(0);
   const [totalWeightRight, setTotalWeightRight] = useState<number>(0);
+  const [userWeightSide, setUserWeightSide] = useState<'left' | 'right'>('left');
   
   // State for view switching
   const [showScale, setShowScale] = useState<boolean>(false);
@@ -37,11 +40,17 @@ const WeightComparison = () => {
     }
   }, [selectedCategory]);
 
-  // Calculate total weight of selected items
+  // Calculate total weight for both sides
   useEffect(() => {
-    const total = selectedComparisonItems.reduce((sum, item) => sum + item.weight, 0);
-    setTotalWeightRight(total);
-  }, [selectedComparisonItems]);
+    const leftItems = selectedComparisonItems.filter(item => item.side === 'left');
+    const rightItems = selectedComparisonItems.filter(item => item.side === 'right');
+    
+    const leftTotal = leftItems.reduce((sum, item) => sum + item.weight, 0) + (userWeightSide === 'left' ? getUserWeight() : 0);
+    const rightTotal = rightItems.reduce((sum, item) => sum + item.weight, 0) + (userWeightSide === 'right' ? getUserWeight() : 0);
+    
+    setTotalWeightLeft(leftTotal);
+    setTotalWeightRight(rightTotal);
+  }, [selectedComparisonItems, userWeightSide, weight, useKg]);
 
   const handleWeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value);
@@ -85,9 +94,23 @@ const WeightComparison = () => {
         return;
       }
 
-      setSelectedComparisonItems(prev => [...prev, item]);
+      setSelectedComparisonItems(prev => [...prev, { ...item, side: 'right' }]);
       toast.success(`${item.name} added to comparison!`);
     }
+  };
+
+  const handleToggleItemSide = (id: string) => {
+    setSelectedComparisonItems(prev => 
+      prev.map(item => 
+        item.id === id 
+          ? { ...item, side: item.side === 'left' ? 'right' : 'left' }
+          : item
+      )
+    );
+  };
+
+  const handleToggleUserSide = () => {
+    setUserWeightSide(prev => prev === 'left' ? 'right' : 'left');
   };
 
   const handleRemoveItem = (id: string) => {
@@ -234,22 +257,88 @@ const WeightComparison = () => {
         </Card>
       </div>
 
-      {/* Selected Items Display */}
+      {/* User Weight Widget - Always show */}
+      <Card className="mb-8">
+        <CardHeader>
+          <CardTitle>Your Weight Position</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <UserWeightWidget
+            weight={getUserWeight()}
+            useKg={true}
+            side={userWeightSide}
+            onToggleSide={handleToggleUserSide}
+          />
+        </CardContent>
+      </Card>
+
+      {/* Selected Items Display by Side */}
       {selectedComparisonItems.length > 0 && (
         <Card className="mb-8">
           <CardHeader>
-            <CardTitle>Selected Items for Comparison</CardTitle>
+            <CardTitle>Scale Balance - Left vs Right</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {selectedComparisonItems.map(item => (
-                <ComparisonItemWidget
-                  key={item.id}
-                  item={item}
-                  onRemove={handleRemoveItem}
-                  useKg={useKg}
-                />
-              ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Left Side */}
+              <div>
+                <h4 className="font-semibold mb-3 text-center">
+                  Left Side ({totalWeightLeft.toFixed(1)} kg)
+                </h4>
+                <div className="space-y-2 min-h-[100px] p-4 bg-blue-50 rounded-lg">
+                  {userWeightSide === 'left' && (
+                    <div className="text-sm text-blue-600 text-center p-2 bg-blue-100 rounded">
+                      Your weight is here
+                    </div>
+                  )}
+                  {selectedComparisonItems
+                    .filter(item => item.side === 'left')
+                    .map(item => (
+                      <ComparisonItemWidget
+                        key={item.id}
+                        item={item}
+                        onRemove={handleRemoveItem}
+                        onToggleSide={handleToggleItemSide}
+                        useKg={useKg}
+                      />
+                    ))}
+                  {selectedComparisonItems.filter(item => item.side === 'left').length === 0 && userWeightSide !== 'left' && (
+                    <div className="text-center text-muted-foreground italic py-8">
+                      No items on left side
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Right Side */}
+              <div>
+                <h4 className="font-semibold mb-3 text-center">
+                  Right Side ({totalWeightRight.toFixed(1)} kg)
+                </h4>
+                <div className="space-y-2 min-h-[100px] p-4 bg-green-50 rounded-lg">
+                  {userWeightSide === 'right' && (
+                    <div className="text-sm text-green-600 text-center p-2 bg-green-100 rounded">
+                      Your weight is here
+                    </div>
+                  )}
+                  {selectedComparisonItems
+                    .filter(item => item.side === 'right')
+                    .map(item => (
+                      <ComparisonItemWidget
+                        key={item.id}
+                        item={item}
+                        onRemove={handleRemoveItem}
+                        onToggleSide={handleToggleItemSide}
+                        useKg={useKg}
+                      />
+                    ))}
+                  {selectedComparisonItems.filter(item => item.side === 'right').length === 0 && userWeightSide !== 'right' && (
+                    <div className="text-center text-muted-foreground italic py-8">
+                      No items on right side
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -330,12 +419,15 @@ const WeightComparison = () => {
                 userWeight={weight}
                 compareItem={null}
                 comparison={{
-                  ratio: getUserWeight() / totalWeightRight,
+                  ratio: totalWeightLeft / totalWeightRight,
                   message: getComparisonMessage(),
                   yourWeight: getUserWeight(),
-                  theirWeight: totalWeightRight
+                  theirWeight: totalWeightRight,
+                  leftWeight: totalWeightLeft,
+                  rightWeight: totalWeightRight
                 }}
                 selectedItems={selectedComparisonItems}
+                userWeightSide={userWeightSide}
               />
             )}
 
