@@ -7,9 +7,10 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { WeightItem, weightItems, getItemsByCategory } from "@/data/weightItems";
-import { ArrowLeft, ArrowRight, Weight, BarChart3, Scale } from "lucide-react";
+import { ArrowLeft, ArrowRight, Weight, BarChart3, Scale, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ScaleComparison from "./ScaleComparison";
+import ComparisonItemWidget from "./ComparisonItemWidget";
 
 const WeightComparison = () => {
   const [weight, setWeight] = useState<number>(70);
@@ -17,13 +18,10 @@ const WeightComparison = () => {
   const [useKg, setUseKg] = useState<boolean>(true);
   const [selectedCategory, setSelectedCategory] = useState<string>("animals");
   const [compareToItems, setCompareToItems] = useState<WeightItem[]>([]);
-  const [comparison, setComparison] = useState<{
-    ratio: number;
-    message: string;
-    yourWeight: number;
-    theirWeight: number;
-  } | null>(null);
-  const [compareItem, setCompareItem] = useState<WeightItem | null>(null);
+  
+  // New state for multiple selected items
+  const [selectedComparisonItems, setSelectedComparisonItems] = useState<WeightItem[]>([]);
+  const [totalWeightRight, setTotalWeightRight] = useState<number>(0);
   
   // State for view switching
   const [showScale, setShowScale] = useState<boolean>(false);
@@ -39,48 +37,11 @@ const WeightComparison = () => {
     }
   }, [selectedCategory]);
 
+  // Calculate total weight of selected items
   useEffect(() => {
-    if (compareToId) {
-      // Find the selected comparison item
-      const item = weightItems.find(item => item.id === compareToId);
-      setCompareItem(item || null);
-      
-      if (item) {
-        calculateComparison(weight, item);
-      }
-    }
-  }, [compareToId, weight, useKg]);
-
-  const calculateComparison = (userWeight: number, item: WeightItem) => {
-    // Convert weight to kg if needed
-    const weightInKg = useKg ? userWeight : userWeight * 0.453592;
-    const ratio = weightInKg / item.weight;
-    
-    let message = "";
-    if (ratio < 0.1) {
-      message = `You weigh less than 1/10 of a ${item.name.toLowerCase()}!`;
-    } else if (ratio < 1) {
-      message = `You weigh ${(ratio * 100).toFixed(1)}% of a ${item.name.toLowerCase()}!`;
-    } else if (ratio === 1) {
-      message = `You weigh exactly the same as a ${item.name.toLowerCase()}!`;
-    } else {
-      const wholeNumber = Math.floor(ratio);
-      const decimal = ratio - wholeNumber;
-      
-      if (decimal < 0.1) {
-        message = `You weigh about ${wholeNumber} times more than a ${item.name.toLowerCase()}!`;
-      } else {
-        message = `You weigh ${ratio.toFixed(2)} times more than a ${item.name.toLowerCase()}!`;
-      }
-    }
-
-    setComparison({
-      ratio,
-      message,
-      yourWeight: weightInKg,
-      theirWeight: item.weight
-    });
-  };
+    const total = selectedComparisonItems.reduce((sum, item) => sum + item.weight, 0);
+    setTotalWeightRight(total);
+  }, [selectedComparisonItems]);
 
   const handleWeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value);
@@ -110,9 +71,66 @@ const WeightComparison = () => {
     }
   };
 
+  const handleAddItem = () => {
+    if (selectedComparisonItems.length >= 10) {
+      toast.error("Maximum 10 items can be selected for comparison!");
+      return;
+    }
+
+    const item = weightItems.find(item => item.id === compareToId);
+    if (item) {
+      // Check if item is already selected
+      if (selectedComparisonItems.find(selected => selected.id === item.id)) {
+        toast.error("This item is already selected!");
+        return;
+      }
+
+      setSelectedComparisonItems(prev => [...prev, item]);
+      toast.success(`${item.name} added to comparison!`);
+    }
+  };
+
+  const handleRemoveItem = (id: string) => {
+    setSelectedComparisonItems(prev => prev.filter(item => item.id !== id));
+    toast.success("Item removed from comparison!");
+  };
+
+  const getUserWeight = () => {
+    return useKg ? weight : weight * 0.453592;
+  };
+
+  const getComparisonMessage = () => {
+    if (selectedComparisonItems.length === 0) return "";
+    
+    const userWeightKg = getUserWeight();
+    const itemsText = selectedComparisonItems.length === 1 
+      ? selectedComparisonItems[0].name.toLowerCase()
+      : `${selectedComparisonItems.length} selected items combined`;
+    
+    const ratio = userWeightKg / totalWeightRight;
+    
+    if (ratio < 0.1) {
+      return `You weigh less than 1/10 of ${itemsText}!`;
+    } else if (ratio < 1) {
+      return `You weigh ${(ratio * 100).toFixed(1)}% of ${itemsText}!`;
+    } else if (Math.abs(ratio - 1) < 0.01) {
+      return `You weigh exactly the same as ${itemsText}!`;
+    } else {
+      const wholeNumber = Math.floor(ratio);
+      const decimal = ratio - wholeNumber;
+      
+      if (decimal < 0.1) {
+        return `You weigh about ${wholeNumber} times more than ${itemsText}!`;
+      } else {
+        return `You weigh ${ratio.toFixed(2)} times more than ${itemsText}!`;
+      }
+    }
+  };
+
   const handleShare = () => {
-    if (comparison && compareItem) {
-      const text = `I just compared my weight with a ${compareItem.name} on WeightComparison.com! ${comparison.message}`;
+    if (selectedComparisonItems.length > 0) {
+      const message = getComparisonMessage();
+      const text = `I just compared my weight with multiple items on WeightComparison.com! ${message}`;
       
       if (navigator.share) {
         navigator.share({
@@ -121,13 +139,11 @@ const WeightComparison = () => {
           url: window.location.href,
         })
         .catch(() => {
-          // Fallback if Web Share API fails
           navigator.clipboard.writeText(text + ' ' + window.location.href)
             .then(() => toast.success("Link copied to clipboard!"))
             .catch(() => toast.error("Failed to copy link."));
         });
       } else {
-        // Fallback for browsers that don't support Web Share API
         navigator.clipboard.writeText(text + ' ' + window.location.href)
           .then(() => toast.success("Link copied to clipboard!"))
           .catch(() => toast.error("Failed to copy link."));
@@ -167,7 +183,7 @@ const WeightComparison = () => {
 
         <Card>
           <CardHeader>
-            <CardTitle>Compare To</CardTitle>
+            <CardTitle>Add Items to Compare</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -204,16 +220,45 @@ const WeightComparison = () => {
                   </SelectContent>
                 </Select>
               </div>
+              
+              <Button 
+                onClick={handleAddItem} 
+                className="w-full"
+                disabled={selectedComparisonItems.length >= 10}
+              >
+                <Plus size={16} className="mr-2" />
+                Add Item ({selectedComparisonItems.length}/10)
+              </Button>
             </div>
           </CardContent>
         </Card>
       </div>
 
-      {comparison && compareItem && (
+      {/* Selected Items Display */}
+      {selectedComparisonItems.length > 0 && (
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle>Selected Items for Comparison</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {selectedComparisonItems.map(item => (
+                <ComparisonItemWidget
+                  key={item.id}
+                  item={item}
+                  onRemove={handleRemoveItem}
+                  useKg={useKg}
+                />
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {selectedComparisonItems.length > 0 && (
         <Card className="mb-8 scale-appear">
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>Comparison Result</CardTitle>
-            {/* Toggle Button for Views */}
             <Button
               variant="outline"
               size="sm"
@@ -236,13 +281,11 @@ const WeightComparison = () => {
           <CardContent>
             <div className="mb-6">
               <h3 className="text-xl font-bold text-center text-blue-600 mb-2">
-                {comparison.message}
+                {getComparisonMessage()}
               </h3>
-              {compareItem.fact && (
-                <p className="text-muted-foreground text-center">
-                  Fun fact: {compareItem.fact}
-                </p>
-              )}
+              <p className="text-muted-foreground text-center">
+                Your weight: {getUserWeight().toFixed(1)} kg vs Combined weight: {totalWeightRight.toFixed(1)} kg
+              </p>
             </div>
 
             {/* Bar Chart Container (visible by default) */}
@@ -251,7 +294,7 @@ const WeightComparison = () => {
                 <div
                   className="weight-bar bg-blue-500"
                   style={{
-                    height: `${Math.min(300, comparison.yourWeight * (300 / Math.max(comparison.yourWeight, comparison.theirWeight)))}px`,
+                    height: `${Math.min(300, getUserWeight() * (300 / Math.max(getUserWeight(), totalWeightRight)))}px`,
                     width: '40%',
                     left: '10%'
                   }}
@@ -259,23 +302,23 @@ const WeightComparison = () => {
                   <div className="bar-label">
                     <span className="font-bold">You</span>
                     <br />
-                    {comparison.yourWeight.toFixed(1)} kg
-                    {!useKg && ` (${(comparison.yourWeight * 2.20462).toFixed(1)} lbs)`}
+                    {getUserWeight().toFixed(1)} kg
+                    {!useKg && ` (${weight.toFixed(1)} lbs)`}
                   </div>
                 </div>
                 <div
                   className="weight-bar bg-primary/70"
                   style={{
-                    height: `${Math.min(300, comparison.theirWeight * (300 / Math.max(comparison.yourWeight, comparison.theirWeight)))}px`,
+                    height: `${Math.min(300, totalWeightRight * (300 / Math.max(getUserWeight(), totalWeightRight)))}px`,
                     width: '40%',
                     right: '10%'
                   }}
                 >
                   <div className="bar-label">
-                    <span className="font-bold">{compareItem.name}</span>
+                    <span className="font-bold">Selected Items</span>
                     <br />
-                    {comparison.theirWeight.toFixed(1)} kg
-                    {!useKg && ` (${(comparison.theirWeight * 2.20462).toFixed(1)} lbs)`}
+                    {totalWeightRight.toFixed(1)} kg
+                    {!useKg && ` (${(totalWeightRight * 2.20462).toFixed(1)} lbs)`}
                   </div>
                 </div>
               </div>
@@ -285,8 +328,14 @@ const WeightComparison = () => {
             {showScale && (
               <ScaleComparison 
                 userWeight={weight}
-                compareItem={compareItem}
-                comparison={comparison}
+                compareItem={null}
+                comparison={{
+                  ratio: getUserWeight() / totalWeightRight,
+                  message: getComparisonMessage(),
+                  yourWeight: getUserWeight(),
+                  theirWeight: totalWeightRight
+                }}
+                selectedItems={selectedComparisonItems}
               />
             )}
 

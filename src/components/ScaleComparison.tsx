@@ -12,12 +12,14 @@ interface ScaleComparisonProps {
     yourWeight: number;
     theirWeight: number;
   } | null;
+  selectedItems?: WeightItem[];
 }
 
 const ScaleComparison: React.FC<ScaleComparisonProps> = ({
   userWeight,
   compareItem,
-  comparison
+  comparison,
+  selectedItems
 }) => {
   // Calculate rotation angle based on weight difference
   const calculateRotationAngle = () => {
@@ -40,11 +42,9 @@ const ScaleComparison: React.FC<ScaleComparisonProps> = ({
     return rotationAngle;
   };
 
-  // Get specific icon for comparison item
-  const getComparisonIcon = () => {
-    if (!compareItem) return <Weight size={16} className="text-primary" />;
-    
-    switch (compareItem.id) {
+  // Get specific icon for an item
+  const getItemIcon = (item: WeightItem) => {
+    switch (item.id) {
       // Animals
       case 'elephant':
         return <span className="text-xs">🐘</span>;
@@ -59,15 +59,15 @@ const ScaleComparison: React.FC<ScaleComparisonProps> = ({
       
       // Objects
       case 'washing-machine':
-        return <WashingMachine size={16} className="text-primary" />;
+        return <WashingMachine size={12} className="text-primary" />;
       case 'car':
-        return <Car size={16} className="text-primary" />;
+        return <Car size={12} className="text-primary" />;
       case 'smartphone':
-        return <Smartphone size={16} className="text-primary" />;
+        return <Smartphone size={12} className="text-primary" />;
       case 'bowling-ball':
         return <span className="text-xs">🎳</span>;
       case 'bicycle':
-        return <Bike size={16} className="text-primary" />;
+        return <Bike size={12} className="text-primary" />;
       
       // Celebrities
       case 'dwayne-johnson':
@@ -75,11 +75,44 @@ const ScaleComparison: React.FC<ScaleComparisonProps> = ({
       case 'lebron-james':
       case 'taylor-swift':
       case 'tom-cruise':
-        return <Star size={16} className="text-primary" />;
+        return <Star size={12} className="text-primary" />;
       
       default:
-        return <Weight size={16} className="text-primary" />;
+        return <Weight size={12} className="text-primary" />;
     }
+  };
+
+  // Get comparison icons for the right scale pan
+  const getComparisonIcons = () => {
+    if (selectedItems && selectedItems.length > 0) {
+      // Show first 5 items as stacked icons
+      const visibleItems = selectedItems.slice(0, 5);
+      return (
+        <div className="flex flex-wrap justify-center items-center gap-0.5">
+          {visibleItems.map((item, index) => (
+            <div key={item.id} className="flex-shrink-0">
+              {getItemIcon(item)}
+            </div>
+          ))}
+          {selectedItems.length > 5 && (
+            <span className="text-xs text-primary">+{selectedItems.length - 5}</span>
+          )}
+        </div>
+      );
+    }
+    
+    if (compareItem) {
+      return getItemIcon(compareItem);
+    }
+    
+    return <Weight size={16} className="text-primary" />;
+  };
+
+  const getDisplayName = () => {
+    if (selectedItems && selectedItems.length > 0) {
+      return selectedItems.length === 1 ? selectedItems[0].name : `${selectedItems.length} Items`;
+    }
+    return compareItem?.name || "Items";
   };
 
   const rotationAngle = calculateRotationAngle();
@@ -116,7 +149,7 @@ const ScaleComparison: React.FC<ScaleComparisonProps> = ({
           {/* Right Scale Pan */}
           <div className="absolute -right-6 -top-4 w-12 h-8 bg-gray-400 rounded-full border-2 border-gray-600 flex items-center justify-center">
             <div className="w-8 h-6 bg-gray-300 rounded flex items-center justify-center">
-              {getComparisonIcon()}
+              {getComparisonIcons()}
             </div>
           </div>
         </div>
@@ -128,7 +161,7 @@ const ScaleComparison: React.FC<ScaleComparisonProps> = ({
         </div>
         
         <div className="absolute bottom-4 right-8 text-center">
-          <div className="text-sm font-bold text-primary">{compareItem?.name}</div>
+          <div className="text-sm font-bold text-primary">{getDisplayName()}</div>
           <div className="text-xs">{comparison?.theirWeight.toFixed(1)} kg</div>
         </div>
       </div>
@@ -142,7 +175,7 @@ const ScaleComparison: React.FC<ScaleComparisonProps> = ({
         )}
         {rotationAngle > 2 && (
           <p className="text-sm text-primary font-medium">
-            ⚖️ {compareItem?.name} is heavier!
+            ⚖️ {getDisplayName()} {selectedItems && selectedItems.length > 1 ? 'are' : 'is'} heavier!
           </p>
         )}
         {Math.abs(rotationAngle) <= 2 && (
