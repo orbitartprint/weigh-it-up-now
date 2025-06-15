@@ -7,8 +7,9 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { WeightItem, weightItems, getItemsByCategory } from "@/data/weightItems";
-import { ArrowLeft, ArrowRight, Weight, BarChart3, Scale, Plus } from "lucide-react";
+import { ArrowLeft, ArrowRight, Weight, BarChart3, Scale, Plus, Share2, Facebook, Twitter, Mail, Copy } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import ScaleComparison from "./ScaleComparison";
 import ComparisonItemWidget from "./ComparisonItemWidget";
 import UserWeightWidget from "./UserWeightWidget";
@@ -151,15 +152,13 @@ const WeightComparison = () => {
     }
   };
 
-  const handleShare = () => {
-    if (selectedComparisonItems.length === 0) return;
+  const getShareData = () => {
+    if (selectedComparisonItems.length === 0) return null;
     
     const userWeightKg = getUserWeight();
-    const itemNames = selectedComparisonItems.map(item => item.name).join(', ');
     const itemCount = selectedComparisonItems.length;
     const totalItemsWeight = selectedComparisonItems.reduce((sum, item) => sum + item.weight, 0);
     
-    // Create more detailed share text
     const comparisonText = itemCount === 1 
       ? `${selectedComparisonItems[0].name} (${totalItemsWeight.toFixed(1)} kg)`
       : `${itemCount} items weighing ${totalItemsWeight.toFixed(1)} kg combined`;
@@ -167,85 +166,57 @@ const WeightComparison = () => {
     const shareText = `🎯 I just compared my weight (${userWeightKg.toFixed(1)} kg) with ${comparisonText} on this cool weight comparison tool! ${getComparisonMessage()} #WeightComparison #HowMuchDoIWeigh #WeightVs`;
     const shareUrl = window.location.href;
     
-    // Try native sharing first (mobile devices)
-    if (navigator.share) {
-      navigator.share({
-        title: 'WeightVs: Amazing Weight Comparison Results!',
-        text: shareText,
-        url: shareUrl,
-      })
-      .catch(() => {
-        // Fallback to manual sharing options
-        showShareOptions(shareText, shareUrl);
-      });
-    } else {
-      // Desktop - show sharing options
-      showShareOptions(shareText, shareUrl);
+    return {
+      text: shareText,
+      url: shareUrl,
+      encodedText: encodeURIComponent(shareText),
+      encodedUrl: encodeURIComponent(shareUrl)
+    };
+  };
+
+  const handleSharePlatform = (platform: string) => {
+    const shareData = getShareData();
+    if (!shareData) return;
+
+    const { encodedText, encodedUrl, text, url } = shareData;
+
+    switch (platform) {
+      case 'twitter':
+        window.open(`https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`, '_blank', 'width=600,height=400');
+        toast.success("Twitter share window opened!");
+        break;
+      case 'facebook':
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}`, '_blank', 'width=600,height=400');
+        toast.success("Facebook share window opened!");
+        break;
+      case 'whatsapp':
+        window.open(`https://wa.me/?text=${encodedText}%20${encodedUrl}`, '_blank');
+        toast.success("WhatsApp share window opened!");
+        break;
+      case 'email':
+        window.location.href = `mailto:?subject=${encodeURIComponent('My Weight Comparison Results!')}&body=${encodedText}%0A%0A${encodedUrl}`;
+        toast.success("Email client opened!");
+        break;
+      case 'copy':
+        navigator.clipboard.writeText(`${text} ${url}`)
+          .then(() => toast.success("Share text copied to clipboard!"))
+          .catch(() => toast.error("Failed to copy. Please try again."));
+        break;
     }
   };
 
-  const showShareOptions = (text: string, url: string) => {
-    const encodedText = encodeURIComponent(text);
-    const encodedUrl = encodeURIComponent(url);
-    
-    // Create share URLs for different platforms
-    const shareUrls = {
-      twitter: `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`,
-      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}`,
-      whatsapp: `https://wa.me/?text=${encodedText}%20${encodedUrl}`,
-      email: `mailto:?subject=${encodeURIComponent('My Weight Comparison Results!')}&body=${encodedText}%0A%0A${encodedUrl}`,
-      copy: text + ' ' + url
-    };
-    
-    // Show platform selection options
-    const shareOption = window.confirm(
-      "Choose your sharing platform:\n\n" +
-      "OK - Twitter/X\n" +
-      "Cancel - More options"
-    );
-    
-    if (shareOption) {
-      // User chose Twitter
-      const newWindow = window.open(shareUrls.twitter, '_blank', 'width=600,height=400');
-      if (!newWindow) {
-        navigator.clipboard.writeText(shareUrls.copy)
-          .then(() => toast.success("Share text copied to clipboard!"))
-          .catch(() => toast.error("Failed to copy. Please try again."));
-      } else {
-        toast.success("Twitter share window opened!");
-      }
-    } else {
-      // Show more options
-      const platform = window.prompt(
-        "Choose platform:\n\n" +
-        "1 - Facebook\n" +
-        "2 - WhatsApp\n" +
-        "3 - Email\n" +
-        "4 - Copy to Clipboard\n\n" +
-        "Enter number (1-4):"
-      );
-      
-      switch (platform) {
-        case "1":
-          window.open(shareUrls.facebook, '_blank', 'width=600,height=400');
-          toast.success("Facebook share window opened!");
-          break;
-        case "2":
-          window.open(shareUrls.whatsapp, '_blank');
-          toast.success("WhatsApp share window opened!");
-          break;
-        case "3":
-          window.location.href = shareUrls.email;
-          toast.success("Email client opened!");
-          break;
-        case "4":
-          navigator.clipboard.writeText(shareUrls.copy)
-            .then(() => toast.success("Share text copied to clipboard!"))
-            .catch(() => toast.error("Failed to copy. Please try again."));
-          break;
-        default:
-          toast.error("Invalid selection. Please try again.");
-      }
+  const handleNativeShare = () => {
+    const shareData = getShareData();
+    if (!shareData) return;
+
+    if (navigator.share) {
+      navigator.share({
+        title: 'WeightVs: Amazing Weight Comparison Results!',
+        text: shareData.text,
+        url: shareData.url,
+      }).catch(() => {
+        // Fallback handled by popover
+      });
     }
   };
 
@@ -507,9 +478,77 @@ const WeightComparison = () => {
             )}
 
             <div className="flex justify-center">
-              <Button onClick={handleShare} className="mt-4">
-                Share This Comparison
-              </Button>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button className="mt-4">
+                    <Share2 size={16} className="mr-2" />
+                    Share This Comparison
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-56">
+                  <div className="space-y-2">
+                    <h4 className="font-medium text-sm mb-3">Share on:</h4>
+                    <div className="grid grid-cols-2 gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleSharePlatform('twitter')}
+                        className="flex items-center gap-2"
+                      >
+                        <Twitter size={16} />
+                        Twitter
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleSharePlatform('facebook')}
+                        className="flex items-center gap-2"
+                      >
+                        <Facebook size={16} />
+                        Facebook
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleSharePlatform('whatsapp')}
+                        className="flex items-center gap-2"
+                      >
+                        <Share2 size={16} />
+                        WhatsApp
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleSharePlatform('email')}
+                        className="flex items-center gap-2"
+                      >
+                        <Mail size={16} />
+                        Email
+                      </Button>
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleSharePlatform('copy')}
+                      className="w-full flex items-center gap-2 mt-2"
+                    >
+                      <Copy size={16} />
+                      Copy Link
+                    </Button>
+                    {navigator.share && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={handleNativeShare}
+                        className="w-full flex items-center gap-2"
+                      >
+                        <Share2 size={16} />
+                        Native Share
+                      </Button>
+                    )}
+                  </div>
+                </PopoverContent>
+              </Popover>
             </div>
           </CardContent>
         </Card>
