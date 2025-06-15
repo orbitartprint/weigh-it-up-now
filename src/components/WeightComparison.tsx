@@ -7,7 +7,7 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { WeightItem, weightItems, getItemsByCategory } from "@/data/weightItems";
-import { ArrowLeft, ArrowRight, Weight, BarChart3, Scale, Plus, Share2, Facebook, Twitter, Mail, Copy } from "lucide-react";
+import { ArrowLeft, ArrowRight, Weight, BarChart3, Scale, Plus, Share2, Facebook, Twitter, Mail, Copy, Box } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import ScaleComparison from "./ScaleComparison";
@@ -29,17 +29,27 @@ const WeightComparison = () => {
   
   // State for view switching
   const [showScale, setShowScale] = useState<boolean>(false);
+  
+  // State for custom objects
+  const [customObjects, setCustomObjects] = useState<WeightItem[]>([]);
+  const [customObjectName, setCustomObjectName] = useState<string>("");
+  const [customObjectWeight, setCustomObjectWeight] = useState<number>(1);
+  const [customObjectUseKg, setCustomObjectUseKg] = useState<boolean>(true);
 
   useEffect(() => {
     // Set initial comparison items based on the selected category
-    const items = getItemsByCategory(selectedCategory);
-    setCompareToItems(items);
+    if (selectedCategory === 'custom') {
+      setCompareToItems(customObjects);
+    } else {
+      const items = getItemsByCategory(selectedCategory);
+      setCompareToItems(items);
+    }
     
     // Set initial comparison item if there are items available
-    if (items.length > 0 && !compareToId) {
-      setCompareToId(items[0].id);
+    if (compareToItems.length > 0 && !compareToId) {
+      setCompareToId(compareToItems[0].id);
     }
-  }, [selectedCategory]);
+  }, [selectedCategory, customObjects]);
 
   // Calculate total weight for both sides
   useEffect(() => {
@@ -73,21 +83,53 @@ const WeightComparison = () => {
 
   const handleCategoryChange = (value: string) => {
     setSelectedCategory(value);
-    const items = getItemsByCategory(value);
-    setCompareToItems(items);
+    setCompareToId("");
     
-    if (items.length > 0) {
-      setCompareToId(items[0].id);
+    if (value === 'custom') {
+      setCompareToItems(customObjects);
+    } else {
+      const items = getItemsByCategory(value);
+      setCompareToItems(items);
+      if (items.length > 0) {
+        setCompareToId(items[0].id);
+      }
     }
   };
 
-  const handleAddItem = () => {
+  const handleCreateCustomObject = () => {
+    if (!customObjectName.trim()) {
+      toast.error("Please enter an object name!");
+      return;
+    }
+    
+    if (customObjectWeight <= 0) {
+      toast.error("Please enter a valid weight!");
+      return;
+    }
+
+    const weightInKg = customObjectUseKg ? customObjectWeight : customObjectWeight * 0.453592;
+    
+    const newCustomObject: WeightItem = {
+      id: `custom-${Date.now()}`,
+      name: customObjectName.trim(),
+      weight: weightInKg,
+      category: 'custom',
+      fact: 'Custom object'
+    };
+
+    setCustomObjects(prev => [...prev, newCustomObject]);
+    setCustomObjectName("");
+    setCustomObjectWeight(1);
+    toast.success(`${newCustomObject.name} created successfully!`);
+  };
+
+  const handleAddCustomItem = () => {
     if (selectedComparisonItems.length >= 10) {
       toast.error("Maximum 10 items can be selected for comparison!");
       return;
     }
 
-    const item = weightItems.find(item => item.id === compareToId);
+    const item = [...weightItems, ...customObjects].find(item => item.id === compareToId);
     if (item) {
       // Check if item is already selected
       if (selectedComparisonItems.find(selected => selected.id === item.id)) {
@@ -99,6 +141,7 @@ const WeightComparison = () => {
       toast.success(`${item.name} added to comparison!`);
     }
   };
+
 
   const handleToggleItemSide = (id: string) => {
     setSelectedComparisonItems(prev => 
@@ -263,41 +306,136 @@ const WeightComparison = () => {
                     <SelectValue placeholder="Select a category" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectGroup>
-                      <SelectItem value="animals">Animals</SelectItem>
-                      <SelectItem value="celebrities">Celebrities</SelectItem>
-                      <SelectItem value="objects">Objects</SelectItem>
-                    </SelectGroup>
+                     <SelectGroup>
+                       <SelectItem value="animals">Animals</SelectItem>
+                       <SelectItem value="celebrities">Celebrities</SelectItem>
+                       <SelectItem value="objects">Objects</SelectItem>
+                       <SelectItem value="custom">Custom</SelectItem>
+                     </SelectGroup>
                   </SelectContent>
                 </Select>
               </div>
               
-              <div>
-                <Label htmlFor="compareTo" className="block mb-2">Item</Label>
-                <Select value={compareToId} onValueChange={setCompareToId}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select an item" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      {compareToItems.map(item => (
-                        <SelectItem key={item.id} value={item.id}>
-                          {item.name} ({item.weight} kg)
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </div>
-              
-              <Button 
-                onClick={handleAddItem} 
-                className="w-full"
-                disabled={selectedComparisonItems.length >= 10}
-              >
-                <Plus size={16} className="mr-2" />
-                Add Item ({selectedComparisonItems.length}/10)
-              </Button>
+{selectedCategory === 'custom' ? (
+                <>
+                  {/* Custom Object Creation Form */}
+                  <div className="space-y-3 p-4 bg-gray-50 rounded-lg">
+                    <h4 className="font-medium flex items-center gap-2">
+                      <Box size={16} />
+                      Create Custom Object
+                    </h4>
+                    
+                    <div>
+                      <Label htmlFor="customName" className="block mb-1">Object Name</Label>
+                      <Input
+                        id="customName"
+                        type="text"
+                        placeholder="Enter object name"
+                        value={customObjectName}
+                        onChange={(e) => setCustomObjectName(e.target.value)}
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="customWeight" className="block mb-1">Weight</Label>
+                      <div className="flex items-center gap-2">
+                        <Input
+                          id="customWeight"
+                          type="number"
+                          placeholder="Enter weight"
+                          value={customObjectWeight}
+                          onChange={(e) => setCustomObjectWeight(parseFloat(e.target.value) || 0)}
+                          min="0.1"
+                          step="0.1"
+                        />
+                        <span className="text-sm font-medium">{customObjectUseKg ? 'kg' : 'lbs'}</span>
+                      </div>
+                      
+                      <div className="flex items-center space-x-2 mt-2">
+                        <Label htmlFor="custom-unit-toggle" className={cn(customObjectUseKg ? "font-bold" : "")}>KG</Label>
+                        <Switch 
+                          id="custom-unit-toggle" 
+                          checked={!customObjectUseKg} 
+                          onCheckedChange={() => setCustomObjectUseKg(!customObjectUseKg)} 
+                        />
+                        <Label htmlFor="custom-unit-toggle" className={cn(!customObjectUseKg ? "font-bold" : "")}>LBS</Label>
+                      </div>
+                    </div>
+                    
+                    <Button 
+                      onClick={handleCreateCustomObject} 
+                      className="w-full"
+                    >
+                      <Plus size={16} className="mr-2" />
+                      Create Object
+                    </Button>
+                  </div>
+                  
+                  {/* Custom Objects List */}
+                  {customObjects.length > 0 && (
+                    <>
+                      <div>
+                        <Label htmlFor="compareTo" className="block mb-2">Select Custom Object</Label>
+                        <Select value={compareToId} onValueChange={setCompareToId}>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a custom object" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              {customObjects.map(item => (
+                                <SelectItem key={item.id} value={item.id}>
+                                  <div className="flex items-center gap-2">
+                                    <Box size={14} />
+                                    {item.name} ({item.weight.toFixed(1)} kg)
+                                  </div>
+                                </SelectItem>
+                              ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <Button 
+                        onClick={handleAddCustomItem} 
+                        className="w-full"
+                        disabled={selectedComparisonItems.length >= 10 || !compareToId}
+                      >
+                        <Plus size={16} className="mr-2" />
+                        Add Custom Object ({selectedComparisonItems.length}/10)
+                      </Button>
+                    </>
+                  )}
+                </>
+              ) : (
+                <>
+                  <div>
+                    <Label htmlFor="compareTo" className="block mb-2">Item</Label>
+                    <Select value={compareToId} onValueChange={setCompareToId}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select an item" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          {compareToItems.map(item => (
+                            <SelectItem key={item.id} value={item.id}>
+                              {item.name} ({item.weight} kg)
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <Button 
+                    onClick={handleAddCustomItem} 
+                    className="w-full"
+                    disabled={selectedComparisonItems.length >= 10 || !compareToId}
+                  >
+                    <Plus size={16} className="mr-2" />
+                    Add Item ({selectedComparisonItems.length}/10)
+                  </Button>
+                </>
+              )}
             </div>
           </CardContent>
         </Card>

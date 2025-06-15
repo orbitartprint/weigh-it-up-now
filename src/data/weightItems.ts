@@ -3,7 +3,7 @@ export interface WeightItem {
   id: string;
   name: string;
   weight: number; // in kg
-  category: "animals" | "celebrities" | "objects";
+  category: "animals" | "celebrities" | "objects" | "custom";
   image?: string;
   fact?: string;
 }
