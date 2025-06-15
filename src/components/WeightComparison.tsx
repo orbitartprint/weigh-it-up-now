@@ -197,16 +197,55 @@ const WeightComparison = () => {
       copy: text + ' ' + url
     };
     
-    // For now, try Twitter first, then fallback to clipboard
-    const newWindow = window.open(shareUrls.twitter, '_blank', 'width=600,height=400');
+    // Show platform selection options
+    const shareOption = window.confirm(
+      "Choose your sharing platform:\n\n" +
+      "OK - Twitter/X\n" +
+      "Cancel - More options"
+    );
     
-    if (!newWindow) {
-      // If popup blocked, copy to clipboard
-      navigator.clipboard.writeText(shareUrls.copy)
-        .then(() => toast.success("Share text copied to clipboard!"))
-        .catch(() => toast.error("Failed to copy. Please try again."));
+    if (shareOption) {
+      // User chose Twitter
+      const newWindow = window.open(shareUrls.twitter, '_blank', 'width=600,height=400');
+      if (!newWindow) {
+        navigator.clipboard.writeText(shareUrls.copy)
+          .then(() => toast.success("Share text copied to clipboard!"))
+          .catch(() => toast.error("Failed to copy. Please try again."));
+      } else {
+        toast.success("Twitter share window opened!");
+      }
     } else {
-      toast.success("Share window opened!");
+      // Show more options
+      const platform = window.prompt(
+        "Choose platform:\n\n" +
+        "1 - Facebook\n" +
+        "2 - WhatsApp\n" +
+        "3 - Email\n" +
+        "4 - Copy to Clipboard\n\n" +
+        "Enter number (1-4):"
+      );
+      
+      switch (platform) {
+        case "1":
+          window.open(shareUrls.facebook, '_blank', 'width=600,height=400');
+          toast.success("Facebook share window opened!");
+          break;
+        case "2":
+          window.open(shareUrls.whatsapp, '_blank');
+          toast.success("WhatsApp share window opened!");
+          break;
+        case "3":
+          window.location.href = shareUrls.email;
+          toast.success("Email client opened!");
+          break;
+        case "4":
+          navigator.clipboard.writeText(shareUrls.copy)
+            .then(() => toast.success("Share text copied to clipboard!"))
+            .catch(() => toast.error("Failed to copy. Please try again."));
+          break;
+        default:
+          toast.error("Invalid selection. Please try again.");
+      }
     }
   };
 
