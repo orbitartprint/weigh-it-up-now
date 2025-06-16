@@ -33,7 +33,7 @@ const WeightComparison = () => {
   // State for custom objects
   const [customObjects, setCustomObjects] = useState<WeightItem[]>([]);
   const [customObjectName, setCustomObjectName] = useState<string>("");
-  const [customObjectWeight, setCustomObjectWeight] = useState<number>(1);
+  const [customObjectWeight, setCustomObjectWeight] = useState<string>("");
   const [customObjectUseKg, setCustomObjectUseKg] = useState<boolean>(true);
 
   useEffect(() => {
@@ -102,12 +102,13 @@ const WeightComparison = () => {
       return;
     }
     
-    if (customObjectWeight <= 0) {
+    const weightValue = parseFloat(customObjectWeight);
+    if (isNaN(weightValue) || weightValue <= 0) {
       toast.error("Please enter a valid weight!");
       return;
     }
 
-    const weightInKg = customObjectUseKg ? customObjectWeight : customObjectWeight * 0.453592;
+    const weightInKg = customObjectUseKg ? weightValue : weightValue * 0.453592;
     
     const newCustomObject: WeightItem = {
       id: `custom-${Date.now()}`,
@@ -119,8 +120,17 @@ const WeightComparison = () => {
 
     setCustomObjects(prev => [...prev, newCustomObject]);
     setCustomObjectName("");
-    setCustomObjectWeight(1);
+    setCustomObjectWeight("");
     toast.success(`${newCustomObject.name} created successfully!`);
+  };
+
+  const handleCustomWeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    
+    // Allow empty string or valid positive numbers
+    if (value === "" || (/^\d*\.?\d*$/.test(value) && parseFloat(value) >= 0)) {
+      setCustomObjectWeight(value);
+    }
   };
 
   const handleAddCustomItem = () => {
@@ -341,12 +351,10 @@ const WeightComparison = () => {
                       <div className="flex items-center gap-2">
                         <Input
                           id="customWeight"
-                          type="number"
+                          type="text"
                           placeholder="Enter weight"
                           value={customObjectWeight}
-                          onChange={(e) => setCustomObjectWeight(parseFloat(e.target.value) || 0)}
-                          min="0.1"
-                          step="0.1"
+                          onChange={handleCustomWeightChange}
                         />
                         <span className="text-sm font-medium">{customObjectUseKg ? 'kg' : 'lbs'}</span>
                       </div>
