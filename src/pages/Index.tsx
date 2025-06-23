@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import WeightComparison from "@/components/WeightComparison";
 import { Weight } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { Link } from "react-router-dom";
 
 const Index = () => {
   return (
@@ -64,6 +65,14 @@ const Index = () => {
           <p className="text-xs text-muted-foreground mt-2">
             All weights are approximate and based on averages
           </p>
+          <div className="mt-3">
+            <Link 
+              to="/legal" 
+              className="text-xs text-muted-foreground hover:text-foreground underline"
+            >
+              Legal
+            </Link>
+          </div>
         </div>
       </footer>
     </div>
