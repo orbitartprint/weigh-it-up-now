@@ -12,7 +12,7 @@ const Index = () => {
           <div className="flex items-center justify-center gap-2 mb-3">
             <Weight size={36} className="text-white" />
             <h1 className="text-3xl md:text-4xl font-bold text-white">
-              WeightComparison.com
+              WeightVs.com
             </h1>
           </div>
           <p className="text-xl text-white opacity-90">
@@ -59,7 +59,7 @@ const Index = () => {
       <footer className="bg-gray-100 py-8">
         <div className="container mx-auto text-center">
           <p className="text-sm text-muted-foreground">
-            © 2025 WeightComparison.com | For entertainment purposes only
+            © 2025 WeightVs.com | For entertainment purposes only
           </p>
           <p className="text-xs text-muted-foreground mt-2">
             All weights are approximate and based on averages
