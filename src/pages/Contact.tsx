@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,6 +7,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Mail, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -31,28 +31,42 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Create mailto link with form data
-    const mailtoLink = `mailto:info@weightvs.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-    )}`;
+    try {
+      console.log("Submitting contact form:", formData);
+      
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: formData
+      });
 
-    // Open mail client
-    window.location.href = mailtoLink;
+      if (error) {
+        throw error;
+      }
 
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      subject: "",
-      message: ""
-    });
+      console.log("Email sent successfully:", data);
 
-    toast({
-      title: "Email client opened",
-      description: "Your email client should open with the pre-filled message.",
-    });
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: ""
+      });
 
-    setIsSubmitting(false);
+      toast({
+        title: "Message sent successfully!",
+        description: "We've received your message and will get back to you soon.",
+      });
+
+    } catch (error: any) {
+      console.error("Error sending message:", error);
+      toast({
+        title: "Error sending message",
+        description: "There was a problem sending your message. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -142,17 +156,14 @@ const Contact = () => {
                   disabled={isSubmitting}
                   className="w-full"
                 >
-                  {isSubmitting ? "Opening email client..." : "Send Message"}
+                  {isSubmitting ? "Sending message..." : "Send Message"}
                 </Button>
               </form>
 
               <div className="mt-6 p-4 bg-gray-50 rounded-lg">
                 <p className="text-sm text-muted-foreground">
-                  <strong>Note:</strong> This form will open your default email client with a pre-filled message. 
-                  You can also contact us directly at{" "}
-                  <a href="mailto:info@weightvs.com" className="text-weightBlue-dark hover:underline">
-                    info@weightvs.com
-                  </a>
+                  <strong>Note:</strong> Your message will be sent directly to our team at info@weightvs.com. 
+                  We typically respond within 24 hours.
                 </p>
               </div>
             </CardContent>
