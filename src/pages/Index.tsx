@@ -1,13 +1,26 @@
 
 import { Button } from "@/components/ui/button";
 import WeightComparison from "@/components/WeightComparison";
-import { Weight } from "lucide-react";
+import { Weight, Mail } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "react-router-dom";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
+      <nav className="bg-white border-b border-gray-200 py-3">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-end">
+            <Link to="/contact">
+              <Button variant="outline" size="sm" className="gap-2">
+                <Mail size={16} />
+                Contact
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </nav>
+
       <header className="bg-gradient-to-r from-weightBlue-light to-weightBlue-dark py-8 mb-8">
         <div className="container mx-auto text-center">
           <div className="flex items-center justify-center gap-2 mb-3">
