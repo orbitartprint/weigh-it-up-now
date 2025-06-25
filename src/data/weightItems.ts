@@ -299,11 +299,11 @@ export const weightItems: WeightItem[] = [
     fact: "Can transport dozens of passengers at once."
   },
   {
-    id: "airplane-boeing737",
-    name: "Boeing 737 (empty)",
-    weight: 41000,
+    id: "airplane-boeing747",
+    name: "Boeing 747 (empty)",
+    weight: 410000,
     category: "vehicles",
-    image: "/assets/images/boeing737.svg",
+    image: "/assets/images/boeing747.svg",
     fact: "One of the most widely used aircraft in the world."
   },
   {
@@ -538,6 +538,169 @@ export const weightItems: WeightItem[] = [
     category: "fictional",
     image: "/assets/images/bb8.svg",
     fact: "A loyal astromech droid from the Star Wars universe."
+  },
+
+  // Micro Category
+  {
+    id: "human-hair",
+    name: "Human Hair Strand",
+    weight: 0.00000003, // 30 nanograms = 0.00000003 kg
+    category: "micro",
+    image: "/assets/images/human_hair.svg",
+    fact: "A single strand of human hair is incredibly light, yet surprisingly strong."
+  },
+  {
+    id: "dust-mite",
+    name: "Dust Mite",
+    weight: 0.0000001, // 0.1 micrograms = 0.0000001 kg
+    category: "micro",
+    image: "/assets/images/dust_mite.svg",
+    fact: "Invisible to the naked eye, these tiny creatures live in dust."
+  },
+  {
+    id: "amoeba",
+    name: "Amoeba",
+    weight: 0.0000000001, // 0.1 nanograms = 0.0000000001 kg (approx. for a typical large amoeba)
+    category: "micro",
+    image: "/assets/images/amoeba.svg",
+    fact: "A single-celled organism that changes its shape constantly."
+  },
+  {
+    id: "e-coli-bacterium",
+    name: "E. coli Bacterium",
+    weight: 0.0000000000000006, // 0.6 picograms = 0.0000000000000006 kg
+    category: "micro",
+    image: "/assets/images/e_coli.svg",
+    fact: "A common bacterium found in the intestines of warm-blooded animals."
+  },
+  {
+    id: "red-blood-cell",
+    name: "Human Red Blood Cell",
+    weight: 0.00000000000009, // 90 picograms = 0.00000000000009 kg
+    category: "micro",
+    image: "/assets/images/red_blood_cell.svg",
+    fact: "Responsible for carrying oxygen from the lungs to the body's tissues."
+  },
+  {
+    id: "covid-19-virion",
+    name: "COVID-19 Virus Particle",
+    weight: 0.000000000000000001, // 1 femtogram = 0.000000000000000001 kg (approx.)
+    category: "micro",
+    image: "/assets/images/covid_virus.svg",
+    fact: "The infectious agent that causes COVID-19."
+  },
+  {
+    id: "water-molecule",
+    name: "Water Molecule (H2O)",
+    weight: 0.0000000000000000000000000000299, // 2.99 x 10^-26 kg
+    category: "micro",
+    image: "/assets/images/water_molecule.svg",
+    fact: "The fundamental building block of water."
+  },
+  {
+    id: "grain-of-sand",
+    name: "Grain of Sand",
+    weight: 0.00005, // 50 micrograms = 0.00005 kg (average for beach sand)
+    category: "micro",
+    image: "/assets/images/grain_of_sand.svg",
+    fact: "A tiny particle of rock or other granular material."
+  },
+  {
+    id: "feather-hummingbird",
+    name: "Hummingbird Feather",
+    weight: 0.000001, // 1 milligram = 0.000001 kg (approx.)
+    category: "micro",
+    image: "/assets/images/hummingbird_feather.svg",
+    fact: "Extremely lightweight, contributing to their agile flight."
+  },
+  {
+    id: "speck-of-dust",
+    name: "Average Speck of Dust",
+    weight: 0.0000000007, // 0.7 micrograms = 0.0000000007 kg (highly variable)
+    category: "micro",
+    image: "/assets/images/dust_speck.svg",
+    fact: "Composed of tiny particles of various materials."
+  },
+  // Buildings Category
+  {
+    id: "great-pyramid-giza",
+    name: "Great Pyramid of Giza",
+    weight: 5750000000, // 5.75 billion kg (approx. 5.75 million tonnes)
+    category: "buildings",
+    image: "/assets/images/pyramid.svg",
+    fact: "The oldest and largest of the three pyramids in the Giza Necropolis."
+  },
+  {
+    id: "eiffel-tower",
+    name: "Eiffel Tower",
+    weight: 10100000, // 10,100,000 kg (10,100 tonnes)
+    category: "buildings",
+    image: "/assets/images/eiffel_tower.svg",
+    fact: "An iron lattice tower on the Champ de Mars in Paris, France."
+  },
+  {
+    id: "empire-state-building",
+    name: "Empire State Building",
+    weight: 365000000, // 365,000,000 kg (365,000 tonnes)
+    category: "buildings",
+    image: "/assets/images/empire_state_building.svg",
+    fact: "A 102-story Art Deco skyscraper in Midtown Manhattan, New York City."
+  },
+  {
+    id: "leaning-tower-pisa",
+    name: "Leaning Tower of Pisa",
+    weight: 14500000, // 14,500,000 kg (14,500 tonnes)
+    category: "buildings",
+    image: "/assets/images/pisa_tower.svg",
+    fact: "The campanile, or freestanding bell tower, of the cathedral of Pisa."
+  },
+  {
+    id: "burj-khalifa",
+    name: "Burj Khalifa",
+    weight: 500000000, // 500,000,000 kg (500,000 tonnes)
+    category: "buildings",
+    image: "/assets/images/burj_khalifa.svg",
+    fact: "The tallest building and structure in the world."
+  },
+  {
+    id: "sphinx",
+    name: "Great Sphinx of Giza",
+    weight: 2000000, // 2,000,000 kg (2,000 tonnes, carved from bedrock)
+    category: "buildings",
+    image: "/assets/images/sphinx.svg",
+    fact: "A limestone statue of a reclining sphinx, located on the Giza Plateau."
+  },
+  {
+    id: "sydney-opera-house",
+    name: "Sydney Opera House",
+    weight: 187000000, // 187,000,000 kg (187,000 tonnes)
+    category: "buildings",
+    image: "/assets/images/sydney_opera_house.svg",
+    fact: "A multi-venue performing arts centre in Sydney, New South Wales, Australia."
+  },
+  {
+    id: "colosseum",
+    name: "Colosseum",
+    weight: 100000000, // 100,000,000 kg (100,000 tonnes, rough estimate based on volume of stone)
+    category: "buildings",
+    image: "/assets/images/colosseum.svg",
+    fact: "An oval amphitheatre in the centre of the city of Rome, Italy."
+  },
+  {
+    id: "leaning-tower-of-suurhusen",
+    name: "Leaning Tower of Suurhusen",
+    weight: 2116000, // 2,116,000 kg (2,116 tonnes)
+    category: "buildings",
+      image: "/assets/images/suurhusen_tower.svg",
+    fact: "The most crooked tower in the world, leaning more than the Tower of Pisa."
+  },
+  {
+    id: "statue-of-liberty",
+    name: "Statue of Liberty",
+    weight: 204000, // 204,000 kg (204 tonnes, statue itself, without pedestal)
+    category: "buildings", // Often considered a monument/structure
+    image: "/assets/images/statue_of_liberty.svg",
+    fact: "A colossal neoclassical sculpture on Liberty Island in New York Harbor."
   },
 ];
 
