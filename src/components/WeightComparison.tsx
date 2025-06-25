@@ -179,29 +179,32 @@ const WeightComparison = () => {
   const getComparisonMessage = () => {
     if (selectedComparisonItems.length === 0) return "";
     
-    const userWeightKg = getUserWeight();
-    const totalItemsWeight = selectedComparisonItems.reduce((sum, item) => sum + item.weight, 0);
-    
-    const ratio = userWeightKg / totalItemsWeight;
-    const itemsText = selectedComparisonItems.length === 1 
-      ? selectedComparisonItems[0].name.toLowerCase()
-      : `${selectedComparisonItems.length} selected items combined`;
+    // Compare left side vs right side for scale balance
+    const ratio = totalWeightLeft / totalWeightRight;
     
     if (ratio < 0.1) {
       const exactPercent = (ratio * 100).toFixed(2);
-      return `You weigh less than 1/10 of ${itemsText}! (${exactPercent}%)`;
+      return `Left side weighs less than 1/10 of the right side! (${exactPercent}%)`;
     } else if (ratio < 1) {
-      return `You weigh ${(ratio * 100).toFixed(1)}% of ${itemsText}!`;
+      return `Left side weighs ${(ratio * 100).toFixed(1)}% of the right side!`;
     } else if (Math.abs(ratio - 1) < 0.01) {
-      return `You weigh exactly the same as ${itemsText}!`;
+      return `Both sides weigh exactly the same!`;
     } else {
-      const wholeNumber = Math.floor(ratio);
-      const decimal = ratio - wholeNumber;
-      
-      if (decimal < 0.1) {
-        return `You weigh about ${wholeNumber} times more than ${itemsText}!`;
+      const inverseRatio = totalWeightRight / totalWeightLeft;
+      if (inverseRatio < 0.1) {
+        const exactPercent = (inverseRatio * 100).toFixed(2);
+        return `Right side weighs less than 1/10 of the left side! (${exactPercent}%)`;
+      } else if (inverseRatio < 1) {
+        return `Right side weighs ${(inverseRatio * 100).toFixed(1)}% of the left side!`;
       } else {
-        return `You weigh ${ratio.toFixed(2)} times more than ${itemsText}!`;
+        const wholeNumber = Math.floor(ratio);
+        const decimal = ratio - wholeNumber;
+        
+        if (decimal < 0.1) {
+          return `Left side weighs about ${wholeNumber} times more than the right side!`;
+        } else {
+          return `Left side weighs ${ratio.toFixed(2)} times more than the right side!`;
+        }
       }
     }
   };
