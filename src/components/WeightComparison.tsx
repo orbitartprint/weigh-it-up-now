@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -320,6 +321,12 @@ const WeightComparison = () => {
                        <SelectItem value="animals">Animals</SelectItem>
                        <SelectItem value="celebrities">Celebrities</SelectItem>
                        <SelectItem value="objects">Objects</SelectItem>
+                       <SelectItem value="vehicles">Vehicles</SelectItem>
+                       <SelectItem value="historical">Historical</SelectItem>
+                       <SelectItem value="infrastructure">Infrastructure</SelectItem>
+                       <SelectItem value="food">Food</SelectItem>
+                       <SelectItem value="sports">Sports</SelectItem>
+                       <SelectItem value="fictional">Fictional</SelectItem>
                        <SelectItem value="custom">Custom</SelectItem>
                      </SelectGroup>
                   </SelectContent>
