@@ -334,9 +334,11 @@ const WeightComparison = () => {
                        <SelectItem value="vehicles">Vehicles</SelectItem>
                        <SelectItem value="historical">Historical</SelectItem>
                        <SelectItem value="infrastructure">Infrastructure</SelectItem>
+                       <SelectItem value="buildings">Buildings</SelectItem>
                        <SelectItem value="food">Food</SelectItem>
                        <SelectItem value="sports">Sports</SelectItem>
                        <SelectItem value="fictional">Fictional</SelectItem>
+                       <SelectItem value="micro">Micro</SelectItem>
                        <SelectItem value="custom">Custom</SelectItem>
                      </SelectGroup>
                   </SelectContent>
