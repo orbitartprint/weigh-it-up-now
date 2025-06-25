@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { Weight, ArrowLeft } from "lucide-react";
+import { Weight, Mail, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const About = () => {
@@ -17,6 +17,7 @@ const About = () => {
             </Link>
             <Link to="/contact">
               <Button variant="outline" size="sm" className="gap-2">
+                <Mail size={16} />
                 Contact
               </Button>
             </Link>
