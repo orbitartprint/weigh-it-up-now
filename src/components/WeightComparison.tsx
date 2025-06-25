@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -189,7 +188,8 @@ const WeightComparison = () => {
       : `${selectedComparisonItems.length} selected items combined`;
     
     if (ratio < 0.1) {
-      return `You weigh less than 1/10 of ${itemsText}!`;
+      const exactPercent = (ratio * 100).toFixed(2);
+      return `You weigh less than 1/10 of ${itemsText}! (${exactPercent}%)`;
     } else if (ratio < 1) {
       return `You weigh ${(ratio * 100).toFixed(1)}% of ${itemsText}!`;
     } else if (Math.abs(ratio - 1) < 0.01) {
@@ -204,6 +204,13 @@ const WeightComparison = () => {
         return `You weigh ${ratio.toFixed(2)} times more than ${itemsText}!`;
       }
     }
+  };
+
+  const getFunFact = () => {
+    if (selectedComparisonItems.length === 1) {
+      return selectedComparisonItems[0].fact;
+    }
+    return null;
   };
 
   const getShareData = () => {
@@ -571,6 +578,11 @@ const WeightComparison = () => {
               <h3 className="text-xl font-bold text-center text-blue-600 mb-2">
                 {getComparisonMessage()}
               </h3>
+              {getFunFact() && (
+                <p className="text-center text-muted-foreground italic mb-2">
+                  Fun fact: {getFunFact()}
+                </p>
+              )}
               <p className="text-muted-foreground text-center">
                 Left side: {totalWeightLeft.toFixed(1)} kg vs Right side: {totalWeightRight.toFixed(1)} kg
               </p>
