@@ -1,7 +1,6 @@
-
 import { Button } from "@/components/ui/button";
 import WeightComparison from "@/components/WeightComparison";
-import { Weight, Mail } from "lucide-react";
+import { Weight, Mail, Info } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "react-router-dom";
 
@@ -10,7 +9,13 @@ const Index = () => {
     <div className="min-h-screen">
       <nav className="bg-white border-b border-gray-200 py-3">
         <div className="container mx-auto px-4">
-          <div className="flex justify-end">
+          <div className="flex justify-end gap-2">
+            <Link to="/about">
+              <Button variant="outline" size="sm" className="gap-2">
+                <Info size={16} />
+                About
+              </Button>
+            </Link>
             <Link to="/contact">
               <Button variant="outline" size="sm" className="gap-2">
                 <Mail size={16} />
@@ -79,6 +84,12 @@ const Index = () => {
             All weights are approximate and based on averages
           </p>
           <div className="mt-3 space-x-4">
+            <Link 
+              to="/about" 
+              className="text-xs text-muted-foreground hover:text-foreground underline"
+            >
+              About
+            </Link>
             <Link 
               to="/legal" 
               className="text-xs text-muted-foreground hover:text-foreground underline"
