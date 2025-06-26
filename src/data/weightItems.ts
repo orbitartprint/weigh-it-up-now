@@ -1,8 +1,9 @@
+
 export interface WeightItem {
   id: string;
   name: string;
   weight: number; // in kg
-  category: "animals" | "celebrities" | "objects" | "vehicles" | "historical" | "fictional" | "infrastructure" | "food" | "sports" | "custom";
+  category: "animals" | "celebrities" | "objects" | "vehicles" | "historical" | "fictional" | "infrastructure" | "food" | "sports" | "custom" | "micro" | "buildings";
   image?: string;
   fact?: string;
 }
