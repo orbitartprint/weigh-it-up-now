@@ -108,6 +108,11 @@ const WeightComparison = () => {
       return;
     }
 
+    if (selectedComparisonItems.length >= 10) {
+      toast.error("Maximum 10 items can be selected for comparison!");
+      return;
+    }
+
     const weightInKg = customObjectUseKg ? weightValue : weightValue * 0.453592;
     
     const newCustomObject: WeightItem = {
@@ -119,9 +124,13 @@ const WeightComparison = () => {
     };
 
     setCustomObjects(prev => [...prev, newCustomObject]);
+    
+    // Automatically add the new custom object to the comparison on the right side
+    setSelectedComparisonItems(prev => [...prev, { ...newCustomObject, side: 'right' }]);
+    
     setCustomObjectName("");
     setCustomObjectWeight("");
-    toast.success(`${newCustomObject.name} created successfully!`);
+    toast.success(`${newCustomObject.name} created and added to comparison!`);
   };
 
   const handleCustomWeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
