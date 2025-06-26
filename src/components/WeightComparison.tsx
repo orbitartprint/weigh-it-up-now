@@ -7,12 +7,11 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { WeightItem, weightItems, getItemsByCategory } from "@/data/weightItems";
-import { ArrowLeft, ArrowRight, Weight, BarChart3, Scale, Plus, Share2, Facebook, Twitter, Mail, Copy, Box } from "lucide-react";
+import { ArrowLeft, ArrowRight, Weight, BarChart3, Scale, Plus, Share2, Facebook, Twitter, Mail, Copy, Box, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import ScaleComparison from "./ScaleComparison";
 import ComparisonItemWidget from "./ComparisonItemWidget";
-import UserWeightWidget from "./UserWeightWidget";
 
 const WeightComparison = () => {
   const [weight, setWeight] = useState<number>(70);
@@ -293,6 +292,37 @@ const WeightComparison = () => {
     }
   };
 
+  // Component for user weight display that matches other comparison items
+  const UserWeightDisplay = ({ side }: { side: 'left' | 'right' }) => {
+    const displayWeight = useKg ? weight : (weight * 0.453592);
+    const unit = useKg ? 'kg' : 'lbs';
+
+    return (
+      <Card className="flex items-center gap-3 p-3 relative bg-blue-50 border-blue-200">
+        <div className="flex items-center justify-center w-8 h-8">
+          <User size={20} className="text-blue-600" />
+        </div>
+        
+        <div className="flex-1 min-w-0">
+          <div className="font-medium text-sm text-blue-700">Your Weight</div>
+          <div className="text-xs text-blue-600">
+            {displayWeight.toFixed(1)} {unit}
+          </div>
+        </div>
+        
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={handleToggleUserSide}
+          className="h-6 w-6 p-0 text-blue-600 hover:text-blue-800 hover:bg-blue-100"
+          title={`Move to ${side === 'left' ? 'right' : 'left'} side`}
+        >
+          {side === 'left' ? <ArrowRight size={14} /> : <ArrowLeft size={14} />}
+        </Button>
+      </Card>
+    );
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -477,21 +507,6 @@ const WeightComparison = () => {
         </Card>
       </div>
 
-      {/* User Weight Widget - Always show */}
-      <Card className="mb-8">
-        <CardHeader>
-          <CardTitle>Your Weight Position</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <UserWeightWidget
-            weight={getUserWeight()}
-            useKg={true}
-            side={userWeightSide}
-            onToggleSide={handleToggleUserSide}
-          />
-        </CardContent>
-      </Card>
-
       {/* Selected Items Display by Side */}
       {selectedComparisonItems.length > 0 && (
         <Card className="mb-8">
@@ -507,9 +522,7 @@ const WeightComparison = () => {
                 </h4>
                 <div className="space-y-2 min-h-[100px] p-4 bg-blue-50 rounded-lg">
                   {userWeightSide === 'left' && (
-                    <div className="text-sm text-blue-600 text-center p-2 bg-blue-100 rounded">
-                      Your weight is here
-                    </div>
+                    <UserWeightDisplay side="left" />
                   )}
                   {selectedComparisonItems
                     .filter(item => item.side === 'left')
@@ -537,9 +550,7 @@ const WeightComparison = () => {
                 </h4>
                 <div className="space-y-2 min-h-[100px] p-4 bg-green-50 rounded-lg">
                   {userWeightSide === 'right' && (
-                    <div className="text-sm text-green-600 text-center p-2 bg-green-100 rounded">
-                      Your weight is here
-                    </div>
+                    <UserWeightDisplay side="right" />
                   )}
                   {selectedComparisonItems
                     .filter(item => item.side === 'right')
