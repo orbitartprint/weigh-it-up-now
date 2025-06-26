@@ -160,7 +160,6 @@ const WeightComparison = () => {
     }
   };
 
-
   const handleToggleItemSide = (id: string) => {
     setSelectedComparisonItems(prev => 
       prev.map(item => 
@@ -184,36 +183,48 @@ const WeightComparison = () => {
     return useKg ? weight : weight * 0.453592;
   };
 
+  const formatSmallPercentage = (percentage: number): string => {
+    // Start with 2 decimal places
+    let decimals = 2;
+    let formatted = percentage.toFixed(decimals);
+    
+    // If it shows 0.00, increase decimal places until we get a non-zero value
+    while (parseFloat(formatted) === 0 && decimals <= 8 && percentage > 0) {
+      decimals++;
+      formatted = percentage.toFixed(decimals);
+    }
+    
+    // If still 0 after 8 decimal places, use exponential notation
+    if (parseFloat(formatted) === 0 && percentage > 0) {
+      return percentage.toExponential(2);
+    }
+    
+    return formatted;
+  };
+
   const getComparisonMessage = () => {
     if (selectedComparisonItems.length === 0) return "";
     
-    // Compare left side vs right side for scale balance
+    // Always use left side as reference
     const ratio = totalWeightLeft / totalWeightRight;
     
-    if (ratio < 0.1) {
-      const exactPercent = (ratio * 100).toFixed(2);
-      return `Left side weighs less than 1/10 of the right side! (${exactPercent}%)`;
-    } else if (ratio < 1) {
-      return `Left side weighs ${(ratio * 100).toFixed(1)}% of the right side!`;
-    } else if (Math.abs(ratio - 1) < 0.01) {
+    if (Math.abs(ratio - 1) < 0.01) {
       return `Both sides weigh exactly the same!`;
-    } else {
-      const inverseRatio = totalWeightRight / totalWeightLeft;
-      if (inverseRatio < 0.1) {
-        const exactPercent = (inverseRatio * 100).toFixed(2);
-        return `Right side weighs less than 1/10 of the left side! (${exactPercent}%)`;
-      } else if (inverseRatio < 1) {
-        return `Right side weighs ${(inverseRatio * 100).toFixed(1)}% of the left side!`;
+    } else if (ratio > 1) {
+      // Left side is heavier
+      const wholeNumber = Math.floor(ratio);
+      const decimal = ratio - wholeNumber;
+      
+      if (decimal < 0.1) {
+        return `Left side weighs about ${wholeNumber} times more than the right side!`;
       } else {
-        const wholeNumber = Math.floor(ratio);
-        const decimal = ratio - wholeNumber;
-        
-        if (decimal < 0.1) {
-          return `Left side weighs about ${wholeNumber} times more than the right side!`;
-        } else {
-          return `Left side weighs ${ratio.toFixed(2)} times more than the right side!`;
-        }
+        return `Left side weighs ${ratio.toFixed(2)} times more than the right side!`;
       }
+    } else {
+      // Left side is lighter (ratio < 1)
+      const percentage = ratio * 100;
+      const formattedPercentage = formatSmallPercentage(percentage);
+      return `Left side weighs ${formattedPercentage}% of the right side!`;
     }
   };
 
