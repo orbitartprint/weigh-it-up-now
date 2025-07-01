@@ -1,17 +1,14 @@
+
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { WeightItem, weightItems, getItemsByCategory } from "@/data/weightItems";
-import { ArrowLeft, ArrowRight, Weight, BarChart3, Scale, Plus, Share2, Facebook, Twitter, Mail, Copy, Box, User } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import ScaleComparison from "./ScaleComparison";
+import { User } from "lucide-react";
+import WeightInputCard from "./WeightInputCard";
+import ItemSelectionCard from "./ItemSelectionCard";
+import ComparisonResult from "./ComparisonResult";
 import ComparisonItemWidget from "./ComparisonItemWidget";
+import UserWeightWidget from "./UserWeightWidget";
 
 const WeightComparison = () => {
   const [weight, setWeight] = useState<number>(70);
@@ -303,219 +300,33 @@ const WeightComparison = () => {
     }
   };
 
-  // Component for user weight display that matches other comparison items
-  const UserWeightDisplay = ({ side }: { side: 'left' | 'right' }) => {
-    const displayWeight = useKg ? weight : (weight * 0.453592);
-    const unit = useKg ? 'kg' : 'lbs';
-
-    return (
-      <Card className="flex items-center gap-3 p-3 relative bg-blue-50 border-blue-200">
-        <div className="flex items-center justify-center w-8 h-8">
-          <User size={20} className="text-blue-600" />
-        </div>
-        
-        <div className="flex-1 min-w-0">
-          <div className="font-medium text-sm text-blue-700">Your Weight</div>
-          <div className="text-xs text-blue-600">
-            {displayWeight.toFixed(1)} {unit}
-          </div>
-        </div>
-        
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={handleToggleUserSide}
-          className="h-6 w-6 p-0 text-blue-600 hover:text-blue-800 hover:bg-blue-100"
-          title={`Move to ${side === 'left' ? 'right' : 'left'} side`}
-        >
-          {side === 'left' ? <ArrowRight size={14} /> : <ArrowLeft size={14} />}
-        </Button>
-      </Card>
-    );
-  };
-
   return (
     <div className="max-w-4xl mx-auto px-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>Your Weight</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="flex items-center">
-                <Input
-                  type="number"
-                  value={weight}
-                  onChange={handleWeightChange}
-                  min="0.1"
-                  step="0.1"
-                  className="text-lg"
-                />
-                <span className="ml-2 text-lg font-medium">{useKg ? 'kg' : 'lbs'}</span>
-              </div>
-              
-              <div className="flex items-center space-x-2">
-                <Label htmlFor="unit-toggle" className={cn(useKg ? "font-bold" : "")}>KG</Label>
-                <Switch id="unit-toggle" checked={!useKg} onCheckedChange={handleToggleUnit} />
-                <Label htmlFor="unit-toggle" className={cn(!useKg ? "font-bold" : "")}>LBS</Label>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <WeightInputCard
+          weight={weight}
+          useKg={useKg}
+          onWeightChange={handleWeightChange}
+          onToggleUnit={handleToggleUnit}
+        />
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Add Items to Compare</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="category" className="block mb-2">Category</Label>
-                <Select value={selectedCategory} onValueChange={handleCategoryChange}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a category" />
-                  </SelectTrigger>
-                  <SelectContent>
-                     <SelectGroup>
-                       <SelectItem value="animals">Animals</SelectItem>
-                       <SelectItem value="celebrities">Celebrities</SelectItem>
-                       <SelectItem value="objects">Objects</SelectItem>
-                       <SelectItem value="vehicles">Vehicles</SelectItem>
-                       <SelectItem value="historical">Historical</SelectItem>
-                       <SelectItem value="infrastructure">Infrastructure</SelectItem>
-                       <SelectItem value="buildings">Buildings</SelectItem>
-                       <SelectItem value="food">Food</SelectItem>
-                       <SelectItem value="sports">Sports</SelectItem>
-                       <SelectItem value="fictional">Fictional</SelectItem>
-                       <SelectItem value="micro">Micro</SelectItem>
-                       <SelectItem value="custom">Custom</SelectItem>
-                     </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </div>
-              
-{selectedCategory === 'custom' ? (
-                <>
-                  {/* Custom Object Creation Form */}
-                  <div className="space-y-3 p-4 bg-gray-50 rounded-lg">
-                    <h4 className="font-medium flex items-center gap-2">
-                      <Box size={16} />
-                      Create Custom Object
-                    </h4>
-                    
-                    <div>
-                      <Label htmlFor="customName" className="block mb-1">Object Name</Label>
-                      <Input
-                        id="customName"
-                        type="text"
-                        placeholder="Enter object name"
-                        value={customObjectName}
-                        onChange={(e) => setCustomObjectName(e.target.value)}
-                      />
-                    </div>
-                    
-                    <div>
-                      <Label htmlFor="customWeight" className="block mb-1">Weight</Label>
-                      <div className="flex items-center gap-2">
-                        <Input
-                          id="customWeight"
-                          type="text"
-                          placeholder="Enter weight"
-                          value={customObjectWeight}
-                          onChange={handleCustomWeightChange}
-                        />
-                        <span className="text-sm font-medium">{customObjectUseKg ? 'kg' : 'lbs'}</span>
-                      </div>
-                      
-                      <div className="flex items-center space-x-2 mt-2">
-                        <Label htmlFor="custom-unit-toggle" className={cn(customObjectUseKg ? "font-bold" : "")}>KG</Label>
-                        <Switch 
-                          id="custom-unit-toggle" 
-                          checked={!customObjectUseKg} 
-                          onCheckedChange={() => setCustomObjectUseKg(!customObjectUseKg)} 
-                        />
-                        <Label htmlFor="custom-unit-toggle" className={cn(!customObjectUseKg ? "font-bold" : "")}>LBS</Label>
-                      </div>
-                    </div>
-                    
-                    <Button 
-                      onClick={handleCreateCustomObject} 
-                      className="w-full"
-                    >
-                      <Plus size={16} className="mr-2" />
-                      Create Object
-                    </Button>
-                  </div>
-                  
-                  {/* Custom Objects List */}
-                  {customObjects.length > 0 && (
-                    <>
-                      <div>
-                        <Label htmlFor="compareTo" className="block mb-2">Select Custom Object</Label>
-                        <Select value={compareToId} onValueChange={setCompareToId}>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select a custom object" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectGroup>
-                              {customObjects.map(item => (
-                                <SelectItem key={item.id} value={item.id}>
-                                  <div className="flex items-center gap-2">
-                                    <Box size={14} />
-                                    {item.name} ({item.weight.toFixed(1)} kg)
-                                  </div>
-                                </SelectItem>
-                              ))}
-                            </SelectGroup>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      
-                      <Button 
-                        onClick={handleAddCustomItem} 
-                        className="w-full"
-                        disabled={selectedComparisonItems.length >= 10 || !compareToId}
-                      >
-                        <Plus size={16} className="mr-2" />
-                        Add Custom Object ({selectedComparisonItems.length}/10)
-                      </Button>
-                    </>
-                  )}
-                </>
-              ) : (
-                <>
-                  <div>
-                    <Label htmlFor="compareTo" className="block mb-2">Item</Label>
-                    <Select value={compareToId} onValueChange={setCompareToId}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select an item" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          {compareToItems.map(item => (
-                            <SelectItem key={item.id} value={item.id}>
-                              {item.name} ({item.weight} kg)
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  
-                  <Button 
-                    onClick={handleAddCustomItem} 
-                    className="w-full"
-                    disabled={selectedComparisonItems.length >= 10 || !compareToId}
-                  >
-                    <Plus size={16} className="mr-2" />
-                    Add Item ({selectedComparisonItems.length}/10)
-                  </Button>
-                </>
-              )}
-            </div>
-          </CardContent>
-        </Card>
+        <ItemSelectionCard
+          selectedCategory={selectedCategory}
+          compareToId={compareToId}
+          compareToItems={compareToItems}
+          selectedItemsCount={selectedComparisonItems.length}
+          customObjects={customObjects}
+          customObjectName={customObjectName}
+          customObjectWeight={customObjectWeight}
+          customObjectUseKg={customObjectUseKg}
+          onCategoryChange={handleCategoryChange}
+          onCompareToChange={setCompareToId}
+          onAddCustomItem={handleAddCustomItem}
+          onCustomNameChange={(e) => setCustomObjectName(e.target.value)}
+          onCustomWeightChange={handleCustomWeightChange}
+          onCustomUnitToggle={() => setCustomObjectUseKg(!customObjectUseKg)}
+          onCreateCustomObject={handleCreateCustomObject}
+        />
       </div>
 
       {/* Selected Items Display by Side */}
@@ -533,7 +344,12 @@ const WeightComparison = () => {
                 </h4>
                 <div className="space-y-2 min-h-[100px] p-4 bg-blue-50 rounded-lg">
                   {userWeightSide === 'left' && (
-                    <UserWeightDisplay side="left" />
+                    <UserWeightWidget
+                      weight={weight}
+                      useKg={useKg}
+                      side="left"
+                      onToggleSide={handleToggleUserSide}
+                    />
                   )}
                   {selectedComparisonItems
                     .filter(item => item.side === 'left')
@@ -561,7 +377,12 @@ const WeightComparison = () => {
                 </h4>
                 <div className="space-y-2 min-h-[100px] p-4 bg-green-50 rounded-lg">
                   {userWeightSide === 'right' && (
-                    <UserWeightDisplay side="right" />
+                    <UserWeightWidget
+                      weight={weight}
+                      useKg={useKg}
+                      side="right"
+                      onToggleSide={handleToggleUserSide}
+                    />
                   )}
                   {selectedComparisonItems
                     .filter(item => item.side === 'right')
@@ -587,172 +408,21 @@ const WeightComparison = () => {
       )}
 
       {selectedComparisonItems.length > 0 && (
-        <Card className="mb-8 scale-appear">
-          <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle>Comparison Result</CardTitle>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setShowScale(!showScale)}
-              className="flex items-center gap-2"
-            >
-              {showScale ? (
-                <>
-                  <BarChart3 size={16} />
-                  Chart
-                </>
-              ) : (
-                <>
-                  <Scale size={16} />
-                  Scale
-                </>
-              )}
-            </Button>
-          </CardHeader>
-          <CardContent>
-            <div className="mb-6">
-              <h3 className="text-xl font-bold text-center text-blue-600 mb-2">
-                {getComparisonMessage()}
-              </h3>
-              {getFunFact() && (
-                <p className="text-center text-muted-foreground italic mb-2">
-                  Fun fact: {getFunFact()}
-                </p>
-              )}
-              <p className="text-muted-foreground text-center">
-                Left side: {totalWeightLeft.toFixed(1)} kg vs Right side: {totalWeightRight.toFixed(1)} kg
-              </p>
-            </div>
-
-            {/* Bar Chart Container (visible by default) */}
-            {!showScale && (
-              <div className="comparison-container mt-8 mb-12">
-                <div
-                  className="weight-bar bg-blue-500"
-                  style={{
-                    height: `${Math.min(300, totalWeightLeft * (300 / Math.max(totalWeightLeft, totalWeightRight)))}px`,
-                    width: '40%',
-                    left: '10%'
-                  }}
-                >
-                  <div className="bar-label">
-                    <span className="font-bold">Left Side</span>
-                    <br />
-                    {totalWeightLeft.toFixed(1)} kg
-                    {!useKg && ` (${(totalWeightLeft * 2.20462).toFixed(1)} lbs)`}
-                  </div>
-                </div>
-                <div
-                  className="weight-bar bg-primary/70"
-                  style={{
-                    height: `${Math.min(300, totalWeightRight * (300 / Math.max(totalWeightLeft, totalWeightRight)))}px`,
-                    width: '40%',
-                    right: '10%'
-                  }}
-                >
-                  <div className="bar-label">
-                    <span className="font-bold">Right Side</span>
-                    <br />
-                    {totalWeightRight.toFixed(1)} kg
-                    {!useKg && ` (${(totalWeightRight * 2.20462).toFixed(1)} lbs)`}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Scale Container (hidden by default) */}
-            {showScale && (
-              <ScaleComparison 
-                userWeight={weight}
-                compareItem={null}
-                comparison={{
-                  ratio: totalWeightLeft / totalWeightRight,
-                  message: getComparisonMessage(),
-                  yourWeight: getUserWeight(),
-                  theirWeight: totalWeightRight,
-                  leftWeight: totalWeightLeft,
-                  rightWeight: totalWeightRight
-                }}
-                selectedItems={selectedComparisonItems}
-                userWeightSide={userWeightSide}
-              />
-            )}
-
-            <div className="flex justify-center">
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button className="mt-4">
-                    <Share2 size={16} className="mr-2" />
-                    Share This Comparison
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-56">
-                  <div className="space-y-2">
-                    <h4 className="font-medium text-sm mb-3">Share on:</h4>
-                    <div className="grid grid-cols-2 gap-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleSharePlatform('twitter')}
-                        className="flex items-center gap-2"
-                      >
-                        <Twitter size={16} />
-                        Twitter
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleSharePlatform('facebook')}
-                        className="flex items-center gap-2"
-                      >
-                        <Facebook size={16} />
-                        Facebook
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleSharePlatform('whatsapp')}
-                        className="flex items-center gap-2"
-                      >
-                        <Share2 size={16} />
-                        WhatsApp
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleSharePlatform('email')}
-                        className="flex items-center gap-2"
-                      >
-                        <Mail size={16} />
-                        Email
-                      </Button>
-                    </div>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleSharePlatform('copy')}
-                      className="w-full flex items-center gap-2 mt-2"
-                    >
-                      <Copy size={16} />
-                      Copy Link
-                    </Button>
-                    {navigator.share && (
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={handleNativeShare}
-                        className="w-full flex items-center gap-2"
-                      >
-                        <Share2 size={16} />
-                        Native Share
-                      </Button>
-                    )}
-                  </div>
-                </PopoverContent>
-              </Popover>
-            </div>
-          </CardContent>
-        </Card>
+        <ComparisonResult
+          selectedComparisonItems={selectedComparisonItems}
+          totalWeightLeft={totalWeightLeft}
+          totalWeightRight={totalWeightRight}
+          showScale={showScale}
+          comparisonMessage={getComparisonMessage()}
+          funFact={getFunFact()}
+          useKg={useKg}
+          weight={weight}
+          userWeightSide={userWeightSide}
+          onToggleScale={() => setShowScale(!showScale)}
+          onSharePlatform={handleSharePlatform}
+          onNativeShare={handleNativeShare}
+          getUserWeight={getUserWeight}
+        />
       )}
     </div>
   );
