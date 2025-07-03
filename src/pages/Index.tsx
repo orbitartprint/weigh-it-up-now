@@ -177,7 +177,7 @@ const Index = () => {
             </p>
             
             <p className="text-muted-foreground leading-relaxed">
-              WeightVs.com is dedicated to providing you with accurate, reliable, and continuously updated weight data. We aim to transform the way you perceive and interact with weight information, making it an enjoyable and insightful experience for everyone. Start exploring the fascinating world of mass and see how everything measures up!
+              WeightVs.com is dedicated to providing you with **carefully compiled and continuously updated weight data, primarily consisting of estimated and average values.** We aim to transform the way you perceive and interact with weight information, making it an enjoyable and insightful experience for everyone. Start exploring the fascinating world of mass and see how everything measures up!
             </p>
           </div>
         </section>
