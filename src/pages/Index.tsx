@@ -73,6 +73,49 @@ const Index = () => {
             </div>
           </div>
         </section>
+
+        <Separator className="my-12" />
+
+        <section className="max-w-4xl mx-auto px-4 mb-16">
+          <h2 className="text-2xl font-bold mb-6 text-center">How to Use Weight Comparison Tool?</h2>
+          <div className="space-y-8">
+            <div className="flex flex-col md:flex-row gap-6 items-start">
+              <div className="bg-weightBlue-light rounded-full w-16 h-16 flex items-center justify-center flex-shrink-0">
+                <span className="font-bold text-weightBlue-dark text-lg">1</span>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-xl font-bold mb-3">Input Your Body Weight for Accurate Comparison</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Start by entering your current body weight in the weight input field. Our weight comparison calculator supports both metric (kilograms) and imperial (pounds) units. Simply toggle between kg and lbs using the unit switcher to match your preferred measurement system. The tool will automatically convert your weight for precise comparisons across all categories.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-col md:flex-row gap-6 items-start">
+              <div className="bg-weightBlue-light rounded-full w-16 h-16 flex items-center justify-center flex-shrink-0">
+                <span className="font-bold text-weightBlue-dark text-lg">2</span>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-xl font-bold mb-3">Select Items from Multiple Weight Categories</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Browse through our extensive database of weight comparisons including animals, celebrities, everyday objects, vehicles, buildings, and more. Choose from over 10 different categories or create custom objects with specific weights. You can add up to 10 comparison items at once to see how your weight stacks up against multiple references simultaneously.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-col md:flex-row gap-6 items-start">
+              <div className="bg-weightBlue-light rounded-full w-16 h-16 flex items-center justify-center flex-shrink-0">
+                <span className="font-bold text-weightBlue-dark text-lg">3</span>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-xl font-bold mb-3">Analyze Visual Weight Comparisons and Scale Differences</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  View detailed weight comparison results with visual scale representations and precise mathematical calculations. The tool displays weight ratios, percentage differences, and provides an intuitive left-right balance visualization. Move items between sides to explore different comparison scenarios and understand weight relationships with accurate decimal precision.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
 
       <footer className="bg-gray-100 py-8">
