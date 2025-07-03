@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -71,23 +72,39 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-gradient-to-r from-weightBlue-light to-weightBlue-dark py-6">
+      <nav className="bg-white border-b border-gray-200 py-3">
         <div className="container mx-auto px-4">
-          <Link 
-            to="/" 
-            className="inline-flex items-center gap-2 text-white hover:text-white/80 transition-colors mb-4"
-          >
-            <ArrowLeft size={20} />
-            Back to WeightVs.com
-          </Link>
-          <div className="flex items-center gap-3">
-            <Mail size={32} className="text-white" />
-            <h1 className="text-3xl md:text-4xl font-bold text-white">Contact Us</h1>
+          <div className="flex justify-between items-center">
+            <Link to="/">
+              <Button variant="outline" size="sm" className="gap-2">
+                <ArrowLeft size={16} />
+                Back to Home
+              </Button>
+            </Link>
+            <Link to="/about">
+              <Button variant="outline" size="sm" className="gap-2">
+                About
+              </Button>
+            </Link>
           </div>
+        </div>
+      </nav>
+
+      <header className="bg-gradient-to-r from-weightBlue-light to-weightBlue-dark py-8 mb-8">
+        <div className="container mx-auto text-center">
+          <div className="flex items-center justify-center gap-2 mb-3">
+            <Mail size={36} className="text-white" />
+            <h1 className="text-3xl md:text-4xl font-bold text-white">
+              Contact Us
+            </h1>
+          </div>
+          <p className="text-xl text-white opacity-90">
+            Get in Touch with WeightVs.com
+          </p>
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-12">
+      <main className="container mx-auto px-4 pb-16">
         <div className="max-w-2xl mx-auto">
           <Card>
             <CardHeader>
@@ -170,6 +187,31 @@ const Contact = () => {
           </Card>
         </div>
       </main>
+
+      <footer className="bg-gray-100 py-8">
+        <div className="container mx-auto text-center">
+          <p className="text-sm text-muted-foreground">
+            © 2025 WeightVs.com | For entertainment purposes only
+          </p>
+          <p className="text-xs text-muted-foreground mt-2">
+            All weights are approximate and based on averages
+          </p>
+          <div className="mt-3 space-x-4">
+            <Link 
+              to="/legal" 
+              className="text-xs text-muted-foreground hover:text-foreground underline"
+            >
+              Legal
+            </Link>
+            <Link 
+              to="/privacy" 
+              className="text-xs text-muted-foreground hover:text-foreground underline"
+            >
+              Privacy Policy
+            </Link>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
