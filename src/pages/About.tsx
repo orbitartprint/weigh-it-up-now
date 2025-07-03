@@ -42,7 +42,7 @@ const About = () => {
       <main className="container mx-auto max-w-4xl px-4 pb-16">
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <p className="text-lg mb-6">
-            Welcome to <strong>WeightVs.com</strong>, the leading online platform designed to make understanding and comparing weights incredibly easy and engaging. Ever wondered how your weight stacks up against an African Elephant, a celebrity, or even a specific building? Our intuitive and accurate tool brings these fascinating comparisons to life, transforming abstract numbers into vivid, visual insights.
+            Welcome to <strong>WeightVs.com</strong>, the leading online platform designed to make understanding and comparing weights incredibly easy and engaging. Ever wondered how your weight stacks up against an African Elephant, a celebrity, or even a specific building? Our intuitive tool brings these fascinating comparisons to life, transforming abstract numbers into vivid, visual insights, **using carefully compiled estimated and average weights.**
           </p>
 
           <p className="text-lg mb-6">
@@ -63,7 +63,7 @@ const About = () => {
           </p>
 
           <p className="text-lg mb-8">
-            WeightVs.com is more than just a comparison site; it's a gateway to discovery. We're continuously expanding our collection of intriguing weights and facts to ensure you always find something new and surprising. Get ready to explore the fascinating world of weight in a whole new dimension – it's simple, accurate, and incredibly fun!
+            WeightVs.com is more than just a comparison site; it's a gateway to discovery. We're continuously expanding our collection of intriguing weights and facts to ensure you always find something new and surprising. Get ready to explore the fascinating world of weight in a whole new dimension – it’s simple, insightful, and incredibly fun!
           </p>
         </div>
 
