@@ -116,6 +116,71 @@ const Index = () => {
             </div>
           </div>
         </section>
+
+        <Separator className="my-12" />
+
+        <section className="max-w-4xl mx-auto px-4 mb-16">
+          <h2 className="text-2xl font-bold mb-6 text-center">Why Use This Weight Comparison Chart?</h2>
+          <div className="space-y-6">
+            <p className="text-muted-foreground leading-relaxed">
+              Are you looking to grasp the true scale of things, perhaps for a fun debate with friends, an educational project, or simply out of pure curiosity? Our intuitive <strong>Weight Comparison Chart</strong> at WeightVs.com is designed for exactly that! Forget abstract numbers – we transform weights into visually engaging comparisons that resonate. Whether you're curious about how your own weight compares to a specific animal, a well-known celebrity, or even an astonishing landmark, our tool makes it incredibly easy and insightful.
+            </p>
+            
+            <p className="text-muted-foreground leading-relaxed">
+              Beyond just entertaining, WeightVs.com serves a variety of scenarios:
+            </p>
+            
+            <ul className="space-y-3 text-muted-foreground">
+              <li className="flex items-start gap-3">
+                <span className="bg-weightBlue-light rounded-full w-2 h-2 mt-2 flex-shrink-0"></span>
+                <div>
+                  <strong>Satisfy Your Curiosity:</strong> Discover surprising facts about the masses of everyday objects, historical figures, or even micro-sized particles.
+                </div>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="bg-weightBlue-light rounded-full w-2 h-2 mt-2 flex-shrink-0"></span>
+                <div>
+                  <strong>Educational Insights:</strong> Perfect for students and curious minds to visualize complex weight differences and understand physical scales in a tangible way.
+                </div>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="bg-weightBlue-light rounded-full w-2 h-2 mt-2 flex-shrink-0"></span>
+                <div>
+                  <strong>Practical Planning:</strong> Need to estimate the combined weight for moving furniture, shipping large items, or understanding the load capacity of vehicles? Get a clearer picture here.
+                </div>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="bg-weightBlue-light rounded-full w-2 h-2 mt-2 flex-shrink-0"></span>
+                <div>
+                  <strong>Entertaining Debates:</strong> Settle friendly arguments by visually comparing anything from tiny insects to giant buildings.
+                </div>
+              </li>
+            </ul>
+            
+            <p className="text-muted-foreground leading-relaxed">
+              With WeightVs.com, visualizing <strong>weight differences</strong> has never been simpler or more engaging. Dive in and make your comparisons come alive!
+            </p>
+          </div>
+        </section>
+
+        <Separator className="my-12" />
+
+        <section className="max-w-4xl mx-auto px-4 mb-16">
+          <h2 className="text-2xl font-bold mb-6 text-center">Comparing Weights</h2>
+          <div className="space-y-6">
+            <p className="text-muted-foreground leading-relaxed">
+              Whether you're organizing a move and need to visualize furniture loads, planning a unique educational lesson, or simply enjoying some nerdy fun, WeightVs.com is your go-to destination. Our tool is designed to make <strong>weight comparison</strong> effortlessly visual and highly engaging. Imagine needing to understand the combined weight of a small car versus a group of gorillas, or how many smartphones equate to the weight of a professional athlete – it's all possible here!
+            </p>
+            
+            <p className="text-muted-foreground leading-relaxed">
+              Our powerful comparison engine automatically processes your inputs and a vast database of objects, animals, and more, providing immediate, scaled visual results. This means you don't have to struggle with abstract numbers or complex calculations. Just enter your chosen items, and watch them appear on our interactive scale or within our dynamic bar chart. You can easily compare multiple objects simultaneously, gaining a clearer perspective on relative weights.
+            </p>
+            
+            <p className="text-muted-foreground leading-relaxed">
+              WeightVs.com is dedicated to providing you with accurate, reliable, and continuously updated weight data. We aim to transform the way you perceive and interact with weight information, making it an enjoyable and insightful experience for everyone. Start exploring the fascinating world of mass and see how everything measures up!
+            </p>
+          </div>
+        </section>
       </main>
 
       <footer className="bg-gray-100 py-8">
