@@ -24,7 +24,7 @@ const planetData: PlanetData[] = [
   { id: "venus", name: "Venus", gravity_factor: 0.91, fact: "Although similar in size to Earth, its dense atmosphere creates a strong greenhouse effect.", image_asset: "/lovable-uploads/c3d929e4-7fa0-4b81-a118-3fae2eb7168e.png" },
   { id: "mars", name: "Mars", gravity_factor: 0.38, fact: "The Red Planet has only about one-third of Earth's gravity. A walk there would feel very light!", image_asset: "/lovable-uploads/e1f815eb-9090-46cd-a66a-72407b8b91ac.png" },
   { id: "jupiter", name: "Jupiter", gravity_factor: 2.53, fact: "The largest planet in our solar system pulls you over 2.5 times stronger than Earth – you'd be a heavyweight there!", image_asset: "/lovable-uploads/f305fb1a-6879-4344-9a31-a254d18c2628.png" },
-  { id: "saturn", name: "Saturn", gravity_factor: 1.07, fact: "Known for its impressive rings, Saturn has a surface gravity similar to Earth's.", image_asset: "/lovable-uploads/5c7cbac5-6b90-4354-9994-c6c5b36c9f61.png" },
+  { id: "saturn", name: "Saturn", gravity_factor: 1.07, fact: "Known for its impressive rings, Saturn has a surface gravity similar to Earth's.", image_asset: "/lovable-uploads/87b9aece-0e7f-4382-b318-bc9e0aac18f2.png" },
   { id: "uranus", name: "Uranus", gravity_factor: 0.92, fact: "This ice giant rotates on its side and has slightly less gravity than Earth.", image_asset: "/lovable-uploads/cc614c5e-0278-416c-9f17-dc439eac14d0.png" },
   { id: "neptune", name: "Neptune", gravity_factor: 1.14, fact: "The windiest planet in our solar system pulls you slightly stronger than Earth.", image_asset: "/lovable-uploads/f8510da6-fa1d-4f7f-ad52-cd376e07d710.png" },
   { id: "pluto", name: "Pluto", gravity_factor: 0.06, fact: "As a dwarf planet, Pluto's gravity is extremely low – you would weigh almost nothing there!", image_asset: "/lovable-uploads/6e92bb2e-5db1-47e6-b91c-e81777b0be37.png" }
@@ -236,7 +236,7 @@ const WeightInSpace = () => {
                       className="h-auto p-3 flex flex-col items-center gap-2"
                     >
                       <img
-                        src={planet.id === "saturn" ? "/lovable-uploads/7cd345ac-80f0-4bd4-ac37-e57b6cef2101.png" : planet.image_asset}
+                        src={planet.image_asset}
                         alt={planet.name}
                         className="w-12 h-12 object-contain rounded-full"
                       />
