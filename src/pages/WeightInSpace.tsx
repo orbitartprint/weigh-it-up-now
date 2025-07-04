@@ -21,13 +21,13 @@ interface PlanetData {
 const planetData: PlanetData[] = [
   { id: "earth", name: "Earth", gravity_factor: 1.00, fact: "Our home planet – here, gravity provides our 'normal' weight.", image_asset: "/lovable-uploads/c0c45558-c90b-4d29-b9d8-3efa6407a20f.png" },
   { id: "moon", name: "Moon", gravity_factor: 0.165, fact: "On the Moon, you'd be only about 1/6th of your Earth weight! Astronauts can jump much higher there.", image_asset: "/lovable-uploads/4e6f3479-51f6-4fd2-adcc-8ede73316c86.png" },
-  { id: "mercury", name: "Mercury", gravity_factor: 0.38, fact: "The smallest planet has extreme temperature swings and lower gravity.", image_asset: "/lovable-uploads/6c36e97c-c88a-497b-99b9-41c7b73dd384.png" },
+  { id: "mercury", name: "Mercury", gravity_factor: 0.38, fact: "The smallest planet has extreme temperature swings and lower gravity.", image_asset: "/lovable-uploads/6673f647-22f2-4470-b31e-357bd9227b13.png" },
   { id: "venus", name: "Venus", gravity_factor: 0.91, fact: "Although similar in size to Earth, its dense atmosphere creates a strong greenhouse effect.", image_asset: "/lovable-uploads/c3d929e4-7fa0-4b81-a118-3fae2eb7168e.png" },
-  { id: "mars", name: "Mars", gravity_factor: 0.38, fact: "The Red Planet has only about one-third of Earth's gravity. A walk there would feel very light!", image_asset: "/lovable-uploads/ce685781-b020-467d-a385-eca9f3195252.png" },
+  { id: "mars", name: "Mars", gravity_factor: 0.38, fact: "The Red Planet has only about one-third of Earth's gravity. A walk there would feel very light!", image_asset: "/lovable-uploads/e1f815eb-9090-46cd-a66a-72407b8b91ac.png" },
   { id: "jupiter", name: "Jupiter", gravity_factor: 2.53, fact: "The largest planet in our solar system pulls you over 2.5 times stronger than Earth – you'd be a heavyweight there!", image_asset: "/lovable-uploads/f305fb1a-6879-4344-9a31-a254d18c2628.png" },
   { id: "saturn", name: "Saturn", gravity_factor: 1.07, fact: "Known for its impressive rings, Saturn has a surface gravity similar to Earth's.", image_asset: "/lovable-uploads/5c7cbac5-6b90-4354-9994-c6c5b36c9f61.png" },
   { id: "uranus", name: "Uranus", gravity_factor: 0.92, fact: "This ice giant rotates on its side and has slightly less gravity than Earth.", image_asset: "/lovable-uploads/cc614c5e-0278-416c-9f17-dc439eac14d0.png" },
-  { id: "neptune", name: "Neptune", gravity_factor: 1.14, fact: "The windiest planet in our solar system pulls you slightly stronger than Earth.", image_asset: "/lovable-uploads/369ba111-a803-4450-934c-61434a051d2f.png" },
+  { id: "neptune", name: "Neptune", gravity_factor: 1.14, fact: "The windiest planet in our solar system pulls you slightly stronger than Earth.", image_asset: "/lovable-uploads/f8510da6-fa1d-4f7f-ad52-cd376e07d710.png" },
   { id: "pluto", name: "Pluto", gravity_factor: 0.06, fact: "As a dwarf planet, Pluto's gravity is extremely low – you would weigh almost nothing there!", image_asset: "/lovable-uploads/6e92bb2e-5db1-47e6-b91c-e81777b0be37.png" }
 ];
 
@@ -78,6 +78,36 @@ const WeightInSpace = () => {
     setCurrentPlanet(planet);
     setWeightDifference(weightDiff);
     setEarthWeightDisplay(earthWeightRaw);
+  };
+
+  // Auto-calculate when planet selection changes
+  const handlePlanetSelection = (planetId: string) => {
+    setSelectedPlanetId(planetId);
+    // Auto-calculate if weight is already entered
+    if (earthWeight && !isNaN(parseFloat(earthWeight)) && parseFloat(earthWeight) > 0) {
+      setTimeout(() => {
+        calculateWeight();
+      }, 0);
+    }
+  };
+
+  // Handle enter key press in weight input
+  const handleWeightInputKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      calculateWeight();
+    }
+  };
+
+  // Auto-calculate when weight input changes (with debounce)
+  const handleWeightChange = (value: string) => {
+    setEarthWeight(value);
+    // Auto-calculate if valid weight and planet is selected
+    const weightValue = parseFloat(value);
+    if (value && !isNaN(weightValue) && weightValue > 0 && selectedPlanetId) {
+      setTimeout(() => {
+        calculateWeight();
+      }, 500); // Small delay to avoid too frequent calculations
+    }
   };
 
   const formatWeight = (weight: number): string => {
@@ -155,7 +185,8 @@ const WeightInSpace = () => {
                   type="number"
                   placeholder="e.g., 150"
                   value={earthWeight}
-                  onChange={(e) => setEarthWeight(e.target.value)}
+                  onChange={(e) => handleWeightChange(e.target.value)}
+                  onKeyPress={handleWeightInputKeyPress}
                   className={inputError ? "border-red-500" : ""}
                 />
                 {inputError && (
@@ -191,7 +222,7 @@ const WeightInSpace = () => {
                     <Button
                       key={planet.id}
                       variant={selectedPlanetId === planet.id ? "default" : "outline"}
-                      onClick={() => setSelectedPlanetId(planet.id)}
+                      onClick={() => handlePlanetSelection(planet.id)}
                       className="h-auto p-3 flex flex-col items-center gap-2"
                     >
                       <img
@@ -271,11 +302,15 @@ const WeightInSpace = () => {
                         id="planetImageDisplay"
                         src={currentPlanet.image_asset}
                         alt={currentPlanet.name}
-                        className="w-48 h-48 md:w-64 md:h-64 object-cover rounded-full mx-auto shadow-lg"
+                        className="w-48 h-48 md:w-64 md:h-64 object-contain rounded-full mx-auto shadow-lg"
                       />
-                      {/* Placeholder for woman image - will be replaced when provided */}
-                      <div className="absolute bottom-4 right-4 w-16 h-20 bg-gradient-to-b from-pink-200 to-pink-300 rounded-full flex items-center justify-center shadow-md">
-                        <span className="text-xs text-pink-800">👤</span>
+                      {/* Woman image */}
+                      <div className="absolute bottom-4 right-4 w-16 h-20 bg-white rounded-full flex items-center justify-center shadow-md overflow-hidden">
+                        <img
+                          src="/lovable-uploads/4f1a216f-c8ca-45d8-b431-b901a35c66ae.png"
+                          alt="Person silhouette"
+                          className="w-12 h-12 object-contain"
+                        />
                       </div>
                     </div>
                     <p className="text-sm text-muted-foreground">You on {currentPlanet.name}</p>
