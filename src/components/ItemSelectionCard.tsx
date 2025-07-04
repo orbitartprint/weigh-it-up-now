@@ -63,6 +63,7 @@ const ItemSelectionCard: React.FC<ItemSelectionCardProps> = ({
                   <SelectItem value="objects">Objects</SelectItem>
                   <SelectItem value="vehicles">Vehicles</SelectItem>
                   <SelectItem value="historical">Historical</SelectItem>
+                  <SelectItem value="dinosaurs">Dinosaurs</SelectItem>
                   <SelectItem value="infrastructure">Infrastructure</SelectItem>
                   <SelectItem value="buildings">Buildings</SelectItem>
                   <SelectItem value="food">Food</SelectItem>
