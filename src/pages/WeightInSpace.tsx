@@ -318,7 +318,7 @@ const WeightInSpace = () => {
                       {/* Woman image */}
                       <div className="absolute bottom-4 right-4 w-16 h-20 bg-white rounded-full flex items-center justify-center shadow-md overflow-hidden">
                         <img
-                          src="/lovable-uploads/4f1a216f-c8ca-45d8-b431-b901a35c66ae.png"
+                          src="/lovable-uploads/person_silhouette.png"
                           alt="Person silhouette"
                           className="w-12 h-12 object-contain"
                         />
