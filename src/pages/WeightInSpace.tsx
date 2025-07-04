@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -85,9 +84,20 @@ const WeightInSpace = () => {
     setSelectedPlanetId(planetId);
     // Auto-calculate if weight is already entered
     if (earthWeight && !isNaN(parseFloat(earthWeight)) && parseFloat(earthWeight) > 0) {
-      setTimeout(() => {
-        calculateWeight();
-      }, 0);
+      // Use the new planetId directly for immediate calculation
+      const earthWeightRaw = parseFloat(earthWeight);
+      const earthWeightKg = convertWeight(earthWeightRaw, selectedUnit, "kg");
+      const planet = planetData.find(p => p.id === planetId);
+      if (!planet) return;
+
+      const calculatedWeightKg = earthWeightKg * planet.gravity_factor;
+      const displayWeight = convertWeight(calculatedWeightKg, "kg", selectedUnit);
+      const weightDiff = Math.abs(displayWeight - earthWeightRaw);
+
+      setCalculatedWeight(displayWeight);
+      setCurrentPlanet(planet);
+      setWeightDifference(weightDiff);
+      setEarthWeightDisplay(earthWeightRaw);
     }
   };
 
@@ -226,9 +236,9 @@ const WeightInSpace = () => {
                       className="h-auto p-3 flex flex-col items-center gap-2"
                     >
                       <img
-                        src={planet.image_asset}
+                        src={planet.id === "saturn" ? "/lovable-uploads/7cd345ac-80f0-4bd4-ac37-e57b6cef2101.png" : planet.image_asset}
                         alt={planet.name}
-                        className="w-12 h-12 object-cover rounded-full"
+                        className="w-12 h-12 object-contain rounded-full"
                       />
                       <span className="text-xs">{planet.name}</span>
                     </Button>
