@@ -411,6 +411,128 @@ export const weightItems: WeightItem[] = [
     fact: "The longest-reigning monarch in British history."
   },
 
+  // Dinosaurs Category
+  {
+    id: "tyrannosaurus-rex",
+    name: "Tyrannosaurus Rex",
+    weight: 7000, // 7,000 kg (approx.)
+    category: "dinosaurs",
+    image: "/assets/images/dinosaurs/tyrannosaurus_rex.svg",
+    fact: "One of the largest land predators, known for its powerful bite."
+  },
+  {
+    id: "triceratops",
+    name: "Triceratops",
+    weight: 6000, // 6,000 kg (approx.)
+    category: "dinosaurs",
+    image: "/assets/images/dinosaurs/triceratops.svg",
+    fact: "A large, horned dinosaur with a distinctive frill, often associated with T. Rex."
+  },
+  {
+    id: "stegosaurus",
+    name: "Stegosaurus",
+    weight: 5000, // 5,000 kg (approx.)
+    category: "dinosaurs",
+    image: "/assets/images/dinosaurs/stegosaurus.svg",
+    fact: "Famous for the plates along its back and a spiked tail called a 'thagomizer'."
+  },
+  {
+    id: "velociraptor",
+    name: "Velociraptor",
+    weight: 15, // 15 kg (approx.)
+    category: "dinosaurs",
+    image: "/assets/images/dinosaurs/velociraptor.svg",
+    fact: "A small, agile predator with a distinctive sickle-shaped claw on each foot."
+  },
+  {
+    id: "brachiosaurus",
+    name: "Brachiosaurus",
+    weight: 50000, // 50,000 kg (approx.)
+    category: "dinosaurs",
+    image: "/assets/images/dinosaurs/brachiosaurus.svg",
+    fact: "One of the tallest and heaviest dinosaurs, known for its long neck and front legs."
+  },
+  {
+    id: "ankylosaurus",
+    name: "Ankylosaurus",
+    weight: 6000, // 6,000 kg (approx.)
+    category: "dinosaurs",
+    image: "/assets/images/dinosaurs/ankylosaurus.svg",
+    fact: "A heavily armored dinosaur with a large club-like tail for defense."
+  },
+  {
+    id: "spinosaurus",
+    name: "Spinosaurus",
+    weight: 7000, // 7,000 kg (approx., can vary widely)
+    category: "dinosaurs",
+    image: "/assets/images/dinosaurs/spinosaurus.svg",
+    fact: "A large, semi-aquatic predator distinguished by its prominent sail-like fin on its back."
+  },
+  {
+    id: "allosaurus",
+    name: "Allosaurus",
+    weight: 2000, // 2,000 kg (approx.)
+    category: "dinosaurs",
+    image: "/assets/images/dinosaurs/allosaurus.svg",
+    fact: "A large, carnivorous theropod from the Late Jurassic period, often considered the 'lion of the Jurassic'."
+  },
+  {
+    id: "diplodocus",
+    name: "Diplodocus",
+    weight: 15000, // 15,000 kg (approx.)
+    category: "dinosaurs",
+    image: "/assets/images/dinosaurs/diplodocus.svg",
+    fact: "A very long-necked sauropod, known for its whip-like tail."
+  },
+  {
+    id: "parasaurolophus",
+    name: "Parasaurolophus",
+    weight: 2500, // 2,500 kg (approx.)
+    category: "dinosaurs",
+    image: "/assets/images/dinosaurs/parasaurolophus.svg",
+    fact: "A hadrosaur known for its elaborate, hollow cranial crest."
+  },
+  {
+    id: "iguanodon",
+    name: "Iguanodon",
+    weight: 4500, // 4,500 kg (approx.)
+    category: "dinosaurs",
+    image: "/assets/images/dinosaurs/iguanodon.svg",
+    fact: "One of the first dinosaurs ever discovered, famous for its thumb spike."
+  },
+  {
+    id: "compsognathus",
+    name: "Compsognathus",
+    weight: 0.8, // 0.8 kg (approx.)
+    category: "dinosaurs",
+    image: "/assets/images/dinosaurs/compsognathus.svg",
+    fact: "One of the smallest known dinosaurs, about the size of a chicken."
+  },
+  {
+    id: "carnotaurus",
+    name: "Carnotaurus",
+    weight: 1500, // 1,500 kg (approx.)
+    category: "dinosaurs",
+    image: "/assets/images/dinosaurs/carnotaurus.svg",
+    fact: "A carnivorous dinosaur distinguished by its two prominent horns above the eyes."
+  },
+  {
+    id: "dilophosaurus",
+    name: "Dilophosaurus",
+    weight: 400, // 400 kg (approx.)
+    category: "dinosaurs",
+    image: "/assets/images/dinosaurs/dilophosaurus.svg",
+    fact: "A predatory dinosaur characterized by two prominent crests on its head."
+  },
+  {
+    id: "gallimimus",
+    name: "Gallimimus",
+    weight: 450, // 450 kg (approx.)
+    category: "dinosaurs",
+    image: "/assets/images/dinosaurs/gallimimus.svg",
+    fact: "A fast, ostrich-like dinosaur that likely ate plants and small animals."
+  },
+
   // New Category: Historical
   {
     id: "roman-legionary-full-kit",
