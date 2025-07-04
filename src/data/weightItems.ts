@@ -447,7 +447,7 @@ export const weightItems: WeightItem[] = [
   {
     id: "brachiosaurus",
     name: "Brachiosaurus",
-    weight: 50000, // 50,000 kg (approx.)
+    weight: 50000, // 40,000 kg (approx.)
     category: "dinosaurs",
     image: "/assets/images/dinosaurs/brachiosaurus.svg",
     fact: "One of the tallest and heaviest dinosaurs, known for its long neck and front legs."
