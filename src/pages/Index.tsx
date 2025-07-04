@@ -1,7 +1,6 @@
-
 import { Button } from "@/components/ui/button";
 import WeightComparison from "@/components/WeightComparison";
-import { Weight, Mail, Info } from "lucide-react";
+import { Weight, Mail, Info, Rocket } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Link } from "react-router-dom";
@@ -12,6 +11,12 @@ const Index = () => {
       <nav className="bg-white border-b border-gray-200 py-3">
         <div className="container mx-auto px-4">
           <div className="flex justify-end gap-2">
+            <Link to="/weight-in-space">
+              <Button variant="outline" size="sm" className="gap-2">
+                <Rocket size={16} />
+                Weight in Space
+              </Button>
+            </Link>
             <Link to="/about">
               <Button variant="outline" size="sm" className="gap-2">
                 <Info size={16} />
@@ -181,7 +186,7 @@ const Index = () => {
             </p>
             
             <p className="text-muted-foreground leading-relaxed">
-              WeightVs.com is dedicated to providing you with **carefully compiled and continuously updated weight data, primarily consisting of estimated and average values.** <br /><br />
+              WeightVs.com is dedicated to providing you with carefully compiled and continuously updated weight data, primarily consisting of estimated and average values. <br /><br />
               We aim to transform the way you perceive and interact with weight information, making it an enjoyable and insightful experience for everyone. <br /><br />
               Start exploring the fascinating world of mass and see how everything measures up!
             </p>
