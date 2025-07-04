@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -329,6 +330,113 @@ const WeightInSpace = () => {
               </CardContent>
             </Card>
           )}
+
+          <Separator className="my-12" />
+
+          {/* Blog Articles Section */}
+          <section className="max-w-4xl mx-auto mb-12">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold mb-4">Explore the Universe of Gravity</h2>
+              <p className="text-lg text-muted-foreground">
+                Dive deeper into the fascinating concepts behind weight and gravity in our solar system and beyond.
+              </p>
+            </div>
+            
+            <Accordion type="single" collapsible className="w-full space-y-4">
+              <AccordionItem value="gravity-basics" className="border border-gray-200 rounded-lg px-6">
+                <AccordionTrigger className="text-left hover:no-underline">
+                  <span className="text-lg font-semibold">Understanding Gravity: The Force That Shapes Your Weight</span>
+                </AccordionTrigger>
+                <AccordionContent className="text-base space-y-4 pt-2">
+                  <p>
+                    Your weight is a direct result of gravity, the invisible force that pulls objects towards each other. 
+                    The more massive a planet, the stronger its gravitational pull, and thus, the more you would weigh on its surface.
+                  </p>
+                  
+                  <div>
+                    <h4 className="font-semibold text-lg mb-2">Mass vs. Weight: A Crucial Distinction</h4>
+                    <p>
+                      While your weight changes from planet to planet, your <strong>mass</strong> remains constant throughout the universe. 
+                      Mass is the amount of matter in your body, whereas weight is the force of gravity acting on that mass.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 className="font-semibold text-lg mb-2">Factors Influencing Gravity</h4>
+                    <ul className="list-disc pl-6 space-y-1">
+                      <li><strong>Mass of the Celestial Body:</strong> Larger planets have stronger gravitational fields.</li>
+                      <li><strong>Distance from the Center:</strong> Gravity weakens with distance, so a planet's size and your position on it matter.</li>
+                    </ul>
+                  </div>
+
+                  <p>
+                    Gravity isn't just about your weight; it's the fundamental force holding galaxies together, 
+                    keeping planets in orbit, and shaping the very structure of the cosmos.
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="solar-system-exploration" className="border border-gray-200 rounded-lg px-6">
+                <AccordionTrigger className="text-left hover:no-underline">
+                  <span className="text-lg font-semibold">Journey Through the Solar System: Gravity's Effects on Exploration</span>
+                </AccordionTrigger>
+                <AccordionContent className="text-base space-y-4 pt-2">
+                  <p>
+                    The varying gravity across our solar system presents unique challenges and opportunities 
+                    for space exploration and future human habitation.
+                  </p>
+                  
+                  <ul className="list-disc pl-6 space-y-2">
+                    <li>
+                      <strong>Astronaut Training:</strong> To prepare for microgravity (like on the ISS) or lower gravity (Moon, Mars), 
+                      astronauts undergo specialized training, including parabolic flights and underwater simulations.
+                    </li>
+                    <li>
+                      <strong>Landing Challenges:</strong> The gravity of a celestial body directly impacts how spacecraft need to be designed for landing. 
+                      On Mars, parachutes and skycranes are vital due to its gravity, while on the Moon, direct engine braking suffices.
+                    </li>
+                    <li>
+                      <strong>Movement on Other Worlds:</strong> Imagine walking on the Moon, where you feel significantly lighter, 
+                      allowing for long, bounding strides. On Mars, you'd feel more grounded but still considerably lighter than on Earth.
+                    </li>
+                    <li>
+                      <strong>Long-Term Habitation:</strong> Scientists are studying the long-term effects of reduced gravity on the human body, 
+                      such as bone density loss and muscle atrophy, which are crucial considerations for future space colonies.
+                    </li>
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="extreme-gravity" className="border border-gray-200 rounded-lg px-6">
+                <AccordionTrigger className="text-left hover:no-underline">
+                  <span className="text-lg font-semibold">Extreme Gravity: Beyond Our Solar System</span>
+                </AccordionTrigger>
+                <AccordionContent className="text-base space-y-4 pt-2">
+                  <p>
+                    While our solar system offers a fascinating range of gravitational experiences, 
+                    the universe holds even more extreme phenomena that stretch our understanding of weight and mass.
+                  </p>
+                  
+                  <ul className="list-disc pl-6 space-y-2">
+                    <li>
+                      <strong>Neutron Stars:</strong> The remnants of massive stars, neutron stars are incredibly dense. 
+                      A teaspoon of neutron star material would weigh billions of tons on Earth, and their surface gravity 
+                      is trillions of times stronger than ours.
+                    </li>
+                    <li>
+                      <strong>Black Holes:</strong> These cosmic enigmas represent the ultimate gravitational pull. 
+                      Their gravity is so immense that nothing, not even light, can escape their grasp beyond a point called the event horizon.
+                    </li>
+                    <li>
+                      <strong>Exoplanets:</strong> Beyond our sun, scientists are discovering countless exoplanets. 
+                      Some are 'super-Earths' with gravities many times higher than ours, while others might be gas giants 
+                      with no solid surface to stand on, or tiny worlds with almost no pull at all.
+                    </li>
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </section>
 
           <Separator className="my-12" />
 
