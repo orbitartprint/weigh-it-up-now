@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import WeightComparison from "@/components/WeightComparison";
 import { Weight, Mail, Info, Rocket } from "lucide-react";
@@ -15,10 +16,9 @@ const Index = () => {
               <h1 className="text-2xl font-bold text-blue-600">WeightVs.com</h1>
             </div>
             <div className="hidden md:flex items-center space-x-6">
-              <a href="#features" className="text-gray-600 hover:text-blue-600 transition-colors">Features</a>
-              <a href="/calculators" className="text-gray-600 hover:text-blue-600 transition-colors">Calculators</a>
-              <a href="#about" className="text-gray-600 hover:text-blue-600 transition-colors">About</a>
-              <a href="/contact" className="text-gray-600 hover:text-blue-600 transition-colors">Contact</a>
+              <Link to="/calculators" className="text-gray-600 hover:text-blue-600 transition-colors">Calculators</Link>
+              <Link to="/about" className="text-gray-600 hover:text-blue-600 transition-colors">About</Link>
+              <Link to="/contact" className="text-gray-600 hover:text-blue-600 transition-colors">Contact</Link>
             </div>
           </div>
         </div>

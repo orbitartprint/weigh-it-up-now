@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -72,20 +71,17 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white border-b border-gray-200 py-3">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center">
-            <Link to="/">
-              <Button variant="outline" size="sm" className="gap-2">
-                <ArrowLeft size={16} />
-                Back to Home
-              </Button>
-            </Link>
-            <Link to="/about">
-              <Button variant="outline" size="sm" className="gap-2">
-                About
-              </Button>
-            </Link>
+      <nav className="bg-white/80 backdrop-blur-sm border-b border-blue-100 sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <Link to="/" className="text-2xl font-bold text-blue-600">WeightVs.com</Link>
+            </div>
+            <div className="hidden md:flex items-center space-x-6">
+              <Link to="/calculators" className="text-gray-600 hover:text-blue-600 transition-colors">Calculators</Link>
+              <Link to="/about" className="text-gray-600 hover:text-blue-600 transition-colors">About</Link>
+              <Link to="/contact" className="text-gray-600 hover:text-blue-600 transition-colors">Contact</Link>
+            </div>
           </div>
         </div>
       </nav>
