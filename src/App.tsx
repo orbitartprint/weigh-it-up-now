@@ -10,6 +10,7 @@ import Legal from "./pages/Legal";
 import Privacy from "./pages/Privacy";
 import Contact from "./pages/Contact";
 import WeightInSpace from "./pages/WeightInSpace";
+import Calculators from "./pages/Calculators";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/weight-in-space" element={<WeightInSpace />} />
+          <Route path="/calculators" element={<Calculators />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

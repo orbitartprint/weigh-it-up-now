@@ -7,28 +7,19 @@ import { Link } from "react-router-dom";
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
-      <nav className="bg-white border-b border-gray-200 py-3">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-end gap-2">
-            <Link to="/weight-in-space">
-              <Button variant="outline" size="sm" className="gap-2">
-                <Rocket size={16} />
-                Weight in Space
-              </Button>
-            </Link>
-            <Link to="/about">
-              <Button variant="outline" size="sm" className="gap-2">
-                <Info size={16} />
-                About
-              </Button>
-            </Link>
-            <Link to="/contact">
-              <Button variant="outline" size="sm" className="gap-2">
-                <Mail size={16} />
-                Contact
-              </Button>
-            </Link>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
+      <nav className="bg-white/80 backdrop-blur-sm border-b border-blue-100 sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <h1 className="text-2xl font-bold text-blue-600">WeightVs.com</h1>
+            </div>
+            <div className="hidden md:flex items-center space-x-6">
+              <a href="#features" className="text-gray-600 hover:text-blue-600 transition-colors">Features</a>
+              <a href="/calculators" className="text-gray-600 hover:text-blue-600 transition-colors">Calculators</a>
+              <a href="#about" className="text-gray-600 hover:text-blue-600 transition-colors">About</a>
+              <a href="/contact" className="text-gray-600 hover:text-blue-600 transition-colors">Contact</a>
+            </div>
           </div>
         </div>
       </nav>
