@@ -95,14 +95,16 @@ const Contact = () => {
               </Link>
               <Link 
                 to="/about" 
-                className="flex items-center space-x-2 px-4 py-2 text-blue-600 bg-blue-50 rounded-lg"
+                className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
               >
-                <span>About</span>
+                <Info size={18} />
+                About
               </Link>
               <Link 
                 to="/contact" 
-                className="text-gray-600 hover:text-blue-600 transition-colors"
+                className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
               >
+                <Mail size={18} />
                 Contact
               </Link>
             </div>
