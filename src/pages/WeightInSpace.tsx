@@ -16,6 +16,7 @@ interface PlanetData {
   gravity_factor: number;
   fact: string;
   image_asset: string;
+  alt_text: string;
 }
 
 const planetData: PlanetData[] = [
