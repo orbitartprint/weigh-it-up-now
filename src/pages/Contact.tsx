@@ -75,12 +75,36 @@ const Contact = () => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
+              <Scale className="h-8 w-8 text-blue-600" />
               <Link to="/" className="text-2xl font-bold text-blue-600">WeightVs.com</Link>
             </div>
             <div className="hidden md:flex items-center space-x-6">
-              <Link to="/calculators" className="text-gray-600 hover:text-blue-600 transition-colors">Calculators</Link>
-              <Link to="/about" className="text-gray-600 hover:text-blue-600 transition-colors">About</Link>
-              <Link to="/contact" className="text-gray-600 hover:text-blue-600 transition-colors">Contact</Link>
+              <Link 
+                to="/calculators" 
+                className="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200"
+              >
+                <Calculator className="h-4 w-4" />
+                <span>Calculators</span>
+              </Link>
+              <Link 
+                to="/weight-in-space" 
+                className="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200"
+              >
+                <Rocket className="h-4 w-4" />
+                <span>Weight in Space</span>
+              </Link>
+              <Link 
+                to="/about" 
+                className="flex items-center space-x-2 px-4 py-2 text-blue-600 bg-blue-50 rounded-lg"
+              >
+                <span>About</span>
+              </Link>
+              <Link 
+                to="/contact" 
+                className="text-gray-600 hover:text-blue-600 transition-colors"
+              >
+                Contact
+              </Link>
             </div>
           </div>
         </div>
