@@ -267,31 +267,31 @@ const Calculators = () => {
           </Tabs>
         </div>
       </div>
-      <footer className="bg-gray-100 py-8">
-        <div className="container mx-auto text-center">
-          <p className="text-sm text-muted-foreground">
-            © 2025 WeightVs.com | For entertainment purposes only
-          </p>
-          <p className="text-xs text-muted-foreground mt-2">
-            All weights are approximate and based on averages
-          </p>
-          <div className="mt-3 space-x-4">
-            <Link 
-              to="/legal" 
-              className="text-xs text-muted-foreground hover:text-foreground underline"
-            >
-              Legal
-            </Link>
-            <Link 
-              to="/privacy" 
-              className="text-xs text-muted-foreground hover:text-foreground underline"
-            >
-              Privacy Policy
-            </Link>
-          </div>
-        </div>
-      </footer>
     </div>
+    <footer className="bg-gray-100 py-8">
+     <div className="container mx-auto text-center">
+       <p className="text-sm text-muted-foreground">
+         © 2025 WeightVs.com | For entertainment purposes only
+      </p>
+      <p className="text-xs text-muted-foreground mt-2">
+        All weights are approximate and based on averages
+       </p>
+       <div className="mt-3 space-x-4">
+        <Link 
+           to="/legal" 
+          className="text-xs text-muted-foreground hover:text-foreground underline"
+         >
+           Legal
+         </Link>
+         <Link 
+           to="/privacy" 
+           className="text-xs text-muted-foreground hover:text-foreground underline"
+        >
+          Privacy Policy
+        </Link>
+      </div>
+    </div>
+  </footer>
   );
 };
 
