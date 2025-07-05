@@ -1,36 +1,41 @@
-import { Button } from "@/components/ui/button";
-import { Weight, Mail, ArrowLeft, Info } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Calculator, Scale, Rocket } from "lucide-react";
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
       <nav className="bg-white/80 backdrop-blur-sm border-b border-blue-100 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
+              <Scale className="h-8 w-8 text-blue-600" />
               <Link to="/" className="text-2xl font-bold text-blue-600">WeightVs.com</Link>
             </div>
-            <div className="hidden md:flex items-center space-x-4">
+            <div className="hidden md:flex items-center space-x-6">
               <Link 
                 to="/calculators" 
-                className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
+                className="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200"
               >
-                <Rocket size={18} />
-                Calculators
+                <Calculator className="h-4 w-4" />
+                <span>Calculators</span>
+              </Link>
+              <Link 
+                to="/weight-in-space" 
+                className="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200"
+              >
+                <Rocket className="h-4 w-4" />
+                <span>Weight in Space</span>
               </Link>
               <Link 
                 to="/about" 
-                className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
+                className="flex items-center space-x-2 px-4 py-2 text-blue-600 bg-blue-50 rounded-lg"
               >
-                <Info size={18} />
-                About
+                <span>About</span>
               </Link>
               <Link 
                 to="/contact" 
-                className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
+                className="text-gray-600 hover:text-blue-600 transition-colors"
               >
-                <Mail size={18} />
                 Contact
               </Link>
             </div>
@@ -38,83 +43,78 @@ const About = () => {
         </div>
       </nav>
 
-      <header className="bg-gradient-to-r from-weightBlue-light to-weightBlue-dark py-8 mb-8">
-        <div className="container mx-auto text-center">
-          <div className="flex items-center justify-center gap-2 mb-3">
-            <Weight size={36} className="text-white" />
-            <h1 className="text-3xl md:text-4xl font-bold text-white">
-              About WeightVs.com
-            </h1>
+      <div className="container mx-auto px-4 py-12">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-4xl font-bold text-center text-gray-900 mb-6">
+            About WeightVs.com
+          </h1>
+          <p className="text-lg text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+            Welcome to WeightVs.com, your go-to destination for fun and informative weight comparisons!
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Our Mission */}
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <h2 className="text-2xl font-semibold text-gray-800 mb-4">Our Mission</h2>
+              <p className="text-gray-700 leading-relaxed">
+                At WeightVs.com, our mission is to provide entertaining and educational weight comparisons. We aim to spark curiosity and offer insights into the relative weights of everyday objects and extraordinary things.
+              </p>
+            </div>
+
+            {/* What We Offer */}
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <h2 className="text-2xl font-semibold text-gray-800 mb-4">What We Offer</h2>
+              <ul className="list-disc list-inside text-gray-700 leading-relaxed">
+                <li>Fun and engaging weight comparison tools</li>
+                <li>Informative articles about weight-related topics</li>
+                <li>A user-friendly experience on all devices</li>
+              </ul>
+            </div>
           </div>
-          <p className="text-xl text-white opacity-90">
-            Your Ultimate Weight Comparison Tool
-          </p>
-        </div>
-      </header>
 
-      <main className="container mx-auto max-w-4xl px-4 pb-16">
-        <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
-          <p className="text-lg mb-6">
-            Welcome to <strong>WeightVs.com</strong>, the leading online platform designed to make understanding and comparing weights incredibly easy and engaging. Ever wondered how your weight stacks up against an African Elephant, a celebrity, or even a specific building? Our intuitive tool brings these fascinating comparisons to life, transforming abstract numbers into vivid, visual insights, **using carefully compiled estimated and average weights.**
-          </p>
-
-          <p className="text-lg mb-6">
-            At WeightVs.com, we believe that learning about the world's diverse masses should be fun and accessible. Whether you're a curious mind looking for entertaining facts, a student seeking a better grasp of real-world measurements, or simply a weight enthusiast, our platform is built for you. We provide a vast database of carefully researched weights across various categories, including:
-          </p>
-
-          <ul className="list-disc list-inside space-y-2 mb-6 text-lg">
-            <li><strong>Animals:</strong> From tiny hummingbirds to colossal blue whales.</li>
-            <li><strong>Celebrities:</strong> See how you compare to your favorite stars.</li>
-            <li><strong>Everyday Objects & Vehicles:</strong> From smartphones to massive trucks.</li>
-            <li><strong>Historical Figures & Structures:</strong> Discover the weight of ancient artifacts or legendary figures.</li>
-            <li><strong>Micro-Objects:</strong> Explore the incredibly light world of viruses and atoms.</li>
-            <li><strong>Buildings & Infrastructure:</strong> Grasp the immense scale of famous landmarks.</li>
-          </ul>
-
-          <p className="text-lg mb-6">
-            Our unique visualization tools, including an interactive scale and dynamic bar charts, provide an unparalleled user experience. Forget tedious calculations – simply enter your weight and select any items from our comprehensive database. Watch instantly as your weight is compared, offering surprising perspectives and shareable moments.
-          </p>
-
-          <p className="text-lg mb-8">
-            WeightVs.com is more than just a comparison site; it's a gateway to discovery. We're continuously expanding our collection of intriguing weights and facts to ensure you always find something new and surprising. Get ready to explore the fascinating world of weight in a whole new dimension – it's simple, insightful, and incredibly fun!
-          </p>
-        </div>
-
-        <div className="bg-white rounded-lg shadow-sm p-8">
-          <h2 className="text-2xl font-bold mb-6">How to Use This Tool</h2>
-          
-          <p className="text-lg mb-6">
-            Getting started with WeightVs.com is simple and intuitive. Follow these steps to discover amazing weight comparisons:
-          </p>
-
-          <ul className="list-disc list-inside space-y-3 text-lg">
-            <li><strong>Enter your weight:</strong> Use the input field on the main page to enter your weight in either kilograms or pounds. Toggle between units using the KG/LBS switch.</li>
-            <li><strong>Choose your position:</strong> Click the toggle button to place your weight on either the left or right side of the comparison scale.</li>
-            <li><strong>Select comparison categories:</strong> Browse through our extensive categories including Animals, Celebrities, Objects, Vehicles, Historical figures, and more using the category dropdown.</li>
-            <li><strong>Add items to compare:</strong> Select specific items from your chosen category and click "Add Item" to include them in your comparison. You can add up to 10 items at once!</li>
-            <li><strong>Create custom objects:</strong> Switch to the "Custom" category to create your own comparison objects. Enter a name and weight for any item you want to compare against.</li>
-            <li><strong>Arrange items on the scale:</strong> Use the left/right arrow buttons on each item to move them between the left and right sides of the scale for balanced comparisons.</li>
-            <li><strong>Switch between views:</strong> Toggle between the dynamic bar chart and interactive scale visualization to see your comparisons from different perspectives.</li>
-            <li><strong>Remove items:</strong> Use the 'X' button on any item to remove it from your current comparison.</li>
-            <li><strong>Share your discoveries:</strong> Click the "Share This Comparison" button to share your amazing weight discoveries on social media, via email, or by copying the link.</li>
-          </ul>
-
-          <div className="mt-8 p-4 bg-blue-50 rounded-lg">
-            <p className="text-lg">
-              <strong>Pro Tip:</strong> Try combining multiple small objects on one side to see how many it takes to match a single large item on the other side. You might be surprised by the results!
+          {/* Our Team */}
+          <div className="mt-12">
+            <h2 className="text-3xl font-bold text-center text-gray-900 mb-6">Our Team</h2>
+            <p className="text-lg text-gray-600 text-center mb-8 max-w-2xl mx-auto">
+              WeightVs.com is created by a team of passionate developers and content creators dedicated to making learning about weight fun and accessible.
             </p>
-          </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Team Member 1 */}
+              <div className="bg-white rounded-lg shadow-md p-4 text-center">
+                <img
+                  src="https://via.placeholder.com/150"
+                  alt="Team Member"
+                  className="rounded-full w-24 h-24 mx-auto mb-4"
+                />
+                <h3 className="text-xl font-semibold text-gray-800">John Doe</h3>
+                <p className="text-gray-600">Lead Developer</p>
+              </div>
 
-          <div className="mt-8 text-center">
-            <Link to="/">
-              <Button size="lg" className="gap-2">
-                <Weight size={20} />
-                Start Comparing Now
-              </Button>
-            </Link>
+              {/* Team Member 2 */}
+              <div className="bg-white rounded-lg shadow-md p-4 text-center">
+                <img
+                  src="https://via.placeholder.com/150"
+                  alt="Team Member"
+                  className="rounded-full w-24 h-24 mx-auto mb-4"
+                />
+                <h3 className="text-xl font-semibold text-gray-800">Jane Smith</h3>
+                <p className="text-gray-600">Content Creator</p>
+              </div>
+
+              {/* Team Member 3 */}
+              <div className="bg-white rounded-lg shadow-md p-4 text-center">
+                <img
+                  src="https://via.placeholder.com/150"
+                  alt="Team Member"
+                  className="rounded-full w-24 h-24 mx-auto mb-4"
+                />
+                <h3 className="text-xl font-semibold text-gray-800">Mike Johnson</h3>
+                <p className="text-gray-600">UI/UX Designer</p>
+              </div>
+            </div>
           </div>
         </div>
-      </main>
+      </div>
 
       <footer className="bg-gray-100 py-8">
         <div className="container mx-auto text-center">
@@ -125,6 +125,12 @@ const About = () => {
             All weights are approximate and based on averages
           </p>
           <div className="mt-3 space-x-4">
+            <Link 
+              to="/about" 
+              className="text-xs text-muted-foreground hover:text-foreground underline"
+            >
+              About
+            </Link>
             <Link 
               to="/legal" 
               className="text-xs text-muted-foreground hover:text-foreground underline"
