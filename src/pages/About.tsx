@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Calculator, Scale, Rocket } from "lucide-react";
+import { Calculator, Scale, Weight, Mail, Info, Rocket } from "lucide-react";
 
 const About = () => {
   return (
