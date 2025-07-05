@@ -16,6 +16,16 @@ serve(async (req) => {
   try {
     const { bmiValue, bmiCategory, age, gender } = await req.json();
 
+    // Get the API key from environment
+    const apiKey = Deno.env.get('OPENROUTER_API_KEY') || Deno.env.get('DEEPSEEK_API_KEY');
+    
+    if (!apiKey) {
+      console.error('No API key found. Please set OPENROUTER_API_KEY in Supabase secrets.');
+      throw new Error('API key not configured');
+    }
+
+    console.log('Making request to OpenRouter API...');
+
     const messages = [
       {
         "role": "user",
@@ -26,22 +36,30 @@ serve(async (req) => {
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${Deno.env.get('DEEPSEEK_API_KEY')}`,
+        "Authorization": `Bearer ${apiKey}`,
         "HTTP-Referer": "https://www.weightvs.com",
         "X-Title": "WeightVs.com",
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
         "model": "deepseek/deepseek-r1:free",
-        "messages": messages
+        "messages": messages,
+        "temperature": 0.7,
+        "max_tokens": 150
       })
     });
 
+    console.log('OpenRouter API response status:', response.status);
+
     if (!response.ok) {
-      throw new Error(`API error: ${response.status} ${response.statusText}`);
+      const errorText = await response.text();
+      console.error('OpenRouter API error:', response.status, errorText);
+      throw new Error(`OpenRouter API error: ${response.status} ${response.statusText}`);
     }
 
     const data = await response.json();
+    console.log('OpenRouter API response received');
+    
     const insight = data.choices[0]?.message?.content || "Could not generate personalized insight.";
 
     return new Response(JSON.stringify({ insight }), {
