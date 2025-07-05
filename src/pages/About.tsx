@@ -11,10 +11,28 @@ const About = () => {
             <div className="flex items-center space-x-2">
               <Link to="/" className="text-2xl font-bold text-blue-600">WeightVs.com</Link>
             </div>
-            <div className="hidden md:flex items-center space-x-6">
-              <Link to="/calculators" className="text-gray-600 hover:text-blue-600 transition-colors">Calculators</Link>
-              <Link to="/about" className="text-gray-600 hover:text-blue-600 transition-colors">About</Link>
-              <Link to="/contact" className="text-gray-600 hover:text-blue-600 transition-colors">Contact</Link>
+            <div className="hidden md:flex items-center space-x-4">
+              <Link 
+                to="/calculators" 
+                className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
+              >
+                <Rocket size={18} />
+                Calculators
+              </Link>
+              <Link 
+                to="/about" 
+                className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
+              >
+                <Info size={18} />
+                About
+              </Link>
+              <Link 
+                to="/contact" 
+                className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
+              >
+                <Mail size={18} />
+                Contact
+              </Link>
             </div>
           </div>
         </div>
