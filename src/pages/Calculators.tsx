@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "@/hooks/use-toast";
+import { Link } from "react-router-dom";
 
 const Calculators = () => {
   const [weight, setWeight] = useState("");
@@ -108,6 +109,21 @@ const Calculators = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
+      <nav className="bg-white/80 backdrop-blur-sm border-b border-blue-100 sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <Link to="/" className="text-2xl font-bold text-blue-600">WeightVs.com</Link>
+            </div>
+            <div className="hidden md:flex items-center space-x-6">
+              <Link to="/calculators" className="text-gray-600 hover:text-blue-600 transition-colors">Calculators</Link>
+              <Link to="/about" className="text-gray-600 hover:text-blue-600 transition-colors">About</Link>
+              <Link to="/contact" className="text-gray-600 hover:text-blue-600 transition-colors">Contact</Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold text-center text-gray-900 mb-6">
