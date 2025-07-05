@@ -313,7 +313,7 @@ const WeightInSpace = () => {
                       <img
                         id="planetImageDisplay"
                         src={currentPlanet.image_asset}
-                        alt={currentPlanet.name}
+                        alt={currentPlanet.alt_text}
                         className="w-48 h-48 md:w-64 md:h-64 object-contain rounded-full mx-auto shadow-lg"
                       />
                       {/* Woman image */}
