@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -12,11 +12,13 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 
 const Calculators = () => {
+  // Shared state for weight and height across calculators
+  const [sharedWeight, setSharedWeight] = useState("");
+  const [sharedHeight, setSharedHeight] = useState("");
+  const [sharedWeightUnit, setSharedWeightUnit] = useState("kg");
+  const [sharedHeightUnit, setSharedHeightUnit] = useState("cm");
+
   // BMI Calculator state
-  const [weight, setWeight] = useState("");
-  const [height, setHeight] = useState("");
-  const [weightUnit, setWeightUnit] = useState("kg");
-  const [heightUnit, setHeightUnit] = useState("cm");
   const [bmiResult, setBmiResult] = useState<{
     value: number;
     category: string;
@@ -27,10 +29,6 @@ const Calculators = () => {
   // Daily Calorie Calculator state
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
-  const [calorieWeight, setCalorieWeight] = useState("");
-  const [calorieHeight, setCalorieHeight] = useState("");
-  const [calorieWeightUnit, setCalorieWeightUnit] = useState("kg");
-  const [calorieHeightUnit, setCalorieHeightUnit] = useState("cm");
   const [activityLevel, setActivityLevel] = useState([3]); // Default to moderately active
   const [weightGoal, setWeightGoal] = useState("");
   const [calorieResult, setCalorieResult] = useState<{
@@ -59,10 +57,10 @@ const Calculators = () => {
   };
 
   const calculateBMI = async () => {
-    const weightNum = parseFloat(weight);
-    const heightNum = parseFloat(height);
+    const weightNum = parseFloat(sharedWeight);
+    const heightNum = parseFloat(sharedHeight);
 
-    if (!weight || !height || isNaN(weightNum) || isNaN(heightNum) || weightNum <= 0 || heightNum <= 0) {
+    if (!sharedWeight || !sharedHeight || isNaN(weightNum) || isNaN(heightNum) || weightNum <= 0 || heightNum <= 0) {
       toast({
         title: "Invalid Input",
         description: "Please enter valid positive numbers for both weight and height.",
@@ -72,14 +70,14 @@ const Calculators = () => {
     }
 
     let weightInKg = weightNum;
-    if (weightUnit === "lbs") {
+    if (sharedWeightUnit === "lbs") {
       weightInKg = weightNum * 0.453592;
     }
 
     let heightInM = heightNum;
-    if (heightUnit === "cm") {
+    if (sharedHeightUnit === "cm") {
       heightInM = heightNum / 100;
-    } else if (heightUnit === "in") {
+    } else if (sharedHeightUnit === "in") {
       heightInM = (heightNum * 2.54) / 100;
     }
 
@@ -122,10 +120,10 @@ const Calculators = () => {
 
   const calculateCalories = async () => {
     const ageNum = parseFloat(age);
-    const weightNum = parseFloat(calorieWeight);
-    const heightNum = parseFloat(calorieHeight);
+    const weightNum = parseFloat(sharedWeight);
+    const heightNum = parseFloat(sharedHeight);
 
-    if (!age || !gender || !calorieWeight || !calorieHeight || 
+    if (!age || !gender || !sharedWeight || !sharedHeight || 
         isNaN(ageNum) || isNaN(weightNum) || isNaN(heightNum) || 
         ageNum <= 0 || weightNum <= 0 || heightNum <= 0) {
       toast({
@@ -137,12 +135,12 @@ const Calculators = () => {
     }
 
     let weightInKg = weightNum;
-    if (calorieWeightUnit === "lbs") {
+    if (sharedWeightUnit === "lbs") {
       weightInKg = weightNum * 0.453592;
     }
 
     let heightInCm = heightNum;
-    if (calorieHeightUnit === "in") {
+    if (sharedHeightUnit === "in") {
       heightInCm = heightNum * 2.54;
     }
 
@@ -281,12 +279,12 @@ const Calculators = () => {
                           id="weight"
                           type="number"
                           placeholder="Enter your weight"
-                          value={weight}
-                          onChange={(e) => setWeight(e.target.value)}
+                          value={sharedWeight}
+                          onChange={(e) => setSharedWeight(e.target.value)}
                           className="text-lg"
                         />
                       </div>
-                      <RadioGroup value={weightUnit} onValueChange={setWeightUnit} className="flex gap-4">
+                      <RadioGroup value={sharedWeightUnit} onValueChange={setSharedWeightUnit} className="flex gap-4">
                         <div className="flex items-center space-x-2">
                           <RadioGroupItem value="kg" id="kg" />
                           <Label htmlFor="kg">kg</Label>
@@ -307,12 +305,12 @@ const Calculators = () => {
                           id="height"
                           type="number"
                           placeholder="Enter your height"
-                          value={height}
-                          onChange={(e) => setHeight(e.target.value)}
+                          value={sharedHeight}
+                          onChange={(e) => setSharedHeight(e.target.value)}
                           className="text-lg"
                         />
                       </div>
-                      <RadioGroup value={heightUnit} onValueChange={setHeightUnit} className="flex gap-4">
+                      <RadioGroup value={sharedHeightUnit} onValueChange={setSharedHeightUnit} className="flex gap-4">
                         <div className="flex items-center space-x-2">
                           <RadioGroupItem value="cm" id="cm" />
                           <Label htmlFor="cm">cm</Label>
@@ -426,12 +424,12 @@ const Calculators = () => {
                           id="calorie-weight"
                           type="number"
                           placeholder="Enter your weight"
-                          value={calorieWeight}
-                          onChange={(e) => setCalorieWeight(e.target.value)}
+                          value={sharedWeight}
+                          onChange={(e) => setSharedWeight(e.target.value)}
                           className="text-lg"
                         />
                       </div>
-                      <RadioGroup value={calorieWeightUnit} onValueChange={setCalorieWeightUnit} className="flex gap-4">
+                      <RadioGroup value={sharedWeightUnit} onValueChange={setSharedWeightUnit} className="flex gap-4">
                         <div className="flex items-center space-x-2">
                           <RadioGroupItem value="kg" id="cal-kg" />
                           <Label htmlFor="cal-kg">kg</Label>
@@ -452,12 +450,12 @@ const Calculators = () => {
                           id="calorie-height"
                           type="number"
                           placeholder="Enter your height"
-                          value={calorieHeight}
-                          onChange={(e) => setCalorieHeight(e.target.value)}
+                          value={sharedHeight}
+                          onChange={(e) => setSharedHeight(e.target.value)}
                           className="text-lg"
                         />
                       </div>
-                      <RadioGroup value={calorieHeightUnit} onValueChange={setCalorieHeightUnit} className="flex gap-4">
+                      <RadioGroup value={sharedHeightUnit} onValueChange={setSharedHeightUnit} className="flex gap-4">
                         <div className="flex items-center space-x-2">
                           <RadioGroupItem value="cm" id="cal-cm" />
                           <Label htmlFor="cal-cm">cm</Label>
