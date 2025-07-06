@@ -1,10 +1,10 @@
-
 import { Button } from "@/components/ui/button";
 import WeightComparison from "@/components/WeightComparison";
-import { Calculator, Scale, Weight, Mail, Info, Rocket } from "lucide-react";
+import { Calculator, Scale, Weight, Mail, Info, Rocket, Home } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Link } from "react-router-dom";
+import MobileNavigation from "@/components/MobileNavigation";
 
 const Index = () => {
   return (
@@ -46,6 +46,7 @@ const Index = () => {
                 Contact
               </Link>
             </div>
+            <MobileNavigation />
           </div>
         </div>
       </nav>

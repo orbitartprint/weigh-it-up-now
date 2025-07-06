@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Menu, X, Calculator, Rocket, Info, Mail } from "lucide-react";
+import { Menu, X, Calculator, Rocket, Info, Mail, Home } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
@@ -9,6 +9,11 @@ const MobileNavigation = () => {
   const location = useLocation();
 
   const navItems = [
+    {
+      to: "/",
+      icon: Home,
+      label: "Home"
+    },
     {
       to: "/calculators",
       icon: Calculator,
