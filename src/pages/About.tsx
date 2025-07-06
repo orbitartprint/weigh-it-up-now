@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Calculator, Scale, Weight, Mail, Info, Rocket } from "lucide-react";
 import { Link } from "react-router-dom";
+import MobileNavigation from "@/components/MobileNavigation";
 
 const About = () => {
   return (
@@ -43,6 +44,7 @@ const About = () => {
                 Contact
               </Link>
             </div>
+            <MobileNavigation />
           </div>
         </div>
       </nav>

@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Calculator, Scale, Weight, Mail, Info, Rocket } from "lucide-react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import MobileNavigation from "@/components/MobileNavigation";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -108,6 +110,7 @@ const Contact = () => {
                 Contact
               </Link>
             </div>
+            <MobileNavigation />
           </div>
         </div>
       </nav>
