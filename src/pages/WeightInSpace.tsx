@@ -7,8 +7,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Separator } from "@/components/ui/separator";
-import { Calculator, Scale, Weight, Mail, Info, Rocket } from "lucide-react";
+import { Calculator, Scale, Weight, Mail, Info, Rocket, Home } from "lucide-react";
 import { Link } from "react-router-dom";
+import MobileNavigation from "@/components/MobileNavigation";
 
 interface PlanetData {
   id: string;
@@ -177,6 +178,7 @@ const WeightInSpace = () => {
                 Contact
               </Link>
             </div>
+            <MobileNavigation />
           </div>
         </div>
       </nav>
