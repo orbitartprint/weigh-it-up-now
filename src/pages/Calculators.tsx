@@ -9,6 +9,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Slider } from "@/components/ui/slider";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 
 const Calculators = () => {
   // BMI Calculator state
@@ -89,22 +90,24 @@ const Calculators = () => {
 
     setIsLoadingInsight(true);
     try {
-      const response = await fetch('/api/bmi-insight', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+      console.log('Calling BMI insight function...');
+      const { data, error } = await supabase.functions.invoke('bmi-insight', {
+        body: {
           bmiValue: bmi,
           bmiCategory: category,
-        }),
+        },
       });
 
-      if (response.ok) {
-        const data = await response.json();
+      console.log('BMI insight response:', { data, error });
+
+      if (error) {
+        throw error;
+      }
+
+      if (data && data.insight) {
         setBmiResult(prev => prev ? { ...prev, insight: data.insight } : null);
       } else {
-        throw new Error('Failed to get insight');
+        throw new Error('No insight received');
       }
     } catch (error) {
       console.error('Error getting personalized insight:', error);
@@ -157,24 +160,26 @@ const Calculators = () => {
 
     setIsLoadingAdvice(true);
     try {
-      const response = await fetch('/api/calorie-advice', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+      console.log('Calling calorie advice function...');
+      const { data, error } = await supabase.functions.invoke('calorie-advice', {
+        body: {
           age: ageNum,
           gender,
           tdeeValue: tdee,
           weightGoal: weightGoal || "Maintain Weight",
-        }),
+        },
       });
 
-      if (response.ok) {
-        const data = await response.json();
+      console.log('Calorie advice response:', { data, error });
+
+      if (error) {
+        throw error;
+      }
+
+      if (data && data.advice) {
         setCalorieResult(prev => prev ? { ...prev, advice: data.advice } : null);
       } else {
-        throw new Error('Failed to get advice');
+        throw new Error('No advice received');
       }
     } catch (error) {
       console.error('Error getting personalized advice:', error);

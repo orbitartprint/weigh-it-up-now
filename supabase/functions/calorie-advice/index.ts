@@ -15,6 +15,8 @@ serve(async (req) => {
 
   try {
     const { age, gender, tdeeValue, weightGoal } = await req.json();
+    
+    console.log('Calorie advice request:', { age, gender, tdeeValue, weightGoal });
 
     // Get the API key from environment
     const apiKey = Deno.env.get('OPENROUTER_API_KEY');
