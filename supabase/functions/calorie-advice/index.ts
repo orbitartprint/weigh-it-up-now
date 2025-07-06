@@ -47,7 +47,7 @@ serve(async (req) => {
         "model": "deepseek/deepseek-r1:free",
         "messages": messages,
         "temperature": 0.7,
-        "max_tokens": 200,
+        "max_tokens": 300,
         "top_p": 1.0,
         "frequency_penalty": 0,
         "presence_penalty": 0
