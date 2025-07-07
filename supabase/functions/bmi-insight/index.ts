@@ -15,16 +15,18 @@ serve(async (req) => {
 
   try {
     const { bmiValue, bmiCategory, age, gender } = await req.json();
+    
+    console.log('BMI insight request:', { bmiValue, bmiCategory, age, gender });
 
     // Get the API key from environment
-    const apiKey = Deno.env.get('OPENROUTER_API_KEY') || Deno.env.get('DEEPSEEK_API_KEY');
+    const apiKey = Deno.env.get('OPENROUTER_API_KEY');
     
     if (!apiKey) {
       console.error('No API key found. Please set OPENROUTER_API_KEY in Supabase secrets.');
       throw new Error('API key not configured');
     }
 
-    console.log('Making request to OpenRouter API...');
+    console.log('Making request to OpenRouter API for BMI insight...');
 
     const messages = [
       {
@@ -42,10 +44,13 @@ serve(async (req) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        "model": "deepseek/deepseek-r1:free",
+        "model": "anthropic/claude-3-haiku:beta",
         "messages": messages,
-        "temperature": 0.7,
-        "max_tokens": 150
+        "temperature": 0.3,
+        "max_tokens": 200,
+        "top_p": 0.9,
+        "frequency_penalty": 0.1,
+        "presence_penalty": 0.1
       })
     });
 
@@ -58,9 +63,18 @@ serve(async (req) => {
     }
 
     const data = await response.json();
-    console.log('OpenRouter API response received');
+    console.log('OpenRouter API response received for BMI insight');
     
-    const insight = data.choices[0]?.message?.content || "Could not generate personalized insight.";
+    let insight = data.choices?.[0]?.message?.content;
+    
+    if (!insight || insight.trim().length === 0) {
+      console.error('Empty or missing insight content:', data);
+      insight = "Sorry, we couldn't generate a personalized insight at the moment. Please try again later.";
+    } else {
+      // Clean up the insight text
+      insight = insight.trim();
+      console.log('Generated insight length:', insight.length);
+    }
 
     return new Response(JSON.stringify({ insight }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
