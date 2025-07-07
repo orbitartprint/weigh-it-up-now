@@ -7,10 +7,13 @@ import { Button } from "@/components/ui/button";
 import { Calculator, Scale, Weight, Mail, Info, Rocket } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Slider } from "@/components/ui/slider";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import MobileNavigation from "@/components/MobileNavigation";
+import { averageWeightMen, averageWeightWomen, getAllCountries } from "@/data/averageWeightData";
+import { calculateWeightPercentile } from "@/utils/statistics";
 
 const Calculators = () => {
   // Shared state for weight and height across calculators
@@ -38,6 +41,16 @@ const Calculators = () => {
     advice?: string;
   } | null>(null);
   const [isLoadingAdvice, setIsLoadingAdvice] = useState(false);
+
+  // Weight Percentile Calculator state
+  const [percentileGender, setPercentileGender] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [percentileResult, setPercentileResult] = useState<{
+    percentile: number;
+    meanWeight: number;
+    insight?: string;
+  } | null>(null);
+  const [isLoadingPercentileInsight, setIsLoadingPercentileInsight] = useState(false);
 
   const { toast } = useToast();
 
@@ -199,6 +212,84 @@ const Calculators = () => {
     }
   };
 
+  const calculatePercentile = async (e?: React.FormEvent) => {
+    if (e) {
+      e.preventDefault();    
+    }
+
+    const weightNum = parseFloat(sharedWeight);
+
+    if (!sharedWeight || !percentileGender || !selectedCountry || 
+        isNaN(weightNum) || weightNum <= 0) {
+      toast({
+        title: "Invalid Input",
+        description: "Please enter a valid weight, select your gender, and choose a country.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    let weightInKg = weightNum;
+    if (sharedWeightUnit === "lbs") {
+      weightInKg = weightNum * 0.453592;
+    }
+
+    // Get the appropriate average weight based on gender and country
+    const weightData = percentileGender === "Male" ? averageWeightMen : averageWeightWomen;
+    const countryData = weightData.find(data => data.country === selectedCountry);
+
+    if (!countryData) {
+      toast({
+        title: "Data Not Found",
+        description: "Average weight data for the selected country and gender is not available.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const meanWeight = countryData.averageWeightKg;
+    const standardDeviation = 15.4; // Fixed standard deviation in kg
+    const percentile = calculateWeightPercentile(weightInKg, meanWeight, standardDeviation);
+
+    setPercentileResult({ percentile, meanWeight });
+
+    // Get AI insight
+    setIsLoadingPercentileInsight(true);
+    try {
+      console.log('Calling weight percentile insight function...');
+      const { data, error } = await supabase.functions.invoke('weight-percentile-insight', {
+        body: {
+          userWeightKg: weightInKg,
+          gender: percentileGender,
+          country: selectedCountry,
+          percentile,
+          meanWeightKg: meanWeight,
+          stdDevKg: standardDeviation,
+        },
+      });
+
+      console.log('Weight percentile insight response:', { data, error });
+
+      if (error) {
+        throw error;
+      }
+
+      if (data && data.insight) {
+        setPercentileResult(prev => prev ? { ...prev, insight: data.insight } : null);
+      } else {
+        throw new Error('No insight received');
+      }
+    } catch (error) {
+      console.error('Error getting personalized percentile insight:', error);
+      setPercentileResult(prev => prev ? { 
+        ...prev, 
+        insight: "Sorry, we couldn't generate a personalized insight at the moment. Please try again later." 
+      } : null);
+    } finally {
+      setIsLoadingPercentileInsight(false);
+    }
+  };
+
   const getBMIColor = (bmi: number): string => {
     if (bmi < 18.5) return "bg-blue-400";
     if (bmi <= 24.9) return "bg-green-400";
@@ -269,7 +360,7 @@ const Calculators = () => {
             <TabsList className="grid w-full grid-cols-3 mb-8">
               <TabsTrigger value="bmi">BMI Calculator</TabsTrigger>
               <TabsTrigger value="calories">Daily Calorie Needs</TabsTrigger>
-              <TabsTrigger value="percentile" disabled>Weight Percentile</TabsTrigger>
+              <TabsTrigger value="percentile">Weight Percentile</TabsTrigger>
             </TabsList>
 
             <TabsContent value="bmi">
@@ -566,6 +657,122 @@ const Calculators = () => {
                         <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
                           <p className="text-sm text-gray-700">
                             <strong>Please note:</strong> These calculations are estimates and do not account for individual metabolic rates, specific health conditions, or unique dietary needs. Consult a healthcare professional or registered dietitian for personalized advice.
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </form>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="percentile">
+              <Card className="w-full">
+                <CardHeader>
+                  <CardTitle className="text-2xl">Weight Percentile & Comparison</CardTitle>
+                  <CardDescription>
+                    Ever wondered how your weight compares to others in your country or region? This tool helps you see where you stand based on average data for men and women, assuming a normal distribution. Get a unique perspective on your weight journey.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <form onSubmit={calculatePercentile} className="space-y-6">
+                    <div className="space-y-4">
+                      <Label htmlFor="percentile-weight" className="text-lg font-medium">Your Weight</Label>
+                      <div className="flex gap-4 items-end">
+                        <div className="flex-1">
+                          <Input
+                            id="percentile-weight"
+                            type="number"
+                            placeholder="Enter your weight"
+                            value={sharedWeight}
+                            onChange={(e) => setSharedWeight(e.target.value)}
+                            className="text-lg"
+                          />
+                        </div>
+                        <RadioGroup value={sharedWeightUnit} onValueChange={setSharedWeightUnit} className="flex gap-4">
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="kg" id="perc-kg" />
+                            <Label htmlFor="perc-kg">kg</Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="lbs" id="perc-lbs" />
+                            <Label htmlFor="perc-lbs">lbs</Label>
+                          </div>
+                        </RadioGroup>
+                      </div>
+                    </div>
+
+                    <div className="space-y-4">
+                      <Label className="text-lg font-medium">Your Gender</Label>
+                      <RadioGroup value={percentileGender} onValueChange={setPercentileGender} className="flex gap-6">
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="Male" id="perc-male" />
+                          <Label htmlFor="perc-male">Male</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="Female" id="perc-female" />
+                          <Label htmlFor="perc-female">Female</Label>
+                        </div>
+                      </RadioGroup>
+                    </div>
+
+                    <div className="space-y-4">
+                      <Label className="text-lg font-medium">Select Country/Region</Label>
+                      <Select value={selectedCountry} onValueChange={setSelectedCountry}>
+                        <SelectTrigger className="text-lg">
+                          <SelectValue placeholder="Choose your country/region" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {getAllCountries().map((country) => (
+                            <SelectItem key={country} value={country}>
+                              {country}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <Button type="submit" className="w-full text-lg py-6" size="lg">
+                      Calculate Percentile
+                    </Button>
+
+                    {percentileResult && (
+                      <div className="space-y-6 pt-6 border-t">
+                        <div className="text-center space-y-2">
+                          <h3 className="text-2xl font-bold">
+                            You are in the {percentileResult.percentile}th Percentile
+                          </h3>
+                          <p className="text-lg text-gray-600">
+                            for a {percentileGender} in {selectedCountry}
+                          </p>
+                        </div>
+
+                        <div className="bg-gray-50 p-6 rounded-lg">
+                          <p className="text-gray-700 leading-relaxed">
+                            This means your weight is equal to or greater than {percentileResult.percentile}% of {percentileGender.toLowerCase()}s in {selectedCountry} based on average data and a normal distribution (mean: {percentileResult.meanWeight.toFixed(1)} kg, std dev: 15.4 kg).
+                          </p>
+                        </div>
+
+                        <div className="bg-purple-50 p-6 rounded-lg">
+                          <h4 className="text-lg font-semibold mb-3">Your Personalized Insight</h4>
+                          {isLoadingPercentileInsight ? (
+                            <div className="flex items-center gap-2">
+                              <div className="animate-spin w-4 h-4 border-2 border-purple-500 border-t-transparent rounded-full"></div>
+                              <span className="text-gray-600">Generating personalized insight...</span>
+                            </div>
+                          ) : (
+                            <div className="space-y-3">
+                              <p className="text-gray-700 leading-relaxed">{percentileResult.insight}</p>
+                              <p className="text-xs text-gray-500 italic">
+                                This insight is generated by AI and is for informational purposes only. It is not medical advice or a comprehensive health assessment. Always consult a healthcare professional for personalized guidance.
+                              </p>
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
+                          <p className="text-sm text-gray-700">
+                            <strong>Please note:</strong> This calculation is based on average data and assumptions of a normal distribution and a fixed standard deviation. Individual factors like age, body composition, and specific health conditions are not considered. This tool is for informational purposes only and not medical advice.
                           </p>
                         </div>
                       </div>
