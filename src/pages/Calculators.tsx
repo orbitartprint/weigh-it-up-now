@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -58,7 +57,11 @@ const Calculators = () => {
     return "Obese";
   };
 
-  const calculateBMI = async () => {
+  const calculateBMI = async (e?: React.FormEvent) => {
+    if (e) {
+      e.preventDefault();
+    }
+    
     const weightNum = parseFloat(sharedWeight);
     const heightNum = parseFloat(sharedHeight);
 
@@ -120,7 +123,11 @@ const Calculators = () => {
     }
   };
 
-  const calculateCalories = async () => {
+  const calculateCalories = async (e?: React.FormEvent) => {
+    if (e) {
+      e.preventDefault();
+    }
+    
     const ageNum = parseFloat(age);
     const weightNum = parseFloat(sharedWeight);
     const heightNum = parseFloat(sharedHeight);
@@ -274,112 +281,114 @@ const Calculators = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  <div className="space-y-4">
-                    <Label htmlFor="weight" className="text-lg font-medium">Weight</Label>
-                    <div className="flex gap-4 items-end">
-                      <div className="flex-1">
-                        <Input
-                          id="weight"
-                          type="number"
-                          placeholder="Enter your weight"
-                          value={sharedWeight}
-                          onChange={(e) => setSharedWeight(e.target.value)}
-                          className="text-lg"
-                        />
-                      </div>
-                      <RadioGroup value={sharedWeightUnit} onValueChange={setSharedWeightUnit} className="flex gap-4">
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="kg" id="kg" />
-                          <Label htmlFor="kg">kg</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="lbs" id="lbs" />
-                          <Label htmlFor="lbs">lbs</Label>
-                        </div>
-                      </RadioGroup>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label htmlFor="height" className="text-lg font-medium">Height</Label>
-                    <div className="flex gap-4 items-end">
-                      <div className="flex-1">
-                        <Input
-                          id="height"
-                          type="number"
-                          placeholder="Enter your height"
-                          value={sharedHeight}
-                          onChange={(e) => setSharedHeight(e.target.value)}
-                          className="text-lg"
-                        />
-                      </div>
-                      <RadioGroup value={sharedHeightUnit} onValueChange={setSharedHeightUnit} className="flex gap-4">
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="cm" id="cm" />
-                          <Label htmlFor="cm">cm</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="in" id="in" />
-                          <Label htmlFor="in">in</Label>
-                        </div>
-                      </RadioGroup>
-                    </div>
-                  </div>
-
-                  <Button onClick={calculateBMI} className="w-full text-lg py-6" size="lg">
-                    Calculate BMI
-                  </Button>
-
-                  {bmiResult && (
-                    <div className="space-y-6 pt-6 border-t">
-                      <div className="text-center space-y-2">
-                        <h3 className="text-2xl font-bold">Your BMI: {bmiResult.value.toFixed(1)}</h3>
-                        <p className="text-lg text-gray-600">Category: {bmiResult.category}</p>
-                      </div>
-
-                      <div className="space-y-2">
-                        <div className="relative h-8 bg-gradient-to-r from-blue-200 via-green-200 via-yellow-200 to-red-200 rounded-lg overflow-hidden">
-                          <div 
-                            className="absolute top-0 bottom-0 w-1 bg-gray-800 z-10"
-                            style={{ left: `${getBMIPosition(bmiResult.value)}%` }}
-                          />
-                          <div 
-                            className={`absolute top-0 bottom-0 w-2 ${getBMIColor(bmiResult.value)} z-20 rounded-full`}
-                            style={{ left: `${getBMIPosition(bmiResult.value) - 0.5}%` }}
+                  <form onSubmit={calculateBMI} className="space-y-6">
+                    <div className="space-y-4">
+                      <Label htmlFor="weight" className="text-lg font-medium">Weight</Label>
+                      <div className="flex gap-4 items-end">
+                        <div className="flex-1">
+                          <Input
+                            id="weight"
+                            type="number"
+                            placeholder="Enter your weight"
+                            value={sharedWeight}
+                            onChange={(e) => setSharedWeight(e.target.value)}
+                            className="text-lg"
                           />
                         </div>
-                        <div className="flex justify-between text-xs text-gray-500">
-                          <span>Underweight (&lt;18.5)</span>
-                          <span>Normal (18.5-24.9)</span>
-                          <span>Overweight (25-29.9)</span>
-                          <span>Obese (≥30)</span>
-                        </div>
-                      </div>
-
-                      <div className="bg-blue-50 p-6 rounded-lg">
-                        <h4 className="text-lg font-semibold mb-3">Your Personalized Insight</h4>
-                        {isLoadingInsight ? (
-                          <div className="flex items-center gap-2">
-                            <div className="animate-spin w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full"></div>
-                            <span className="text-gray-600">Generating personalized insight...</span>
+                        <RadioGroup value={sharedWeightUnit} onValueChange={setSharedWeightUnit} className="flex gap-4">
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="kg" id="kg" />
+                            <Label htmlFor="kg">kg</Label>
                           </div>
-                        ) : (
-                          <div className="space-y-3">
-                            <p className="text-gray-700 leading-relaxed">{bmiResult.insight}</p>
-                            <p className="text-xs text-gray-500 italic">
-                              This insight is generated by AI and is for informational purposes only. It is not medical advice. Always consult a healthcare professional for personalized guidance.
-                            </p>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="lbs" id="lbs" />
+                            <Label htmlFor="lbs">lbs</Label>
                           </div>
-                        )}
-                      </div>
-
-                      <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
-                        <p className="text-sm text-gray-700">
-                          <strong>Please note:</strong> BMI is a general indicator and does not account for muscle mass, body composition, or individual health conditions. It should not be used as a sole diagnostic tool for health status. Always consult a healthcare professional for personalized advice.
-                        </p>
+                        </RadioGroup>
                       </div>
                     </div>
-                  )}
+
+                    <div className="space-y-4">
+                      <Label htmlFor="height" className="text-lg font-medium">Height</Label>
+                      <div className="flex gap-4 items-end">
+                        <div className="flex-1">
+                          <Input
+                            id="height"
+                            type="number"
+                            placeholder="Enter your height"
+                            value={sharedHeight}
+                            onChange={(e) => setSharedHeight(e.target.value)}
+                            className="text-lg"
+                          />
+                        </div>
+                        <RadioGroup value={sharedHeightUnit} onValueChange={setSharedHeightUnit} className="flex gap-4">
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="cm" id="cm" />
+                            <Label htmlFor="cm">cm</Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="in" id="in" />
+                            <Label htmlFor="in">in</Label>
+                          </div>
+                        </RadioGroup>
+                      </div>
+                    </div>
+
+                    <Button type="submit" className="w-full text-lg py-6" size="lg">
+                      Calculate BMI
+                    </Button>
+
+                    {bmiResult && (
+                      <div className="space-y-6 pt-6 border-t">
+                        <div className="text-center space-y-2">
+                          <h3 className="text-2xl font-bold">Your BMI: {bmiResult.value.toFixed(1)}</h3>
+                          <p className="text-lg text-gray-600">Category: {bmiResult.category}</p>
+                        </div>
+
+                        <div className="space-y-2">
+                          <div className="relative h-8 bg-gradient-to-r from-blue-200 via-green-200 via-yellow-200 to-red-200 rounded-lg overflow-hidden">
+                            <div 
+                              className="absolute top-0 bottom-0 w-1 bg-gray-800 z-10"
+                              style={{ left: `${getBMIPosition(bmiResult.value)}%` }}
+                            />
+                            <div 
+                              className={`absolute top-0 bottom-0 w-2 ${getBMIColor(bmiResult.value)} z-20 rounded-full`}
+                              style={{ left: `${getBMIPosition(bmiResult.value) - 0.5}%` }}
+                            />
+                          </div>
+                          <div className="flex justify-between text-xs text-gray-500">
+                            <span>Underweight (&lt;18.5)</span>
+                            <span>Normal (18.5-24.9)</span>
+                            <span>Overweight (25-29.9)</span>
+                            <span>Obese (≥30)</span>
+                          </div>
+                        </div>
+
+                        <div className="bg-blue-50 p-6 rounded-lg">
+                          <h4 className="text-lg font-semibold mb-3">Your Personalized Insight</h4>
+                          {isLoadingInsight ? (
+                            <div className="flex items-center gap-2">
+                              <div className="animate-spin w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full"></div>
+                              <span className="text-gray-600">Generating personalized insight...</span>
+                            </div>
+                          ) : (
+                            <div className="space-y-3">
+                              <p className="text-gray-700 leading-relaxed">{bmiResult.insight}</p>
+                              <p className="text-xs text-gray-500 italic">
+                                This insight is generated by AI and is for informational purposes only. It is not medical advice. Always consult a healthcare professional for personalized guidance.
+                              </p>
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
+                          <p className="text-sm text-gray-700">
+                            <strong>Please note:</strong> BMI is a general indicator and does not account for muscle mass, body composition, or individual health conditions. It should not be used as a sole diagnostic tool for health status. Always consult a healthcare professional for personalized advice.
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </form>
                 </CardContent>
               </Card>
             </TabsContent>
@@ -393,173 +402,175 @@ const Calculators = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="age" className="text-lg font-medium">Age (Years)</Label>
-                    <Input
-                      id="age"
-                      type="number"
-                      placeholder="Enter your age"
-                      value={age}
-                      onChange={(e) => setAge(e.target.value)}
-                      className="text-lg"
-                    />
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label className="text-lg font-medium">Gender</Label>
-                    <RadioGroup value={gender} onValueChange={setGender} className="flex gap-6">
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="male" id="male" />
-                        <Label htmlFor="male">Male</Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="female" id="female" />
-                        <Label htmlFor="female">Female</Label>
-                      </div>
-                    </RadioGroup>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label htmlFor="calorie-weight" className="text-lg font-medium">Weight</Label>
-                    <div className="flex gap-4 items-end">
-                      <div className="flex-1">
-                        <Input
-                          id="calorie-weight"
-                          type="number"
-                          placeholder="Enter your weight"
-                          value={sharedWeight}
-                          onChange={(e) => setSharedWeight(e.target.value)}
-                          className="text-lg"
-                        />
-                      </div>
-                      <RadioGroup value={sharedWeightUnit} onValueChange={setSharedWeightUnit} className="flex gap-4">
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="kg" id="cal-kg" />
-                          <Label htmlFor="cal-kg">kg</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="lbs" id="cal-lbs" />
-                          <Label htmlFor="cal-lbs">lbs</Label>
-                        </div>
-                      </RadioGroup>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label htmlFor="calorie-height" className="text-lg font-medium">Height</Label>
-                    <div className="flex gap-4 items-end">
-                      <div className="flex-1">
-                        <Input
-                          id="calorie-height"
-                          type="number"
-                          placeholder="Enter your height"
-                          value={sharedHeight}
-                          onChange={(e) => setSharedHeight(e.target.value)}
-                          className="text-lg"
-                        />
-                      </div>
-                      <RadioGroup value={sharedHeightUnit} onValueChange={setSharedHeightUnit} className="flex gap-4">
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="cm" id="cal-cm" />
-                          <Label htmlFor="cal-cm">cm</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="in" id="cal-in" />
-                          <Label htmlFor="cal-in">in</Label>
-                        </div>
-                      </RadioGroup>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label className="text-lg font-medium">Activity Level</Label>
-                    <div className="space-y-4">
-                      <Slider
-                        value={activityLevel}
-                        onValueChange={setActivityLevel}
-                        max={5}
-                        min={1}
-                        step={1}
-                        className="w-full"
+                  <form onSubmit={calculateCalories} className="space-y-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="age" className="text-lg font-medium">Age (Years)</Label>
+                      <Input
+                        id="age"
+                        type="number"
+                        placeholder="Enter your age"
+                        value={age}
+                        onChange={(e) => setAge(e.target.value)}
+                        className="text-lg"
                       />
-                      <div className="text-center">
-                        <p className="text-sm font-medium text-blue-600">
-                          {activityLevels[activityLevel[0] - 1].label}
-                        </p>
-                      </div>
-                      <div className="grid grid-cols-5 gap-1 text-xs text-gray-500">
-                        {activityLevels.map((level, index) => (
-                          <div key={index} className="text-center">
-                            <div className="font-medium">Step {level.step}</div>
-                            <div className="break-words">{level.label.split('(')[0].trim()}</div>
+                    </div>
+
+                    <div className="space-y-4">
+                      <Label className="text-lg font-medium">Gender</Label>
+                      <RadioGroup value={gender} onValueChange={setGender} className="flex gap-6">
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="male" id="male" />
+                          <Label htmlFor="male">Male</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="female" id="female" />
+                          <Label htmlFor="female">Female</Label>
+                        </div>
+                      </RadioGroup>
+                    </div>
+
+                    <div className="space-y-4">
+                      <Label htmlFor="calorie-weight" className="text-lg font-medium">Weight</Label>
+                      <div className="flex gap-4 items-end">
+                        <div className="flex-1">
+                          <Input
+                            id="calorie-weight"
+                            type="number"
+                            placeholder="Enter your weight"
+                            value={sharedWeight}
+                            onChange={(e) => setSharedWeight(e.target.value)}
+                            className="text-lg"
+                          />
+                        </div>
+                        <RadioGroup value={sharedWeightUnit} onValueChange={setSharedWeightUnit} className="flex gap-4">
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="kg" id="cal-kg" />
+                            <Label htmlFor="cal-kg">kg</Label>
                           </div>
-                        ))}
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="lbs" id="cal-lbs" />
+                            <Label htmlFor="cal-lbs">lbs</Label>
+                          </div>
+                        </RadioGroup>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="space-y-4">
-                    <Label className="text-lg font-medium">My Goal Is: (Optional)</Label>
-                    <RadioGroup value={weightGoal} onValueChange={setWeightGoal} className="flex flex-col gap-3">
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="Maintain Weight" id="maintain" />
-                        <Label htmlFor="maintain">Maintain Weight</Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="Lose Weight" id="lose" />
-                        <Label htmlFor="lose">Lose Weight</Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="Gain Weight" id="gain" />
-                        <Label htmlFor="gain">Gain Weight</Label>
-                      </div>
-                    </RadioGroup>
-                  </div>
-
-                  <Button onClick={calculateCalories} className="w-full text-lg py-6" size="lg">
-                    Calculate Daily Calorie Needs
-                  </Button>
-
-                  {calorieResult && (
-                    <div className="space-y-6 pt-6 border-t">
-                      <div className="text-center space-y-4">
-                        <h3 className="text-2xl font-bold">Your Basal Metabolic Rate (BMR): {Math.round(calorieResult.bmr)} Calories/day</h3>
-                        <h3 className="text-2xl font-bold">Your Total Daily Energy Expenditure (TDEE): {Math.round(calorieResult.tdee)} Calories/day</h3>
-                      </div>
-
-                      <div className="bg-gray-50 p-6 rounded-lg">
-                        <p className="text-gray-700 leading-relaxed">
-                          Your BMR is the energy your body needs at rest. Your TDEE is the total energy your body burns daily, including activity. 
-                          To maintain weight, consume around {Math.round(calorieResult.tdee)} calories. 
-                          To lose weight, aim for a deficit (e.g., {Math.round(calorieResult.tdee - 400)}-{Math.round(calorieResult.tdee - 300)} calories). 
-                          To gain weight, aim for a surplus (e.g., {Math.round(calorieResult.tdee + 300)}-{Math.round(calorieResult.tdee + 500)} calories).
-                        </p>
-                      </div>
-
-                      <div className="bg-green-50 p-6 rounded-lg">
-                        <h4 className="text-lg font-semibold mb-3">Personalized Recommendations</h4>
-                        {isLoadingAdvice ? (
-                          <div className="flex items-center gap-2">
-                            <div className="animate-spin w-4 h-4 border-2 border-green-500 border-t-transparent rounded-full"></div>
-                            <span className="text-gray-600">Generating personalized tips...</span>
+                    <div className="space-y-4">
+                      <Label htmlFor="calorie-height" className="text-lg font-medium">Height</Label>
+                      <div className="flex gap-4 items-end">
+                        <div className="flex-1">
+                          <Input
+                            id="calorie-height"
+                            type="number"
+                            placeholder="Enter your height"
+                            value={sharedHeight}
+                            onChange={(e) => setSharedHeight(e.target.value)}
+                            className="text-lg"
+                          />
+                        </div>
+                        <RadioGroup value={sharedHeightUnit} onValueChange={setSharedHeightUnit} className="flex gap-4">
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="cm" id="cal-cm" />
+                            <Label htmlFor="cal-cm">cm</Label>
                           </div>
-                        ) : (
-                          <div className="space-y-3">
-                            <p className="text-gray-700 leading-relaxed">{calorieResult.advice}</p>
-                            <p className="text-xs text-gray-500 italic">
-                              This advice is AI-generated and for general informational purposes only. It is not a substitute for professional medical, nutritional, or fitness advice. Always consult a qualified expert.
-                            </p>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="in" id="cal-in" />
+                            <Label htmlFor="cal-in">in</Label>
                           </div>
-                        )}
-                      </div>
-
-                      <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
-                        <p className="text-sm text-gray-700">
-                          <strong>Please note:</strong> These calculations are estimates and do not account for individual metabolic rates, specific health conditions, or unique dietary needs. Consult a healthcare professional or registered dietitian for personalized advice.
-                        </p>
+                        </RadioGroup>
                       </div>
                     </div>
-                  )}
+
+                    <div className="space-y-4">
+                      <Label className="text-lg font-medium">Activity Level</Label>
+                      <div className="space-y-4">
+                        <Slider
+                          value={activityLevel}
+                          onValueChange={setActivityLevel}
+                          max={5}
+                          min={1}
+                          step={1}
+                          className="w-full"
+                        />
+                        <div className="text-center">
+                          <p className="text-sm font-medium text-blue-600">
+                            {activityLevels[activityLevel[0] - 1].label}
+                          </p>
+                        </div>
+                        <div className="grid grid-cols-5 gap-1 text-xs text-gray-500">
+                          {activityLevels.map((level, index) => (
+                            <div key={index} className="text-center">
+                              <div className="font-medium">Step {level.step}</div>
+                              <div className="break-words">{level.label.split('(')[0].trim()}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-4">
+                      <Label className="text-lg font-medium">My Goal Is: (Optional)</Label>
+                      <RadioGroup value={weightGoal} onValueChange={setWeightGoal} className="flex flex-col gap-3">
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="Maintain Weight" id="maintain" />
+                          <Label htmlFor="maintain">Maintain Weight</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="Lose Weight" id="lose" />
+                          <Label htmlFor="lose">Lose Weight</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="Gain Weight" id="gain" />
+                          <Label htmlFor="gain">Gain Weight</Label>
+                        </div>
+                      </RadioGroup>
+                    </div>
+
+                    <Button type="submit" className="w-full text-lg py-6" size="lg">
+                      Calculate Daily Calorie Needs
+                    </Button>
+
+                    {calorieResult && (
+                      <div className="space-y-6 pt-6 border-t">
+                        <div className="text-center space-y-4">
+                          <h3 className="text-2xl font-bold">Your Basal Metabolic Rate (BMR): {Math.round(calorieResult.bmr)} Calories/day</h3>
+                          <h3 className="text-2xl font-bold">Your Total Daily Energy Expenditure (TDEE): {Math.round(calorieResult.tdee)} Calories/day</h3>
+                        </div>
+
+                        <div className="bg-gray-50 p-6 rounded-lg">
+                          <p className="text-gray-700 leading-relaxed">
+                            Your BMR is the energy your body needs at rest. Your TDEE is the total energy your body burns daily, including activity. 
+                            To maintain weight, consume around {Math.round(calorieResult.tdee)} calories. 
+                            To lose weight, aim for a deficit (e.g., {Math.round(calorieResult.tdee - 400)}-{Math.round(calorieResult.tdee - 300)} calories). 
+                            To gain weight, aim for a surplus (e.g., {Math.round(calorieResult.tdee + 300)}-{Math.round(calorieResult.tdee + 500)} calories).
+                          </p>
+                        </div>
+
+                        <div className="bg-green-50 p-6 rounded-lg">
+                          <h4 className="text-lg font-semibold mb-3">Personalized Recommendations</h4>
+                          {isLoadingAdvice ? (
+                            <div className="flex items-center gap-2">
+                              <div className="animate-spin w-4 h-4 border-2 border-green-500 border-t-transparent rounded-full"></div>
+                              <span className="text-gray-600">Generating personalized tips...</span>
+                            </div>
+                          ) : (
+                            <div className="space-y-3">
+                              <p className="text-gray-700 leading-relaxed">{calorieResult.advice}</p>
+                              <p className="text-xs text-gray-500 italic">
+                                This advice is AI-generated and for general informational purposes only. It is not a substitute for professional medical, nutritional, or fitness advice. Always consult a qualified expert.
+                              </p>
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
+                          <p className="text-sm text-gray-700">
+                            <strong>Please note:</strong> These calculations are estimates and do not account for individual metabolic rates, specific health conditions, or unique dietary needs. Consult a healthcare professional or registered dietitian for personalized advice.
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </form>
                 </CardContent>
               </Card>
             </TabsContent>

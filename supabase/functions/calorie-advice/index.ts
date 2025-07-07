@@ -44,13 +44,13 @@ serve(async (req) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        "model": "deepseek/deepseek-r1:free",
+        "model": "anthropic/claude-3-haiku:beta",
         "messages": messages,
-        "temperature": 0.7,
-        "max_tokens": 200,
-        "top_p": 1.0,
-        "frequency_penalty": 0,
-        "presence_penalty": 0
+        "temperature": 0.3,
+        "max_tokens": 250,
+        "top_p": 0.9,
+        "frequency_penalty": 0.1,
+        "presence_penalty": 0.1
       })
     });
 
@@ -65,7 +65,16 @@ serve(async (req) => {
     const data = await response.json();
     console.log('OpenRouter API response received for calorie advice');
     
-    const advice = data.choices[0]?.message?.content || "Could not generate personalized advice.";
+    let advice = data.choices?.[0]?.message?.content;
+    
+    if (!advice || advice.trim().length === 0) {
+      console.error('Empty or missing advice content:', data);
+      advice = "Sorry, we couldn't generate personalized advice at the moment. Please try again later.";
+    } else {
+      // Clean up the advice text
+      advice = advice.trim();
+      console.log('Generated advice length:', advice.length);
+    }
 
     return new Response(JSON.stringify({ advice }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
