@@ -14,6 +14,7 @@ import { supabase } from "@/integrations/supabase/client";
 import MobileNavigation from "@/components/MobileNavigation";
 import { averageWeightMen, averageWeightWomen, getAllCountries } from "@/data/averageWeightData";
 import { calculateWeightPercentile } from "@/utils/statistics";
+import BmiEducationalContent from "@/components/BmiEducationalContent";
 
 const Calculators = () => {
   // Shared state for weight and height across calculators
@@ -482,6 +483,8 @@ const Calculators = () => {
                   </form>
                 </CardContent>
               </Card>
+              
+              <BmiEducationalContent />
             </TabsContent>
 
             <TabsContent value="calories">
