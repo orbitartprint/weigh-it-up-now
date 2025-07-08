@@ -354,7 +354,7 @@ const Calculators = () => {
             Health & Weight Calculators
           </h1>
           <p className="text-lg text-gray-600 text-center mb-12 max-w-2xl mx-auto">
-            Explore a range of health and weight-related calculators designed to help you understand your body and your goals better. Get personalized insights and fun comparisons!
+            Explore a range of health and weight-related calculators designed to help you understand your body and your goals better. Get personalized insights and science-based context!
           </p>
 
           <Tabs defaultValue="bmi" className="w-full">
