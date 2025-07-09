@@ -223,6 +223,12 @@ const Contact = () => {
           </p>
           <div className="mt-3 space-x-4">
             <Link 
+              to="/about" 
+              className="text-xs text-muted-foreground hover:text-foreground underline"
+            >
+              About
+            </Link>
+            <Link 
               to="/legal" 
               className="text-xs text-muted-foreground hover:text-foreground underline"
             >
