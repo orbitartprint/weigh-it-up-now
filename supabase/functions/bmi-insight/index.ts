@@ -44,7 +44,8 @@ serve(async (req) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        "model": "anthropic/claude-3-haiku:beta",
+        // "model": "anthropic/claude-3-haiku:beta",
+        "model": "google/gemma-3-27b-it:free",
         "messages": messages,
         "temperature": 0.3,
         "max_tokens": 200,
