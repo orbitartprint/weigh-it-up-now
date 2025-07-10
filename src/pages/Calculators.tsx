@@ -16,6 +16,7 @@ import { averageWeightMen, averageWeightWomen, getAllCountries } from "@/data/av
 import { calculateWeightPercentile } from "@/utils/statistics";
 import BmiEducationalContent from "@/components/BmiEducationalContent";
 import CalorieEducationalContent from "@/components/CalorieEducationalContent";
+import WeightPercentileEducationalContent from "@/components/WeightPercentileEducationalContent";
 
 const Calculators = () => {
   // Shared state for weight and height across calculators
@@ -786,6 +787,7 @@ const Calculators = () => {
                   </form>
                 </CardContent>
               </Card>
+              <WeightPercentileEducationalContent />
             </TabsContent>
           </Tabs>
         </div>
