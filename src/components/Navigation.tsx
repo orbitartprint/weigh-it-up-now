@@ -9,7 +9,7 @@ const Navigation = () => {
   const navItems = [
     { to: "/calculators", label: "Calculators", icon: Calculator },
     { to: "/weight-in-space", label: "Weight in Space", icon: Rocket },
-    { to: "/blog", label: "Blog", icon: BookOpen },
+    { to: "/blog", label: "Insights", icon: BookOpen },
     { to: "/about", label: "About", icon: Info },
     { to: "/contact", label: "Contact", icon: Mail },
   ];

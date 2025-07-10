@@ -7,22 +7,26 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 
 interface WeightInputCardProps {
-  weight: number;
+  weight: number | "";
   useKg: boolean;
   onWeightChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onToggleUnit: () => void;
+  title?: string;
+  placeholder?: string;
 }
 
 const WeightInputCard: React.FC<WeightInputCardProps> = ({
   weight,
   useKg,
   onWeightChange,
-  onToggleUnit
+  onToggleUnit,
+  title = "Your Weight",
+  placeholder = "Enter weight"
 }) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Your Weight</CardTitle>
+        <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
@@ -33,6 +37,7 @@ const WeightInputCard: React.FC<WeightInputCardProps> = ({
               onChange={onWeightChange}
               min="0.1"
               step="0.1"
+              placeholder={placeholder}
               className="text-lg"
             />
             <span className="ml-2 text-lg font-medium">{useKg ? 'kg' : 'lbs'}</span>

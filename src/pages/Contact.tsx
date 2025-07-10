@@ -1,249 +1,169 @@
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import Navigation from "@/components/Navigation";
+import { Helmet } from "react-helmet";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { useToast } from "@/hooks/use-toast";
-import { Calculator, Scale, Weight, Mail, Info, Rocket } from "lucide-react";
-import { Link } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
-import MobileNavigation from "@/components/MobileNavigation";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Mail, MessageSquare, HelpCircle } from "lucide-react";
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: ""
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { toast } = useToast();
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      console.log("Submitting contact form:", formData);
-      
-      const { data, error } = await supabase.functions.invoke('send-contact-email', {
-        body: formData
-      });
-
-      if (error) {
-        throw error;
-      }
-
-      console.log("Email sent successfully:", data);
-
-      // Reset form
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: ""
-      });
-
-      toast({
-        title: "Message sent successfully!",
-        description: "We've received your message and will get back to you soon.",
-      });
-
-    } catch (error: any) {
-      console.error("Error sending message:", error);
-      toast({
-        title: "Error sending message",
-        description: "There was a problem sending your message. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white/80 backdrop-blur-sm border-b border-blue-100 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <Scale className="h-8 w-8 text-blue-600" />
-              <Link to="/" className="text-2xl font-bold text-blue-600">WeightVs.com</Link>
-            </div>
-            <div className="hidden md:flex items-center space-x-6">
-              <Link 
-                to="/calculators" 
-                className="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200"
-              >
-                <Calculator className="h-4 w-4" />
-                <span>Calculators</span>
-              </Link>
-              <Link 
-                to="/weight-in-space" 
-                className="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200"
-              >
-                <Rocket className="h-4 w-4" />
-                <span>Weight in Space</span>
-              </Link>
-              <Link 
-                to="/about" 
-                className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
-              >
-                <Info size={18} />
-                About
-              </Link>
-              <Link 
-                to="/contact" 
-                className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
-              >
-                <Mail size={18} />
-                Contact
-              </Link>
-            </div>
-            <MobileNavigation />
-          </div>
-        </div>
-      </nav>
+    <>
+      <Helmet>
+        <title>Contact WeightVs.com - Get in Touch with Our Health Team</title>
+        <meta
+          name="description"
+          content="Have questions about our health calculators or need support? Contact the WeightVs.com team. We're here to help with your health and wellness journey."
+        />
+      </Helmet>
 
-      <header className="bg-gradient-to-r from-weightBlue-light to-weightBlue-dark py-8 mb-8">
-        <div className="container mx-auto text-center">
-          <div className="flex items-center justify-center gap-2 mb-3">
-            <Mail size={36} className="text-white" />
-            <h1 className="text-3xl md:text-4xl font-bold text-white">
-              Contact Us
-            </h1>
-          </div>
-          <p className="text-xl text-white opacity-90">
-            Get in Touch with WeightVs.com
-          </p>
-        </div>
-      </header>
-
-      <main className="container mx-auto px-4 pb-16">
-        <div className="max-w-2xl mx-auto">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-2xl">Get in Touch</CardTitle>
-              <p className="text-muted-foreground">
-                Have a question or suggestion? We'd love to hear from you!
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+        <Navigation />
+        
+        <div className="container mx-auto px-4 py-16">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                Get in Touch
+              </h1>
+              <p className="text-xl text-gray-600 leading-relaxed">
+                Have questions about our calculators or suggestions for improvement? 
+                We'd love to hear from you.
               </p>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-12">
+              {/* Contact Form */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <MessageSquare className="h-5 w-5" />
+                    Send us a Message
+                  </CardTitle>
+                  <CardDescription>
+                    Fill out the form below and we'll get back to you as soon as possible.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="name">Name *</Label>
+                    <Label htmlFor="name">Full Name</Label>
                     <Input
                       id="name"
-                      name="name"
-                      type="text"
-                      required
-                      value={formData.name}
-                      onChange={handleInputChange}
                       placeholder="Your full name"
+                      type="text"
                     />
                   </div>
+                  
                   <div className="space-y-2">
-                    <Label htmlFor="email">Email *</Label>
+                    <Label htmlFor="email">Email Address</Label>
                     <Input
                       id="email"
-                      name="email"
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={handleInputChange}
                       placeholder="your.email@example.com"
+                      type="email"
                     />
                   </div>
-                </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="subject">Subject</Label>
+                    <Input
+                      id="subject"
+                      placeholder="What's this about?"
+                      type="text"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="message">Message</Label>
+                    <Textarea
+                      id="message"
+                      placeholder="Tell us more about your question or feedback..."
+                      rows={5}
+                    />
+                  </div>
+                  
+                  <Button className="w-full">
+                    <Mail className="h-4 w-4 mr-2" />
+                    Send Message
+                  </Button>
+                </CardContent>
+              </Card>
 
-                <div className="space-y-2">
-                  <Label htmlFor="subject">Subject *</Label>
-                  <Input
-                    id="subject"
-                    name="subject"
-                    type="text"
-                    required
-                    value={formData.subject}
-                    onChange={handleInputChange}
-                    placeholder="What's this about?"
-                  />
-                </div>
+              {/* Contact Information */}
+              <div className="space-y-8">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <HelpCircle className="h-5 w-5" />
+                      Frequently Asked Questions
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">
+                        Are your calculators medically accurate?
+                      </h4>
+                      <p className="text-gray-600 text-sm">
+                        Yes, all our calculators use established medical formulas and are regularly 
+                        updated based on current scientific research.
+                      </p>
+                    </div>
+                    
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">
+                        Is my data stored or shared?
+                      </h4>
+                      <p className="text-gray-600 text-sm">
+                        No, all calculations are performed locally in your browser. We don't store 
+                        or share any personal health information.
+                      </p>
+                    </div>
+                    
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">
+                        Can I suggest new features?
+                      </h4>
+                      <p className="text-gray-600 text-sm">
+                        Absolutely! We welcome suggestions for new calculators, features, or 
+                        improvements. Use the contact form to share your ideas.
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
 
-                <div className="space-y-2">
-                  <Label htmlFor="message">Message *</Label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    required
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    placeholder="Tell us more about your question or feedback..."
-                    className="min-h-[120px]"
-                  />
-                </div>
-
-                <Button 
-                  type="submit" 
-                  disabled={isSubmitting}
-                  className="w-full"
-                >
-                  {isSubmitting ? "Sending message..." : "Send Message"}
-                </Button>
-              </form>
-
-              <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-                <p className="text-sm text-muted-foreground">
-                  <strong>Note:</strong> Your message will be sent directly to our team at info@weightvs.com. 
-                  We typically respond within 24 hours.
-                </p>
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Other Ways to Connect</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                        <Mail className="h-5 w-5 text-blue-600" />
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-900">Email Support</p>
+                        <p className="text-sm text-gray-600">support@weightvs.com</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                        <MessageSquare className="h-5 w-5 text-green-600" />
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-900">Response Time</p>
+                        <p className="text-sm text-gray-600">Usually within 24 hours</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
-            </CardContent>
-          </Card>
-        </div>
-      </main>
-
-      <footer className="bg-gray-100 py-8">
-        <div className="container mx-auto text-center">
-          <p className="text-sm text-muted-foreground">
-            © 2025 WeightVs.com | For entertainment purposes only
-          </p>
-          <p className="text-xs text-muted-foreground mt-2">
-            All weights are approximate and based on averages
-          </p>
-          <div className="mt-3 space-x-4">
-            <Link 
-              to="/about" 
-              className="text-xs text-muted-foreground hover:text-foreground underline"
-            >
-              About
-            </Link>
-            <Link 
-              to="/legal" 
-              className="text-xs text-muted-foreground hover:text-foreground underline"
-            >
-              Legal
-            </Link>
-            <Link 
-              to="/privacy" 
-              className="text-xs text-muted-foreground hover:text-foreground underline"
-            >
-              Privacy Policy
-            </Link>
+            </div>
           </div>
         </div>
-      </footer>
-    </div>
+      </div>
+    </>
   );
 };
 

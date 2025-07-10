@@ -27,7 +27,7 @@ const MobileNavigation = () => {
     {
       to: "/blog",
       icon: BookOpen,
-      label: "Blog"
+      label: "Insights"
     },
     {
       to: "/about",
