@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Helmet } from "react-helmet";
 import Navigation from "@/components/Navigation";
@@ -175,7 +176,7 @@ const Calculators = () => {
                         id="height"
                         placeholder="Enter height"
                         value={heightInches}
-                        onChange={(e) => setHeightInches(e.target.value)}
+                        onChange={(e) => setHeightInches(e.target.value === "" ? "" : Number(e.target.value))}
                       />
                     </div>
                     <div className="space-y-2">
@@ -185,7 +186,7 @@ const Calculators = () => {
                         id="weight"
                         placeholder="Enter weight"
                         value={weightPounds}
-                        onChange={(e) => setWeightPounds(e.target.value)}
+                        onChange={(e) => setWeightPounds(e.target.value === "" ? "" : Number(e.target.value))}
                       />
                     </div>
                   </div>
@@ -224,7 +225,7 @@ const Calculators = () => {
                         id="age"
                         placeholder="Enter age"
                         value={age}
-                        onChange={(e) => setAge(e.target.value)}
+                        onChange={(e) => setAge(e.target.value === "" ? "" : Number(e.target.value))}
                       />
                     </div>
                     <div className="space-y-2">
@@ -248,7 +249,7 @@ const Calculators = () => {
                         id="heightCm"
                         placeholder="Enter height"
                         value={heightCm}
-                        onChange={(e) => setHeightCm(e.target.value)}
+                        onChange={(e) => setHeightCm(e.target.value === "" ? "" : Number(e.target.value))}
                       />
                     </div>
                     <div className="space-y-2">
@@ -258,7 +259,7 @@ const Calculators = () => {
                         id="weightKg"
                         placeholder="Enter weight"
                         value={weightKg}
-                        onChange={(e) => setWeightKg(e.target.value)}
+                        onChange={(e) => setWeightKg(e.target.value === "" ? "" : Number(e.target.value))}
                       />
                     </div>
                   </div>
@@ -312,7 +313,7 @@ const Calculators = () => {
                         id="ageYears"
                         placeholder="Enter age"
                         value={ageYears}
-                        onChange={(e) => setAgeYears(e.target.value)}
+                        onChange={(e) => setAgeYears(e.target.value === "" ? "" : Number(e.target.value))}
                       />
                     </div>
                     <div className="space-y-2">
@@ -336,7 +337,7 @@ const Calculators = () => {
                         id="heightCmPercentile"
                         placeholder="Enter height"
                         value={heightCmPercentile}
-                        onChange={(e) => setHeightCmPercentile(e.target.value)}
+                        onChange={(e) => setHeightCmPercentile(e.target.value === "" ? "" : Number(e.target.value))}
                       />
                     </div>
                     <div className="space-y-2">
@@ -346,7 +347,7 @@ const Calculators = () => {
                         id="weightKgPercentile"
                         placeholder="Enter weight"
                         value={weightKgPercentile}
-                        onChange={(e) => setWeightKgPercentile(e.target.value)}
+                        onChange={(e) => setWeightKgPercentile(e.target.value === "" ? "" : Number(e.target.value))}
                       />
                     </div>
                   </div>
