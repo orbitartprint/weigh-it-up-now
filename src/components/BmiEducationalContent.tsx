@@ -62,7 +62,7 @@ const BmiEducationalContent = () => {
             <div className="mt-4 p-4 bg-blue-100 rounded-lg">
               <p className="text-sm">
                 <strong>Further Reading:</strong> For a deeper dive into the health implications of each category, 
-                explore our upcoming article: <a href="/blog/health-risks-by-bmi-category" className="text-blue-600 underline hover:text-blue-800">Understanding Health Risks by BMI Category</a>.
+                explore our comprehensive guide: <a href="/blog/understanding-your-bmi" className="text-blue-600 underline hover:text-blue-800">Understanding Your BMI: A Complete Guide to Body Mass Index</a>.
               </p>
             </div>
           </AccordionContent>
@@ -109,8 +109,8 @@ const BmiEducationalContent = () => {
             
             <div className="mt-4 p-4 bg-blue-100 rounded-lg">
               <p className="text-sm">
-                <strong>Further Reading:</strong> Curious about how BMI can be misleading? Read our upcoming article: 
-                <a href="/blog/why-bmi-is-not-the-only-measure" className="text-blue-600 underline hover:text-blue-800"> Why BMI Isn't the Only Measure of Health</a>.
+                <strong>Further Reading:</strong> Curious about how BMI can be misleading? Read our comprehensive article: 
+                <a href="/blog/understanding-your-bmi" className="text-blue-600 underline hover:text-blue-800"> Understanding Your BMI: A Complete Guide to Body Mass Index</a>.
               </p>
             </div>
           </AccordionContent>
@@ -167,7 +167,7 @@ const BmiEducationalContent = () => {
             <div className="mt-4 p-4 bg-blue-100 rounded-lg">
               <p className="text-sm">
                 <strong>Further Reading:</strong> Discover why a holistic approach to your health is key in our blog: 
-                <a href="/blog/holistic-health-beyond-weight" className="text-blue-600 underline hover:text-blue-800"> Holistic Health: Beyond the Scale</a>.
+                <a href="/blog/holistic-health-beyond-weight" className="text-blue-600 underline hover:text-blue-800"> Holistic Health: Why Your Worth Isn't Measured by a Scale</a>.
               </p>
             </div>
           </AccordionContent>
@@ -209,7 +209,7 @@ const BmiEducationalContent = () => {
               <div className="p-4 bg-blue-100 rounded-lg">
                 <p className="text-sm">
                   <strong>Further Reading:</strong> Ready to start? Get practical tips in our article: 
-                  <a href="/blog/sustainable-weight-management-tips" className="text-blue-600 underline hover:text-blue-800"> Sustainable Weight Management: Practical Tips</a>.
+                  <a href="/blog/sustainable-weight-management-tips" className="text-blue-600 underline hover:text-blue-800"> Sustainable Weight Management: Evidence-Based Strategies That Work</a>.
                 </p>
               </div>
               

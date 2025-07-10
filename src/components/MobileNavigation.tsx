@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Menu, X, Calculator, Rocket, Info, Mail, Home } from "lucide-react";
+import { Menu, X, Calculator, Rocket, Info, Mail, Home, BookOpen } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
@@ -23,6 +23,11 @@ const MobileNavigation = () => {
       to: "/weight-in-space",
       icon: Rocket,
       label: "Weight in Space"
+    },
+    {
+      to: "/blog",
+      icon: BookOpen,
+      label: "Blog"
     },
     {
       to: "/about",
