@@ -21,16 +21,16 @@ interface PlanetData {
 }
 
 const planetData: PlanetData[] = [
-  { id: "earth", name: "Earth", gravity_factor: 1.00, fact: "Our home planet – here, gravity provides our 'normal' weight.", image_asset: "/lovable-uploads/earth.png", alt_text: "Planet Earth" },
-  { id: "moon", name: "Moon", gravity_factor: 0.165, fact: "On the Moon, you'd be only about 1/6th of your Earth weight! Astronauts can jump much higher there.", image_asset: "/lovable-uploads/moon.png", alt_text: "Earth's Moon" },
-  { id: "mercury", name: "Mercury", gravity_factor: 0.38, fact: "The smallest planet has extreme temperature swings and lower gravity.", image_asset: "/lovable-uploads/mercury.png", alt_text: "Planet Mercury" },
-  { id: "venus", name: "Venus", gravity_factor: 0.91, fact: "Although similar in size to Earth, its dense atmosphere creates a strong greenhouse effect.", image_asset: "/lovable-uploads/venus.png", alt_text: "Planet Venus" },
-  { id: "mars", name: "Mars", gravity_factor: 0.38, fact: "The Red Planet has only about one-third of Earth's gravity. A walk there would feel very light!", image_asset: "/lovable-uploads/mars.png", alt_text: "Planet Mars" },
-  { id: "jupiter", name: "Jupiter", gravity_factor: 2.53, fact: "The largest planet in our solar system pulls you over 2.5 times stronger than Earth – you'd be a heavyweight there!", image_asset: "/lovable-uploads/jupiter.png", alt_text: "Planet Jupiter" },
-  { id: "saturn", name: "Saturn", gravity_factor: 1.07, fact: "Known for its impressive rings, Saturn has a surface gravity similar to Earth's.", image_asset: "/lovable-uploads/saturn.png", alt_text: "Planet Saturn" },
-  { id: "uranus", name: "Uranus", gravity_factor: 0.92, fact: "This ice giant rotates on its side and has slightly less gravity than Earth.", image_asset: "/lovable-uploads/uranus.png", alt_text: "Planet Uranus" },
-  { id: "neptune", name: "Neptune", gravity_factor: 1.14, fact: "The windiest planet in our solar system pulls you slightly stronger than Earth.", image_asset: "/lovable-uploads/neptune.png", alt_text: "Planet Neptune" },
-  { id: "pluto", name: "Pluto", gravity_factor: 0.06, fact: "As a dwarf planet, Pluto's gravity is extremely low – you would weigh almost nothing there!", image_asset: "/lovable-uploads/pluto.png", alt_text: "Dwarf Planet Pluto" }
+  { id: "earth", name: "Earth", gravity_factor: 1.00, fact: "Our home planet – here, gravity provides our 'normal' weight.", image_asset: "/lovable-uploads/earth.jpg", alt_text: "Planet Earth" },
+  { id: "moon", name: "Moon", gravity_factor: 0.165, fact: "On the Moon, you'd be only about 1/6th of your Earth weight! Astronauts can jump much higher there.", image_asset: "/lovable-uploads/moon.jpg", alt_text: "Earth's Moon" },
+  { id: "mercury", name: "Mercury", gravity_factor: 0.38, fact: "The smallest planet has extreme temperature swings and lower gravity.", image_asset: "/lovable-uploads/mercury.jpg", alt_text: "Planet Mercury" },
+  { id: "venus", name: "Venus", gravity_factor: 0.91, fact: "Although similar in size to Earth, its dense atmosphere creates a strong greenhouse effect.", image_asset: "/lovable-uploads/venus.jpg", alt_text: "Planet Venus" },
+  { id: "mars", name: "Mars", gravity_factor: 0.38, fact: "The Red Planet has only about one-third of Earth's gravity. A walk there would feel very light!", image_asset: "/lovable-uploads/mars.jpg", alt_text: "Planet Mars" },
+  { id: "jupiter", name: "Jupiter", gravity_factor: 2.53, fact: "The largest planet in our solar system pulls you over 2.5 times stronger than Earth – you'd be a heavyweight there!", image_asset: "/lovable-uploads/jupiter.jpg", alt_text: "Planet Jupiter" },
+  { id: "saturn", name: "Saturn", gravity_factor: 1.07, fact: "Known for its impressive rings, Saturn has a surface gravity similar to Earth's.", image_asset: "/lovable-uploads/saturn.jpg", alt_text: "Planet Saturn" },
+  { id: "uranus", name: "Uranus", gravity_factor: 0.92, fact: "This ice giant rotates on its side and has slightly less gravity than Earth.", image_asset: "/lovable-uploads/uranus.jpg", alt_text: "Planet Uranus" },
+  { id: "neptune", name: "Neptune", gravity_factor: 1.14, fact: "The windiest planet in our solar system pulls you slightly stronger than Earth.", image_asset: "/lovable-uploads/neptune.jpg", alt_text: "Planet Neptune" },
+  { id: "pluto", name: "Pluto", gravity_factor: 0.06, fact: "As a dwarf planet, Pluto's gravity is extremely low – you would weigh almost nothing there!", image_asset: "/lovable-uploads/pluto.jpg", alt_text: "Dwarf Planet Pluto" }
 ];
 
 const WeightInSpace = () => {
