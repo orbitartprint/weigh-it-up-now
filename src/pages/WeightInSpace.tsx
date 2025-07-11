@@ -20,7 +20,7 @@ const WeightInSpace = () => {
     { name: "Moon", gravity: 0.166, image: "/lovable-uploads/moon.png" },
     { name: "Mars", gravity: 0.378, image: "/lovable-uploads/mars.png" },
     { name: "Venus", gravity: 0.907, image: "/lovable-uploads/venus.png" },
-    { name: "Mercury", gravity: 0.378, image: "/lovable-uploads/mecury.png" },
+    { name: "Mercury", gravity: 0.378, image: "/lovable-uploads/mercury.png" },
     { name: "Jupiter", gravity: 2.36, image: "/lovable-uploads/jupiter.png" },
     { name: "Saturn", gravity: 0.916, image: "/lovable-uploads/saturn.png" },
     { name: "Uranus", gravity: 0.889, image: "/lovable-uploads/uranus.png" },
