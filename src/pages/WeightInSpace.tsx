@@ -94,7 +94,7 @@ const WeightInSpace = () => {
                     <CardHeader className="text-center">
                       <div className="w-24 h-24 mx-auto rounded-full overflow-hidden mb-4">
                         <img 
-                          src="/lovable-uploads/earth.jpg" 
+                          src="/lovable-uploads/earth.png" 
                           alt="Earth"
                           className="w-full h-full object-cover"
                         />
