@@ -1,4 +1,5 @@
 
+import Navigation from "@/components/Navigation";
 import { useState, useMemo } from "react";
 import { Helmet } from "react-helmet";
 import BlogCard from "@/components/BlogCard";
@@ -67,6 +68,8 @@ const Blog = () => {
       </Helmet>
 
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+        <Navigation />
+        
         <div className="container mx-auto px-4 py-12">
           {/* Hero Section */}
           <div className="text-center mb-12">
