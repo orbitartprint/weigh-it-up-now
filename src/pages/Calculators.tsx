@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"; // Removed useCallback
+import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import Navigation from "@/components/Navigation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -17,16 +17,16 @@ import BmiEducationalContent from "@/components/BmiEducationalContent";
 import CalorieEducationalContent from "@/components/CalorieEducationalContent";
 import WeightPercentileEducationalContent from "@/components/WeightPercentileEducationalContent";
 import { averageWeightMen, averageWeightWomen, getAllCountries } from "@/data/averageWeightData";
-import { calculateWeightPercentile } from "@/utils/statistics"; // Assuming this utility exists for percentile calculation
+import { calculateWeightPercentile } from "@/utils/statistics";
 
 const Calculators = () => {
   const [activeTab, setActiveTab] = useState("bmi");
 
-  // Shared state for weight and height across calculators (Re-integrated from _alt.tsx)
+  // Shared state for weight and height across calculators
   const [sharedWeight, setSharedWeight] = useState<number | "">("");
   const [sharedHeight, setSharedHeight] = useState<number | "">("");
-  const [sharedWeightUnit, setSharedWeightUnit] = useState("kg"); // Default to kg
-  const [sharedHeightUnit, setSharedHeightUnit] = useState("cm"); // Default to cm
+  const [sharedWeightUnit, setSharedWeightUnit] = useState("kg");
+  const [sharedHeightUnit, setSharedHeightUnit] = useState("cm");
 
   // BMI Calculator state
   const [bmiResult, setBmiResult] = useState<{
@@ -39,7 +39,7 @@ const Calculators = () => {
   // Daily Calorie Calculator state
   const [age, setAge] = useState<number | "">("");
   const [gender, setGender] = useState<string>("");
-  const [activityLevel, setActivityLevel] = useState([3]); // Default to moderately active
+  const [activityLevel, setActivityLevel] = useState([3]);
   const [weightGoal, setWeightGoal] = useState("");
   const [calorieResult, setCalorieResult] = useState<{
     bmr: number;
@@ -54,13 +54,16 @@ const Calculators = () => {
   const [percentileResult, setPercentileResult] = useState<{
     percentile: number;
     meanWeight: number;
+    // Added these to store the values used for the calculation, to ensure consistency in display
+    calculatedGender: string;
+    calculatedCountry: string;
     insight?: string;
   } | null>(null);
   const [isLoadingPercentileInsight, setIsLoadingPercentileInsight] = useState(false);
 
   const { toast } = useToast();
 
-  // Activity level mapping (Re-integrated from _alt.tsx)
+  // Activity level mapping
   const activityLevels = [
     { step: 1, label: "Sedentary (little to no exercise)", factor: 1.2 },
     { step: 2, label: "Lightly Active (light exercise 1-3 days/week)", factor: 1.375 },
@@ -69,7 +72,7 @@ const Calculators = () => {
     { step: 5, label: "Extra Active (very hard exercise & physical job)", factor: 1.9 }
   ];
 
-  // Helper function for BMI Category (Re-integrated from _alt.tsx)
+  // Helper function for BMI Category
   const getBMICategory = (bmi: number): string => {
     if (bmi < 18.5) return "Underweight";
     if (bmi <= 24.9) return "Normal Weight";
@@ -77,7 +80,7 @@ const Calculators = () => {
     return "Obese";
   };
 
-  // Helper functions for BMI Scale display (Re-integrated from _alt.tsx)
+  // Helper functions for BMI Scale display
   const getBMIColor = (bmi: number): string => {
     if (bmi < 18.5) return "bg-blue-400";
     if (bmi <= 24.9) return "bg-green-400";
@@ -91,7 +94,7 @@ const Calculators = () => {
     return Math.min(Math.max(((bmi - minBMI) / (maxBMI - minBMI)) * 100, 0), 100);
   };
 
-  // BMI Calculation Function (Updated with validation and shared state)
+  // BMI Calculation Function
   const calculateBMI = async (e?: React.FormEvent) => {
     if (e) {
       e.preventDefault();
@@ -100,7 +103,7 @@ const Calculators = () => {
     const weightNum = parseFloat(String(sharedWeight));
     const heightNum = parseFloat(String(sharedHeight));
 
-    // Input Validation (Point 1)
+    // Input Validation
     if (!sharedWeight || !sharedHeight || isNaN(weightNum) || isNaN(heightNum) || weightNum <= 0 || heightNum <= 0) {
       toast({
         title: "Invalid Input",
@@ -110,7 +113,7 @@ const Calculators = () => {
       return;
     }
 
-    // Plausible limits validation (Point 1)
+    // Plausible limits validation
     let weightInKg = weightNum;
     if (sharedWeightUnit === "lbs") {
       weightInKg = weightNum * 0.453592;
@@ -142,13 +145,13 @@ const Calculators = () => {
 
     let heightInM = heightInCm / 100; // Convert cm to meters
 
-    // BMI Calculation (Point 3 - Corrected logic from _alt.tsx)
+    // BMI Calculation
     const bmi = weightInKg / (heightInM * heightInM);
     const category = getBMICategory(bmi);
 
     setBmiResult({ value: bmi, category });
 
-    // API Call & AI Output (Point 2 - Re-integrated from _alt.tsx)
+    // API Call & AI Output
     setIsLoadingInsight(true);
     try {
       console.log('Calling BMI insight function...');
@@ -181,7 +184,7 @@ const Calculators = () => {
     }
   };
 
-  // Calorie Calculation Function (Updated with validation and shared state)
+  // Calorie Calculation Function
   const calculateCalories = async (e?: React.FormEvent) => {
     if (e) {
       e.preventDefault();
@@ -191,7 +194,7 @@ const Calculators = () => {
     const weightNum = parseFloat(String(sharedWeight));
     const heightNum = parseFloat(String(sharedHeight));
 
-    // Input Validation (Point 1)
+    // Input Validation
     if (!age || !gender || !sharedWeight || !sharedHeight || 
         isNaN(ageNum) || isNaN(weightNum) || isNaN(heightNum) || 
         ageNum <= 0 || weightNum <= 0 || heightNum <= 0) {
@@ -203,7 +206,7 @@ const Calculators = () => {
       return;
     }
 
-    // Plausible limits validation (Point 1)
+    // Plausible limits validation
     let weightInKg = weightNum;
     if (sharedWeightUnit === "lbs") {
       weightInKg = weightNum * 0.453592;
@@ -239,7 +242,7 @@ const Calculators = () => {
       return;
     }
 
-    // Calorie Calculation (Point 3 - Mifflin-St Jeor formula)
+    // Calorie Calculation (Mifflin-St Jeor formula)
     let bmr: number;
     if (gender === "male") {
       bmr = (10 * weightInKg) + (6.25 * heightInCm) - (5 * ageNum) + 5;
@@ -252,7 +255,7 @@ const Calculators = () => {
 
     setCalorieResult({ bmr, tdee });
 
-    // API Call & AI Output (Point 2 - Re-integrated from _alt.tsx)
+    // API Call & AI Output
     setIsLoadingAdvice(true);
     try {
       console.log('Calling calorie advice function...');
@@ -287,15 +290,15 @@ const Calculators = () => {
     }
   };
 
-  // Weight Percentile Calculation Function (Updated with validation and shared state, Point 6 & 7)
+  // Weight Percentile Calculation Function
   const calculatePercentile = async (e?: React.FormEvent) => {
-    if (e) { // Only prevent default if triggered by a form event
+    if (e) {
       e.preventDefault();    
     }
 
     const weightNum = parseFloat(String(sharedWeight));
 
-    // Input Validation (Point 1 & 6)
+    // Input Validation
     if (!sharedWeight || !percentileGender || !selectedCountry || 
         isNaN(weightNum) || weightNum <= 0) {
       toast({
@@ -307,7 +310,7 @@ const Calculators = () => {
       return;
     }
 
-    // Plausible limits validation (Point 1)
+    // Plausible limits validation
     let weightInKg = weightNum;
     if (sharedWeightUnit === "lbs") {
       weightInKg = weightNum * 0.453592;
@@ -323,7 +326,7 @@ const Calculators = () => {
       return;
     }
 
-    // Get the appropriate average weight based on gender and country (Point 6)
+    // Get the appropriate average weight based on gender and country
     const weightData = percentileGender === "Male" ? averageWeightMen : averageWeightWomen;
     const countryData = weightData.find(data => data.country === selectedCountry);
 
@@ -338,12 +341,18 @@ const Calculators = () => {
     }
 
     const meanWeight = countryData.averageWeightKg;
-    const standardDeviation = 15.4; // Fixed standard deviation (Point 7) - as discussed, this is a placeholder without more granular data.
-    const percentile = calculateWeightPercentile(weightInKg, meanWeight, standardDeviation); // Assuming this function exists and works correctly
+    const standardDeviation = 15.4; // Fixed standard deviation as discussed
+    const percentile = calculateWeightPercentile(weightInKg, meanWeight, standardDeviation);
 
-    setPercentileResult({ percentile, meanWeight });
+    // Store the calculated gender and country along with percentile and mean weight
+    setPercentileResult({ 
+      percentile, 
+      meanWeight, 
+      calculatedGender: percentileGender, 
+      calculatedCountry: selectedCountry 
+    });
 
-    // Get AI insight (Point 2 - Re-integrated from _alt.tsx)
+    // Get AI insight
     setIsLoadingPercentileInsight(true);
     try {
       console.log('Calling weight percentile insight function...');
@@ -379,8 +388,6 @@ const Calculators = () => {
       setIsLoadingPercentileInsight(false);
     }
   };
-
-  // Removed useEffect for automatic percentile calculation
 
   return (
     <>
@@ -425,7 +432,7 @@ const Calculators = () => {
                     <form onSubmit={calculateBMI} className="space-y-6">
                       <div className="space-y-4">
                         <Label htmlFor="weight" className="text-lg font-medium">Weight</Label>
-                        <div className="flex flex-col sm:flex-row gap-4 sm:items-end"> {/* Use flex-col for mobile, flex-row for larger screens */}
+                        <div className="flex flex-col sm:flex-row gap-4 sm:items-end">
                           <div className="flex-1">
                             <Input
                               id="weight"
@@ -436,7 +443,7 @@ const Calculators = () => {
                               className="text-lg"
                             />
                           </div>
-                          <div className="flex items-center space-x-2"> {/* Switch for weight unit */}
+                          <div className="flex items-center space-x-2">
                             <Label htmlFor="weight-unit-toggle-bmi" className={cn(sharedWeightUnit === "kg" ? "font-bold" : "")}>KG</Label>
                             <Switch 
                               id="weight-unit-toggle-bmi" 
@@ -449,7 +456,7 @@ const Calculators = () => {
                       </div>
                       <div className="space-y-4">
                         <Label htmlFor="height" className="text-lg font-medium">Height</Label>
-                        <div className="flex flex-col sm:flex-row gap-4 sm:items-end"> {/* Use flex-col for mobile, flex-row for larger screens */}
+                        <div className="flex flex-col sm:flex-row gap-4 sm:items-end">
                           <div className="flex-1">
                             <Input
                               id="height"
@@ -460,7 +467,7 @@ const Calculators = () => {
                               className="text-lg"
                             />
                           </div>
-                          <div className="flex items-center space-x-2"> {/* Switch for height unit */}
+                          <div className="flex items-center space-x-2">
                             <Label htmlFor="height-unit-toggle-bmi" className={cn(sharedHeightUnit === "cm" ? "font-bold" : "")}>CM</Label>
                             <Switch 
                               id="height-unit-toggle-bmi" 
@@ -474,7 +481,7 @@ const Calculators = () => {
                       <Button type="submit" className="w-full text-lg py-6" size="lg">
                         Calculate BMI
                       </Button>
-                      {bmiResult && ( // Point 4 - Old output display re-integrated
+                      {bmiResult && (
                         <div className="space-y-6 pt-6 border-t">
                           <div className="text-center space-y-2">
                             <h3 className="text-2xl font-bold">Your BMI: {bmiResult.value.toFixed(1)}</h3>
@@ -563,12 +570,12 @@ const Calculators = () => {
                               id="weight-calorie"
                               type="number"
                               placeholder="Enter your weight"
-                              value={sharedWeight} // Shared state
+                              value={sharedWeight}
                               onChange={(e) => setSharedWeight(e.target.value === "" ? "" : Number(e.target.value))}
                               className="text-lg"
                             />
                           </div>
-                          <div className="flex items-center space-x-2"> {/* Switch for weight unit */}
+                          <div className="flex items-center space-x-2">
                             <Label htmlFor="weight-unit-toggle-calories" className={cn(sharedWeightUnit === "kg" ? "font-bold" : "")}>KG</Label>
                             <Switch 
                               id="weight-unit-toggle-calories" 
@@ -587,12 +594,12 @@ const Calculators = () => {
                               id="height-calorie"
                               type="number"
                               placeholder="Enter your height"
-                              value={sharedHeight} // Shared state
+                              value={sharedHeight}
                               onChange={(e) => setSharedHeight(e.target.value === "" ? "" : Number(e.target.value))}
                               className="text-lg"
                             />
                           </div>
-                          <div className="flex items-center space-x-2"> {/* Switch for height unit */}
+                          <div className="flex items-center space-x-2">
                             <Label htmlFor="height-unit-toggle-calories" className={cn(sharedHeightUnit === "cm" ? "font-bold" : "")}>CM</Label>
                             <Switch 
                               id="height-unit-toggle-calories" 
@@ -638,13 +645,12 @@ const Calculators = () => {
                       <Button type="submit" className="w-full text-lg py-6" size="lg">
                         Calculate Calories
                       </Button>
-                      {calorieResult && ( // Point 4 - Old output display re-integrated
+                      {calorieResult && (
                         <div className="space-y-6 pt-6 border-t">
                           <div className="text-center space-y-2">
                             <h3 className="text-2xl font-bold">Your Basal Metabolic Rate (BMR): {calorieResult.bmr.toFixed(0)} calories/day</h3>
                             <p className="text-lg text-gray-600">Your Total Daily Energy Expenditure (TDEE): {calorieResult.tdee.toFixed(0)} calories/day</p>
                           </div>
-                          {/* Re-integrated definition and example output */}
                           <div className="bg-gray-50 p-4 rounded-lg">
                             <p className="text-sm text-gray-700 leading-relaxed">
                               Your <strong>BMR (Basal Metabolic Rate)</strong> is the energy your body needs at rest to perform basic life-sustaining functions. Your <strong>TDEE (Total Daily Energy Expenditure)</strong> is the total energy your body burns daily, including your physical activity.
@@ -719,12 +725,12 @@ const Calculators = () => {
                               id="weight-percentile"
                               type="number"
                               placeholder="Enter your weight"
-                              value={sharedWeight} // Shared state
+                              value={sharedWeight}
                               onChange={(e) => setSharedWeight(e.target.value === "" ? "" : Number(e.target.value))}
                               className="text-lg"
                             />
                           </div>
-                          <div className="flex items-center space-x-2"> {/* Switch for weight unit */}
+                          <div className="flex items-center space-x-2">
                             <Label htmlFor="weight-unit-toggle-percentile" className={cn(sharedWeightUnit === "kg" ? "font-bold" : "")}>KG</Label>
                             <Switch 
                               id="weight-unit-toggle-percentile" 
@@ -750,16 +756,15 @@ const Calculators = () => {
                           </SelectContent>
                         </Select>
                       </div>
-                      {/* Button is now the *only* trigger for calculation */}
                       <Button type="submit" className="w-full text-lg py-6" size="lg">
                         Calculate Percentile
                       </Button>
-                      {percentileResult && ( // Point 4 - Old output display re-integrated
+                      {percentileResult && (
                         <div className="space-y-6 pt-6 border-t">
                           <div className="text-center space-y-2">
                             <h3 className="text-2xl font-bold">Your Weight Percentile: {percentileResult.percentile.toFixed(1)}%</h3>
                             <p className="text-lg text-gray-600">
-                              Based on average weight in {selectedCountry} for {percentileGender === "Male" ? "men" : "women"} (Average: {percentileResult.meanWeight.toFixed(1)} kg)
+                              Based on average weight in **{percentileResult.calculatedCountry}** for **{percentileResult.calculatedGender === "Male" ? "men" : "women"}** (Average: {percentileResult.meanWeight.toFixed(1)} kg)
                             </p>
                           </div>
                           <div className="bg-blue-50 p-6 rounded-lg">
