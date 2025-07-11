@@ -3,6 +3,13 @@ import { Helmet } from "react-helmet";
 import Navigation from "@/components/Navigation";
 import WeightInputCard from "@/components/WeightInputCard";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"; // Hinzugefügt
+import { Separator } from "@/components/ui/separator"; // Hinzugefügt
 
 const WeightInSpace = () => {
   const [weight, setWeight] = useState<number | "">("");
@@ -171,6 +178,8 @@ const WeightInSpace = () => {
                 </CardContent>
               </Card>
             </div>
+            
+            <Separator className="my-12 bg-blue-700" /> {/* Changed separator color */}
 
             {/* Blog Articles Section */}
             <div className="mt-16 max-w-4xl mx-auto">
@@ -181,23 +190,23 @@ const WeightInSpace = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="text-blue-100 space-y-4">
-                  <p className="text-center mb-8>
+                  <p className="text-center mb-8">
                     Dive deeper into the fascinating concepts behind weight and gravity in our solar system and beyond.
                   </p>
                   
                   <Accordion type="single" collapsible className="w-full space-y-4">
-                    <AccordionItem value="gravity-basics" className="border border-gray-200 rounded-lg px-6">
-                      <AccordionTrigger className="text-left hover:no-underline">
+                    <AccordionItem value="gravity-basics" className="border border-gray-700 rounded-lg px-6"> {/* Adjusted border color */}
+                      <AccordionTrigger className="text-left hover:no-underline text-white"> {/* Set text to white */}
                         <span className="text-lg font-semibold">Understanding Gravity: The Force That Shapes Your Weight</span>
                       </AccordionTrigger>
-                      <AccordionContent className="text-base space-y-4 pt-2">
+                      <AccordionContent className="text-blue-100 text-base space-y-4 pt-2"> {/* Set text to blue-100 */}
                         <p>
                           Your weight is a direct result of gravity, the invisible force that pulls objects towards each other. 
                           The more massive a planet, the stronger its gravitational pull, and thus, the more you would weigh on its surface.
                         </p>
                         
                         <div>
-                          <h4 className="font-semibold text-lg mb-2">Mass vs. Weight: A Crucial Distinction</h4>
+                          <h4 className="font-semibold text-lg mb-2 text-white">Mass vs. Weight: A Crucial Distinction</h4> {/* Set text to white */}
                           <p>
                             While your weight changes from planet to planet, your <strong>mass</strong> remains constant throughout the universe. 
                             Mass is the amount of matter in your body, whereas weight is the force of gravity acting on that mass.
@@ -205,7 +214,7 @@ const WeightInSpace = () => {
                         </div>
       
                         <div>
-                          <h4 className="font-semibold text-lg mb-2">Factors Influencing Gravity</h4>
+                          <h4 className="font-semibold text-lg mb-2 text-white">Factors Influencing Gravity</h4> {/* Set text to white */}
                           <ul className="list-disc pl-6 space-y-1">
                             <li><strong>Mass of the Celestial Body:</strong> Larger planets have stronger gravitational fields.</li>
                             <li><strong>Distance from the Center:</strong> Gravity weakens with distance, so a planet's size and your position on it matter.</li>
@@ -219,11 +228,11 @@ const WeightInSpace = () => {
                       </AccordionContent>
                     </AccordionItem>
       
-                    <AccordionItem value="solar-system-exploration" className="border border-gray-200 rounded-lg px-6">
-                      <AccordionTrigger className="text-left hover:no-underline">
+                    <AccordionItem value="solar-system-exploration" className="border border-gray-700 rounded-lg px-6"> {/* Adjusted border color */}
+                      <AccordionTrigger className="text-left hover:no-underline text-white"> {/* Set text to white */}
                         <span className="text-lg font-semibold">Journey Through the Solar System: Gravity's Effects on Exploration</span>
                       </AccordionTrigger>
-                      <AccordionContent className="text-base space-y-4 pt-2">
+                      <AccordionContent className="text-blue-100 text-base space-y-4 pt-2"> {/* Set text to blue-100 */}
                         <p>
                           The varying gravity across our solar system presents unique challenges and opportunities 
                           for space exploration and future human habitation.
@@ -250,11 +259,11 @@ const WeightInSpace = () => {
                       </AccordionContent>
                     </AccordionItem>
       
-                    <AccordionItem value="extreme-gravity" className="border border-gray-200 rounded-lg px-6">
-                      <AccordionTrigger className="text-left hover:no-underline">
+                    <AccordionItem value="extreme-gravity" className="border border-gray-700 rounded-lg px-6"> {/* Adjusted border color */}
+                      <AccordionTrigger className="text-left hover:no-underline text-white"> {/* Set text to white */}
                         <span className="text-lg font-semibold">Extreme Gravity: Beyond Our Solar System</span>
                       </AccordionTrigger>
-                      <AccordionContent className="text-base space-y-4 pt-2">
+                      <AccordionContent className="text-blue-100 text-base space-y-4 pt-2"> {/* Set text to blue-100 */}
                         <p>
                           While our solar system offers a fascinating range of gravitational experiences, 
                           the universe holds even more extreme phenomena that stretch our understanding of weight and mass.
@@ -279,6 +288,58 @@ const WeightInSpace = () => {
                       </AccordionContent>
                     </AccordionItem>
                   </Accordion>
+                </CardContent>
+              </Card>
+            </div>
+            
+            <Separator className="my-12 bg-blue-700" /> {/* Changed separator color */}
+            
+            {/* FAQ Section */}
+            <div className="mt-16 max-w-4xl mx-auto">
+              <Card className="bg-white/10 backdrop-blur border-white/20">
+                <CardHeader>
+                  <CardTitle className="text-white text-2xl text-center">
+                    Frequently Asked Questions about Weight in Space
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="text-blue-100 space-y-4">
+                  {/* Removed redundant h2: <h2 className="text-2xl font-bold mb-6 text-center">Frequently Asked Questions about Weight in Space</h2> */}
+                    <Accordion type="single" collapsible className="w-full">
+                      <AccordionItem value="item-1" className="border border-gray-700 rounded-lg px-6"> {/* Added border and rounded-lg */}
+                        <AccordionTrigger className="text-white">Why is my weight different on other planets?</AccordionTrigger> {/* Set text to white */}
+                        <AccordionContent className="text-blue-100"> {/* Set text to blue-100 */}
+                          Your weight is the force with which you are attracted by a celestial body. This gravitational pull depends on the body's mass and your distance from its center. Your mass (the amount of matter in your body) remains the same, but your weight changes based on the gravitational field strength of each planet or moon.
+                        </AccordionContent>
+                      </AccordionItem>
+
+                      <AccordionItem value="item-2" className="border border-gray-700 rounded-lg px-6"> {/* Added border and rounded-lg */}
+                        <AccordionTrigger className="text-white">Is my mass also different on other planets?</AccordionTrigger> {/* Set text to white */}
+                        <AccordionContent className="text-blue-100"> {/* Set text to blue-100 */}
+                          No, your mass remains constant throughout the universe. It's a measure of your body's inertia and the amount of matter you're made of. Only your weight, which depends on the gravitational force acting on your mass, changes from planet to planet.
+                        </AccordionContent>
+                      </AccordionItem>
+
+                      <AccordionItem value="item-3" className="border border-gray-700 rounded-lg px-6"> {/* Added border and rounded-lg */}
+                        <AccordionTrigger className="text-white">How accurate are these calculations?</AccordionTrigger> {/* Set text to white */}
+                        <AccordionContent className="text-blue-100"> {/* Set text to blue-100 */}
+                          The calculations are based on the average surface gravities of the celestial bodies, which have been scientifically determined through careful observation and measurement. They provide a very good estimate of your weight on the surface for comparative and illustrative purposes. Keep in mind that actual gravity can vary slightly across different locations on each planet's surface.
+                        </AccordionContent>
+                      </AccordionItem>
+
+                      <AccordionItem value="item-4" className="border border-gray-700 rounded-lg px-6"> {/* Added border and rounded-lg */}
+                        <AccordionTrigger className="text-white">Could I actually survive on these planets?</AccordionTrigger> {/* Set text to white */}
+                        <AccordionContent className="text-blue-100"> {/* Set text to blue-100 */}
+                          Most planets in our solar system have conditions that would be lethal to humans without proper protection. Factors like atmospheric composition, temperature, pressure, and radiation levels make them uninhabitable. This calculator is purely for educational purposes to understand gravitational differences, not to suggest actual habitability.
+                        </AccordionContent>
+                      </AccordionItem>
+
+                      <AccordionItem value="item-5" className="border border-gray-700 rounded-lg px-6"> {/* Added border and rounded-lg */}
+                        <AccordionTrigger className="text-white">Why is Pluto included if it's not a planet anymore?</AccordionTrigger> {/* Set text to white */}
+                        <AccordionContent className="text-blue-100"> {/* Set text to blue-100 */}
+                          While Pluto was reclassified as a "dwarf planet" in 2006, it remains a fascinating celestial body in our solar system. Its extremely low gravity (about 6% of Earth's) makes it an interesting comparison point for understanding how different gravitational forces would affect your weight. It's included here for educational value and completeness.
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
                 </CardContent>
               </Card>
             </div>
