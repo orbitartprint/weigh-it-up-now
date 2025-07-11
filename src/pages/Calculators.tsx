@@ -764,7 +764,7 @@ const Calculators = () => {
                           <div className="text-center space-y-2">
                             <h3 className="text-2xl font-bold">Your Weight Percentile: {percentileResult.percentile.toFixed(1) === "0.0" ? "< 0.1%" : 
                                percentileResult.percentile.toFixed(1) === "100.0" ? "> 99.9%" : 
-                               `${percentileResult.percentile.toFixed(1)}%`}%</h3>
+                               `${percentileResult.percentile.toFixed(1)}%`}</h3>
                             <p className="text-lg text-gray-600">
                               Based on average weight in <b>{percentileResult.calculatedCountry}</b> for <b>{percentileResult.calculatedGender === "Male" ? "men" : "women"}</b> (Average: {percentileResult.meanWeight.toFixed(1)} kg)
                             </p>
