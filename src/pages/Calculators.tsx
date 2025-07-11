@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch"; // Import Switch component
+import { cn } from "@/lib/utils"; // Import cn utility for conditional classes
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import BmiEducationalContent from "@/components/BmiEducationalContent";
@@ -23,8 +25,8 @@ const Calculators = () => {
   // Shared state for weight and height across calculators (Re-integrated from _alt.tsx)
   const [sharedWeight, setSharedWeight] = useState<number | "">("");
   const [sharedHeight, setSharedHeight] = useState<number | "">("");
-  const [sharedWeightUnit, setSharedWeightUnit] = useState("kg");
-  const [sharedHeightUnit, setSharedHeightUnit] = useState("cm");
+  const [sharedWeightUnit, setSharedWeightUnit] = useState("kg"); // Default to kg
+  const [sharedHeightUnit, setSharedHeightUnit] = useState("cm"); // Default to cm
 
   // BMI Calculator state
   const [bmiResult, setBmiResult] = useState<{
@@ -418,7 +420,7 @@ const Calculators = () => {
                     <form onSubmit={calculateBMI} className="space-y-6">
                       <div className="space-y-4">
                         <Label htmlFor="weight" className="text-lg font-medium">Weight</Label>
-                        <div className="flex gap-4 items-end">
+                        <div className="flex flex-col sm:flex-row gap-4 sm:items-end"> {/* Use flex-col for mobile, flex-row for larger screens */}
                           <div className="flex-1">
                             <Input
                               id="weight"
@@ -429,21 +431,20 @@ const Calculators = () => {
                               className="text-lg"
                             />
                           </div>
-                          <RadioGroup value={sharedWeightUnit} onValueChange={setSharedWeightUnit} className="flex gap-4">
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="kg" id="kg" />
-                              <Label htmlFor="kg">kg</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="lbs" id="lbs" />
-                              <Label htmlFor="lbs">lbs</Label>
-                            </div>
-                          </RadioGroup>
+                          <div className="flex items-center space-x-2"> {/* Switch for weight unit */}
+                            <Label htmlFor="weight-unit-toggle-bmi" className={cn(sharedWeightUnit === "kg" ? "font-bold" : "")}>KG</Label>
+                            <Switch 
+                              id="weight-unit-toggle-bmi" 
+                              checked={sharedWeightUnit === "lbs"} 
+                              onCheckedChange={(checked) => setSharedWeightUnit(checked ? "lbs" : "kg")} 
+                            />
+                            <Label htmlFor="weight-unit-toggle-bmi" className={cn(sharedWeightUnit === "lbs" ? "font-bold" : "")}>LBS</Label>
+                          </div>
                         </div>
                       </div>
                       <div className="space-y-4">
                         <Label htmlFor="height" className="text-lg font-medium">Height</Label>
-                        <div className="flex gap-4 items-end">
+                        <div className="flex flex-col sm:flex-row gap-4 sm:items-end"> {/* Use flex-col for mobile, flex-row for larger screens */}
                           <div className="flex-1">
                             <Input
                               id="height"
@@ -454,16 +455,15 @@ const Calculators = () => {
                               className="text-lg"
                             />
                           </div>
-                          <RadioGroup value={sharedHeightUnit} onValueChange={setSharedHeightUnit} className="flex gap-4">
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="cm" id="cm" />
-                              <Label htmlFor="cm">cm</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="in" id="in" />
-                              <Label htmlFor="in">in</Label>
-                            </div>
-                          </RadioGroup>
+                          <div className="flex items-center space-x-2"> {/* Switch for height unit */}
+                            <Label htmlFor="height-unit-toggle-bmi" className={cn(sharedHeightUnit === "cm" ? "font-bold" : "")}>CM</Label>
+                            <Switch 
+                              id="height-unit-toggle-bmi" 
+                              checked={sharedHeightUnit === "in"} 
+                              onCheckedChange={(checked) => setSharedHeightUnit(checked ? "in" : "cm")} 
+                            />
+                            <Label htmlFor="height-unit-toggle-bmi" className={cn(sharedHeightUnit === "in" ? "font-bold" : "")}>IN</Label>
+                          </div>
                         </div>
                       </div>
                       <Button type="submit" className="w-full text-lg py-6" size="lg">
@@ -552,7 +552,7 @@ const Calculators = () => {
                       </div>
                       <div className="space-y-4">
                         <Label htmlFor="weight-calorie" className="text-lg font-medium">Weight</Label>
-                        <div className="flex gap-4 items-end">
+                        <div className="flex flex-col sm:flex-row gap-4 sm:items-end">
                           <div className="flex-1">
                             <Input
                               id="weight-calorie"
@@ -563,21 +563,20 @@ const Calculators = () => {
                               className="text-lg"
                             />
                           </div>
-                          <RadioGroup value={sharedWeightUnit} onValueChange={setSharedWeightUnit} className="flex gap-4">
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="kg" id="kg-calorie" />
-                              <Label htmlFor="kg-calorie">kg</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="lbs" id="lbs-calorie" />
-                              <Label htmlFor="lbs-calorie">lbs</Label>
-                            </div>
-                          </RadioGroup>
+                          <div className="flex items-center space-x-2"> {/* Switch for weight unit */}
+                            <Label htmlFor="weight-unit-toggle-calories" className={cn(sharedWeightUnit === "kg" ? "font-bold" : "")}>KG</Label>
+                            <Switch 
+                              id="weight-unit-toggle-calories" 
+                              checked={sharedWeightUnit === "lbs"} 
+                              onCheckedChange={(checked) => setSharedWeightUnit(checked ? "lbs" : "kg")} 
+                            />
+                            <Label htmlFor="weight-unit-toggle-calories" className={cn(sharedWeightUnit === "lbs" ? "font-bold" : "")}>LBS</Label>
+                          </div>
                         </div>
                       </div>
                       <div className="space-y-4">
                         <Label htmlFor="height-calorie" className="text-lg font-medium">Height</Label>
-                        <div className="flex gap-4 items-end">
+                        <div className="flex flex-col sm:flex-row gap-4 sm:items-end">
                           <div className="flex-1">
                             <Input
                               id="height-calorie"
@@ -588,16 +587,15 @@ const Calculators = () => {
                               className="text-lg"
                             />
                           </div>
-                          <RadioGroup value={sharedHeightUnit} onValueChange={setSharedHeightUnit} className="flex gap-4">
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="cm" id="cm-calorie" />
-                              <Label htmlFor="cm-calorie">cm</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="in" id="in-calorie" />
-                              <Label htmlFor="in-calorie">in</Label>
-                            </div>
-                          </RadioGroup>
+                          <div className="flex items-center space-x-2"> {/* Switch for height unit */}
+                            <Label htmlFor="height-unit-toggle-calories" className={cn(sharedHeightUnit === "cm" ? "font-bold" : "")}>CM</Label>
+                            <Switch 
+                              id="height-unit-toggle-calories" 
+                              checked={sharedHeightUnit === "in"} 
+                              onCheckedChange={(checked) => setSharedHeightUnit(checked ? "in" : "cm")} 
+                            />
+                            <Label htmlFor="height-unit-toggle-calories" className={cn(sharedHeightUnit === "in" ? "font-bold" : "")}>IN</Label>
+                          </div>
                         </div>
                       </div>
                       <div className="space-y-2">
@@ -696,7 +694,7 @@ const Calculators = () => {
                       </div>
                       <div className="space-y-4">
                         <Label htmlFor="weight-percentile" className="text-lg font-medium">Weight</Label>
-                        <div className="flex gap-4 items-end">
+                        <div className="flex flex-col sm:flex-row gap-4 sm:items-end">
                           <div className="flex-1">
                             <Input
                               id="weight-percentile"
@@ -707,16 +705,15 @@ const Calculators = () => {
                               className="text-lg"
                             />
                           </div>
-                          <RadioGroup value={sharedWeightUnit} onValueChange={setSharedWeightUnit} className="flex gap-4">
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="kg" id="kg-percentile" />
-                              <Label htmlFor="kg-percentile">kg</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="lbs" id="lbs-percentile" />
-                              <Label htmlFor="lbs-percentile">lbs</Label>
-                            </div>
-                          </RadioGroup>
+                          <div className="flex items-center space-x-2"> {/* Switch for weight unit */}
+                            <Label htmlFor="weight-unit-toggle-percentile" className={cn(sharedWeightUnit === "kg" ? "font-bold" : "")}>KG</Label>
+                            <Switch 
+                              id="weight-unit-toggle-percentile" 
+                              checked={sharedWeightUnit === "lbs"} 
+                              onCheckedChange={(checked) => setSharedWeightUnit(checked ? "lbs" : "kg")} 
+                            />
+                            <Label htmlFor="weight-unit-toggle-percentile" className={cn(sharedWeightUnit === "lbs" ? "font-bold" : "")}>LBS</Label>
+                          </div>
                         </div>
                       </div>
                       <div className="space-y-2">
