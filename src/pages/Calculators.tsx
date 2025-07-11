@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"; // Removed useCallback
 import { Helmet } from "react-helmet";
 import Navigation from "@/components/Navigation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -9,8 +9,8 @@ import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch"; // Import Switch component
-import { cn } from "@/lib/utils"; // Import cn utility for conditional classes
+import { Switch } from "@/components/ui/switch";
+import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import BmiEducationalContent from "@/components/BmiEducationalContent";
@@ -289,7 +289,7 @@ const Calculators = () => {
 
   // Weight Percentile Calculation Function (Updated with validation and shared state, Point 6 & 7)
   const calculatePercentile = async (e?: React.FormEvent) => {
-    if (e) {
+    if (e) { // Only prevent default if triggered by a form event
       e.preventDefault();    
     }
 
@@ -303,6 +303,7 @@ const Calculators = () => {
         description: "Please enter a valid weight, select your gender, and choose a country.",
         variant: "destructive",
       });
+      setPercentileResult(null); // Clear previous result if inputs are invalid
       return;
     }
 
@@ -318,6 +319,7 @@ const Calculators = () => {
         description: "Please enter a weight between 10 kg (22 lbs) and 400 kg (882 lbs).",
         variant: "destructive",
       });
+      setPercentileResult(null); // Clear previous result if inputs are invalid
       return;
     }
 
@@ -331,6 +333,7 @@ const Calculators = () => {
         description: "Average weight data for the selected country and gender is not available.",
         variant: "destructive",
       });
+      setPercentileResult(null); // Clear previous result if data is missing
       return;
     }
 
@@ -376,6 +379,8 @@ const Calculators = () => {
       setIsLoadingPercentileInsight(false);
     }
   };
+
+  // Removed useEffect for automatic percentile calculation
 
   return (
     <>
@@ -639,6 +644,20 @@ const Calculators = () => {
                             <h3 className="text-2xl font-bold">Your Basal Metabolic Rate (BMR): {calorieResult.bmr.toFixed(0)} calories/day</h3>
                             <p className="text-lg text-gray-600">Your Total Daily Energy Expenditure (TDEE): {calorieResult.tdee.toFixed(0)} calories/day</p>
                           </div>
+                          {/* Re-integrated definition and example output */}
+                          <div className="bg-gray-50 p-4 rounded-lg">
+                            <p className="text-sm text-gray-700 leading-relaxed">
+                              Your <strong>BMR (Basal Metabolic Rate)</strong> is the energy your body needs at rest to perform basic life-sustaining functions. Your <strong>TDEE (Total Daily Energy Expenditure)</strong> is the total energy your body burns daily, including your physical activity.
+                              <br /><br />
+                              Based on your TDEE of {calorieResult.tdee.toFixed(0)} calories:
+                              <ul>
+                                <li>To **maintain weight**, consume around {calorieResult.tdee.toFixed(0)} calories.</li>
+                                <li>To **lose weight**, aim for a deficit (e.g., {Math.round(calorieResult.tdee - 500)}-{Math.round(calorieResult.tdee - 400)} calories).</li>
+                                <li>To **gain weight**, aim for a surplus (e.g., {Math.round(calorieResult.tdee + 400)}-{Math.round(calorieResult.tdee + 500)} calories).</li>
+                              </ul>
+                              These are general guidelines; individual needs may vary.
+                            </p>
+                          </div>
                           <div className="bg-blue-50 p-6 rounded-lg">
                             <h4 className="text-lg font-semibold mb-3">Personalized Advice</h4>
                             {isLoadingAdvice ? (
@@ -731,6 +750,7 @@ const Calculators = () => {
                           </SelectContent>
                         </Select>
                       </div>
+                      {/* Button is now the *only* trigger for calculation */}
                       <Button type="submit" className="w-full text-lg py-6" size="lg">
                         Calculate Percentile
                       </Button>
