@@ -11,46 +11,6 @@ const Legal = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navigation />
-      <nav className="bg-white/80 backdrop-blur-sm border-b border-blue-100 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <Scale className="h-8 w-8 text-blue-600" />
-              <Link to="/" className="text-2xl font-bold text-blue-600">WeightVs.com</Link>
-            </div>
-            <div className="hidden md:flex items-center space-x-6">
-              <Link 
-                to="/calculators" 
-                className="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200"
-              >
-                <Calculator className="h-4 w-4" />
-                <span>Calculators</span>
-              </Link>
-              <Link 
-                to="/weight-in-space" 
-                className="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200"
-              >
-                <Rocket className="h-4 w-4" />
-                <span>Weight in Space</span>
-              </Link>
-              <Link 
-                to="/about" 
-                className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
-              >
-                <Info size={18} />
-                About
-              </Link>
-              <Link 
-                to="/contact" 
-                className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
-              >
-                <Mail size={18} />
-                Contact
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <Button 
           variant="outline" 
