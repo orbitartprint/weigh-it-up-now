@@ -1,4 +1,6 @@
 
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer"
 import { Calculator, Scale, Weight, Mail, Info, Rocket, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate, Link } from "react-router-dom";
@@ -8,6 +10,7 @@ const Legal = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Navigation />
       <nav className="bg-white/80 backdrop-blur-sm border-b border-blue-100 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
@@ -97,6 +100,7 @@ const Legal = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
