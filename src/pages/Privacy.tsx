@@ -1,4 +1,6 @@
 
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer"
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +10,7 @@ const Privacy = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Navigation />
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <Button 
           variant="outline" 
@@ -535,6 +538,7 @@ const Privacy = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
