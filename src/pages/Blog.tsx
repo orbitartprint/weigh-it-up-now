@@ -1,5 +1,6 @@
 
 import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer"
 import { useState, useMemo } from "react";
 import { Helmet } from "react-helmet";
 import BlogCard from "@/components/BlogCard";
@@ -144,6 +145,7 @@ const Blog = () => {
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     </>
   );
