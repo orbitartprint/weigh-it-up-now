@@ -1,4 +1,3 @@
-
 import { Link, useLocation } from "react-router-dom";
 import { BookOpen, Calculator, Rocket, Info, Mail } from "lucide-react";
 import MobileNavigation from "./MobileNavigation";
@@ -15,7 +14,7 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="bg-white shadow-sm border-b">
+    <nav className="bg-white shadow-sm border-b sticky top-0 z-50"> {/* Hier wurden sticky, top-0 und z-50 hinzugefügt */}
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -50,7 +49,9 @@ const Navigation = () => {
           </div>
 
           {/* Mobile Navigation */}
-          <MobileNavigation />
+          <div className="md:hidden">
+            <MobileNavigation />
+          </div>
         </div>
       </div>
     </nav>
