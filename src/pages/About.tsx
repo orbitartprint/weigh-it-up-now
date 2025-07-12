@@ -1,5 +1,6 @@
 
 import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet";
 
 const About = () => {
@@ -122,6 +123,7 @@ const About = () => {
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     </>
   );
