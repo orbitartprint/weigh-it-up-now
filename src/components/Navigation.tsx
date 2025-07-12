@@ -27,7 +27,7 @@ const Navigation = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-2 lg:space-x-8">
             {navItems.map((item) => {
               const isActive = location.pathname === item.to || 
                 (item.to === "/blog" && location.pathname.startsWith("/blog"));
@@ -36,14 +36,14 @@ const Navigation = () => {
                 <Link
                   key={item.to}
                   to={item.to}
-                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${
+                  className={`flex items-center space-x-1 lg:space-x-2 px-2 lg:px-3 py-2 rounded-lg transition-colors text-sm lg:text-base ${
                     isActive
                       ? "text-blue-600 bg-blue-50"
                       : "text-gray-600 hover:text-blue-600 hover:bg-gray-50"
                   }`}
                 >
-                  <item.icon className="h-4 w-4" />
-                  <span className="font-medium">{item.label}</span>
+                  <item.icon className="h-4 w-4 flex-shrink-0" />
+                  <span className="font-medium whitespace-nowrap">{item.label}</span>
                 </Link>
               );
             })}
