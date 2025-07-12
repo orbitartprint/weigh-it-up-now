@@ -1,5 +1,6 @@
 
 import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer"
 import { Helmet } from "react-helmet";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -162,6 +163,7 @@ const Contact = () => {
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     </>
   );
