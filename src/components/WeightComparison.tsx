@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
@@ -10,27 +9,67 @@ import ComparisonResult from "./ComparisonResult";
 import ComparisonItemWidget from "./ComparisonItemWidget";
 import UserWeightWidget from "./UserWeightWidget";
 
-const WeightComparison = () => {
-  const [weight, setWeight] = useState<number>(70);
-  const [compareToId, setCompareToId] = useState<string>("wolf");
-  const [useKg, setUseKg] = useState<boolean>(true);
-  const [selectedCategory, setSelectedCategory] = useState<string>("animals");
-  const [compareToItems, setCompareToItems] = useState<WeightItem[]>([]);
-  
-  // New state for multiple selected items with side tracking
-  const [selectedComparisonItems, setSelectedComparisonItems] = useState<(WeightItem & { side: 'left' | 'right' })[]>([]);
-  const [totalWeightLeft, setTotalWeightLeft] = useState<number>(0);
-  const [totalWeightRight, setTotalWeightRight] = useState<number>(0);
-  const [userWeightSide, setUserWeightSide] = useState<'left' | 'right'>('left');
-  
-  // State for view switching
-  const [showScale, setShowScale] = useState<boolean>(false);
-  
-  // State for custom objects
-  const [customObjects, setCustomObjects] = useState<WeightItem[]>([]);
-  const [customObjectName, setCustomObjectName] = useState<string>("");
-  const [customObjectWeight, setCustomObjectWeight] = useState<string>("");
-  const [customObjectUseKg, setCustomObjectUseKg] = useState<boolean>(true);
+interface WeightComparisonProps {
+  weight: number;
+  setWeight: (weight: number) => void;
+  useKg: boolean;
+  setUseKg: (useKg: boolean) => void;
+  selectedCategory: string;
+  setSelectedCategory: (category: string) => void;
+  compareToId: string;
+  setCompareToId: (id: string) => void;
+  compareToItems: WeightItem[];
+  setCompareToItems: (items: WeightItem[]) => void;
+  selectedComparisonItems: (WeightItem & { side: 'left' | 'right' })[];
+  setSelectedComparisonItems: React.Dispatch<React.SetStateAction<(WeightItem & { side: 'left' | 'right' })[]>>;
+  totalWeightLeft: number;
+  setTotalWeightLeft: (weight: number) => void;
+  totalWeightRight: number;
+  setTotalWeightRight: (weight: number) => void;
+  userWeightSide: 'left' | 'right';
+  setUserWeightSide: React.Dispatch<React.SetStateAction<'left' | 'right'>>;
+  showScale: boolean;
+  setShowScale: (show: boolean) => void;
+  customObjects: WeightItem[];
+  setCustomObjects: React.Dispatch<React.SetStateAction<WeightItem[]>>;
+  customObjectName: string;
+  setCustomObjectName: (name: string) => void;
+  customObjectWeight: string;
+  setCustomObjectWeight: (weight: string) => void;
+  customObjectUseKg: boolean;
+  setCustomObjectUseKg: (useKg: boolean) => void;
+}
+
+const WeightComparison: React.FC<WeightComparisonProps> = ({
+  weight,
+  setWeight,
+  useKg,
+  setUseKg,
+  selectedCategory,
+  setSelectedCategory,
+  compareToId,
+  setCompareToId,
+  compareToItems,
+  setCompareToItems,
+  selectedComparisonItems,
+  setSelectedComparisonItems,
+  totalWeightLeft,
+  setTotalWeightLeft,
+  totalWeightRight,
+  setTotalWeightRight,
+  userWeightSide,
+  setUserWeightSide,
+  showScale,
+  setShowScale,
+  customObjects,
+  setCustomObjects,
+  customObjectName,
+  setCustomObjectName,
+  customObjectWeight,
+  setCustomObjectWeight,
+  customObjectUseKg,
+  setCustomObjectUseKg
+}) => {
 
   useEffect(() => {
     // Set initial comparison items based on the selected category
@@ -45,7 +84,7 @@ const WeightComparison = () => {
     if (compareToItems.length > 0 && !compareToId) {
       setCompareToId(compareToItems[0].id);
     }
-  }, [selectedCategory, customObjects]);
+  }, [selectedCategory, customObjects, compareToItems.length, compareToId, setCompareToItems, setCompareToId]);
 
   // Calculate total weight for both sides
   useEffect(() => {

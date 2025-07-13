@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
@@ -20,6 +19,7 @@ import BmiEducationalContent from "@/components/BmiEducationalContent";
 import CalorieEducationalContent from "@/components/CalorieEducationalContent";
 import WeightPercentileEducationalContent from "@/components/WeightPercentileEducationalContent";
 import WeightComparison from "@/components/WeightComparison";
+import { WeightItem, weightItems, getItemsByCategory } from "@/data/weightItems";
 import { averageWeightMen, averageWeightWomen, getAllCountries } from "@/data/averageWeightData";
 import { calculateWeightPercentile } from "@/utils/statistics";
 
@@ -64,6 +64,22 @@ const Calculators = () => {
     insight?: string;
   } | null>(null);
   const [isLoadingPercentileInsight, setIsLoadingPercentileInsight] = useState(false);
+
+  // Weight Comparison State - lifted up to persist across tab changes
+  const [comparisonWeight, setComparisonWeight] = useState<number>(70);
+  const [comparisonUseKg, setComparisonUseKg] = useState<boolean>(true);
+  const [comparisonSelectedCategory, setComparisonSelectedCategory] = useState<string>("animals");
+  const [compareToId, setCompareToId] = useState<string>("wolf");
+  const [compareToItems, setCompareToItems] = useState<WeightItem[]>([]);
+  const [selectedComparisonItems, setSelectedComparisonItems] = useState<(WeightItem & { side: 'left' | 'right' })[]>([]);
+  const [totalWeightLeft, setTotalWeightLeft] = useState<number>(0);
+  const [totalWeightRight, setTotalWeightRight] = useState<number>(0);
+  const [userWeightSide, setUserWeightSide] = useState<'left' | 'right'>('left');
+  const [showScale, setShowScale] = useState<boolean>(false);
+  const [customObjects, setCustomObjects] = useState<WeightItem[]>([]);
+  const [customObjectName, setCustomObjectName] = useState<string>("");
+  const [customObjectWeight, setCustomObjectWeight] = useState<string>("");
+  const [customObjectUseKg, setCustomObjectUseKg] = useState<boolean>(true);
 
   const { toast } = useToast();
 
@@ -814,7 +830,37 @@ const Calculators = () => {
                   </CardHeader>
                   <CardContent>
                     <div className="bg-gradient-to-br from-blue-50 to-indigo-100 p-6 rounded-lg">
-                      <WeightComparison />
+                      <WeightComparison 
+                        // Pass all state as props to maintain state across tab changes
+                        weight={comparisonWeight}
+                        setWeight={setComparisonWeight}
+                        useKg={comparisonUseKg}
+                        setUseKg={setComparisonUseKg}
+                        selectedCategory={comparisonSelectedCategory}
+                        setSelectedCategory={setComparisonSelectedCategory}
+                        compareToId={compareToId}
+                        setCompareToId={setCompareToId}
+                        compareToItems={compareToItems}
+                        setCompareToItems={setCompareToItems}
+                        selectedComparisonItems={selectedComparisonItems}
+                        setSelectedComparisonItems={setSelectedComparisonItems}
+                        totalWeightLeft={totalWeightLeft}
+                        setTotalWeightLeft={setTotalWeightLeft}
+                        totalWeightRight={totalWeightRight}
+                        setTotalWeightRight={setTotalWeightRight}
+                        userWeightSide={userWeightSide}
+                        setUserWeightSide={setUserWeightSide}
+                        showScale={showScale}
+                        setShowScale={setShowScale}
+                        customObjects={customObjects}
+                        setCustomObjects={setCustomObjects}
+                        customObjectName={customObjectName}
+                        setCustomObjectName={setCustomObjectName}
+                        customObjectWeight={customObjectWeight}
+                        setCustomObjectWeight={setCustomObjectWeight}
+                        customObjectUseKg={customObjectUseKg}
+                        setCustomObjectUseKg={setCustomObjectUseKg}
+                      />
                     </div>
                   </CardContent>
                 </Card>
