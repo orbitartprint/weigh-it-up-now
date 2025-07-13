@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
@@ -18,6 +19,7 @@ import { supabase } from "@/integrations/supabase/client";
 import BmiEducationalContent from "@/components/BmiEducationalContent";
 import CalorieEducationalContent from "@/components/CalorieEducationalContent";
 import WeightPercentileEducationalContent from "@/components/WeightPercentileEducationalContent";
+import WeightComparison from "@/components/WeightComparison";
 import { averageWeightMen, averageWeightWomen, getAllCountries } from "@/data/averageWeightData";
 import { calculateWeightPercentile } from "@/utils/statistics";
 
@@ -394,10 +396,10 @@ const Calculators = () => {
   return (
     <>
       <Helmet>
-        <title>Free Health Calculators - BMI, Calorie Needs, Weight Percentile | WeightVs.com</title>
+        <title>Free Health Calculators - BMI, Calorie Needs, Weight Percentile, Weight Comparison | WeightVs.com</title>
         <meta
           name="description"
-          content="Free, accurate health calculators for BMI, daily calorie needs, and weight percentiles. Get personalized insights and educational content for better health decisions."
+          content="Free, accurate health calculators for BMI, daily calorie needs, weight percentiles, and interactive weight comparisons. Get personalized insights and educational content for better health decisions."
         />
       </Helmet>
 
@@ -410,7 +412,7 @@ const Calculators = () => {
               Health Calculators
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Get accurate health insights with our free calculators. Calculate your BMI, daily calorie needs, and weight percentile with personalized recommendations.
+              Get accurate health insights with our free calculators. Calculate your BMI, daily calorie needs, weight percentile, and compare your weight with fun interactive comparisons.
             </p>
           </div>
           <div className="max-w-4xl mx-auto">
@@ -419,6 +421,7 @@ const Calculators = () => {
                 <TabsTrigger value="bmi">BMI Calculator</TabsTrigger>
                 <TabsTrigger value="calories">Calorie Calculator</TabsTrigger>
                 <TabsTrigger value="percentile">Weight Percentile</TabsTrigger>
+                <TabsTrigger value="comparison">Weight Comparison</TabsTrigger>
               </TabsList>
 
               {/* BMI Calculator */}
@@ -798,6 +801,23 @@ const Calculators = () => {
                   </CardContent>
                 </Card>
                 <WeightPercentileEducationalContent />
+              </TabsContent>
+              
+              {/* Weight Comparison Tool */}
+              <TabsContent value="comparison" className="space-y-4">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Interactive Weight Comparison Tool</CardTitle>
+                    <CardDescription>
+                      Compare your weight with animals, objects, celebrities, and more! Create custom items and build interactive scale comparisons to visualize weight differences in a fun and engaging way.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="bg-gradient-to-br from-blue-50 to-indigo-100 p-6 rounded-lg">
+                      <WeightComparison />
+                    </div>
+                  </CardContent>
+                </Card>
               </TabsContent>
             </Tabs>
           </div>
