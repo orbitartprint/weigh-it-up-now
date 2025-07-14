@@ -18,6 +18,7 @@ import { supabase } from "@/integrations/supabase/client";
 import BmiEducationalContent from "@/components/BmiEducationalContent";
 import CalorieEducationalContent from "@/components/CalorieEducationalContent";
 import WeightPercentileEducationalContent from "@/components/WeightPercentileEducationalContent";
+import WeightPercentileEducationalContent from "@/components/WeightComparisonContent";
 import WeightComparison from "@/components/WeightComparison";
 import { WeightItem, weightItems, getItemsByCategory } from "@/data/weightItems";
 import { averageWeightMen, averageWeightWomen, getAllCountries } from "@/data/averageWeightData";
