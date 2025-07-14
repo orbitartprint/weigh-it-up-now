@@ -864,6 +864,7 @@ const Calculators = () => {
                     </div>
                   </CardContent>
                 </Card>
+                <WeightComparisonContent />
               </TabsContent>
             </Tabs>
           </div>
