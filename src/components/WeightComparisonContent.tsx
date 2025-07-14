@@ -45,7 +45,9 @@ const WeightComparisonContent = () => {
       <Separator className="my-12" />
 
       <section className="max-w-4xl mx-auto px-4 mb-16">
-        <h2 className="text-2xl font-bold mb-6 text-center">Frequently Asked Questions about the CWeight Comparison Tool</h2>
+        <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
+          Frequently Asked Questions about the Weight Comparison Tool
+        </h2>
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="item-1">
             <AccordionTrigger>How accurate are the weight comparisons?</AccordionTrigger>
