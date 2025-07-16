@@ -434,7 +434,7 @@ const Calculators = () => {
           </div>
           <div className="max-w-4xl mx-auto">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="flex w-full overflow-x-auto whitespace-nowrap md:grid md:grid-cols-4 lg:grid-cols-4 h-auto">
+              <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto">
                 <TabsTrigger value="bmi">BMI Calculator</TabsTrigger>
                 <TabsTrigger value="calories">Calorie Calculator</TabsTrigger>
                 <TabsTrigger value="percentile">Weight Percentile</TabsTrigger>
