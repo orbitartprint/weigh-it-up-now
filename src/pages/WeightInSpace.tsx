@@ -22,7 +22,7 @@ const WeightInSpace = () => {
     { name: "Mars", gravity: 0.378, image: "/lovable-uploads/mars.png" },
     { name: "Venus", gravity: 0.907, image: "/lovable-uploads/venus.png" },
     { name: "Mercury", gravity: 0.378, image: "/lovable-uploads/mercury.png" },
-    { name: "Jupiter", gravity: 2.36, image: "/lovable-uploads/jupiter.png" },
+    { name: "Jupiter", gravity: 2.36, image: "/lovable-uploads/jupiter.webp" },
     { name: "Saturn", gravity: 0.916, image: "/lovable-uploads/saturn.png" },
     { name: "Uranus", gravity: 0.889, image: "/lovable-uploads/uranus.png" },
     { name: "Neptune", gravity: 1.13, image: "/lovable-uploads/neptune.png" },
@@ -95,7 +95,7 @@ const WeightInSpace = () => {
                     <CardHeader className="text-center">
                       <div className="w-24 h-24 mx-auto rounded-full overflow-hidden mb-4">
                         <img 
-                          src="/lovable-uploads/earth.png" 
+                          src="/lovable-uploads/earth.webp" 
                           alt="Earth"
                           className="w-full h-full object-cover"
                         />
