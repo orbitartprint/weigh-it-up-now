@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -25,13 +25,14 @@ import { averageWeightMen, averageWeightWomen, getAllCountries } from "@/data/av
 import { calculateWeightPercentile } from "@/utils/statistics";
 
 const Calculators = () => {
-  const [activeTab, setActiveTab] = useState("bmi");
-
+  const [searchParams, setSearchParams] = useSearchParams();
   // Shared state for weight and height across calculators
   const [sharedWeight, setSharedWeight] = useState<number | "">("");
   const [sharedHeight, setSharedHeight] = useState<number | "">("");
   const [sharedWeightUnit, setSharedWeightUnit] = useState("kg");
   const [sharedHeightUnit, setSharedHeightUnit] = useState("cm");
+
+  const [activeTab, setActiveTab] = useState(() => searchParams.get("tab") || "bmi");
 
   // BMI Calculator state
   const [bmiResult, setBmiResult] = useState<{
@@ -433,13 +434,30 @@ const Calculators = () => {
             </p>
           </div>
           <div className="max-w-4xl mx-auto">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <Tabs value={activeTab} onValueChange={(value) => {setActiveTab(value); setSearchParams({ tab: value }, { replace: true }); }} className="w-full">
               <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto">
                 <TabsTrigger value="bmi">BMI Calculator</TabsTrigger>
                 <TabsTrigger value="calories">Calorie Calculator</TabsTrigger>
                 <TabsTrigger value="percentile">Weight Percentile</TabsTrigger>
                 <TabsTrigger value="comparison">Weight Comparison</TabsTrigger>
               </TabsList>
+
+            <Tabs
+              value={activeTab}
+              onValueChange={(value) => {
+                setActiveTab(value);
+                setSearchParams({ tab: value }, { replace: true }); // Fügt den Tab-Parameter zur URL hinzu
+              }}
+              className="w-full"
+            >
+              <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto">
+                <TabsTrigger value="bmi">BMI</TabsTrigger>
+                <TabsTrigger value="calorie">Calorie</TabsTrigger>
+                <TabsTrigger value="percentile">Percentile</TabsTrigger>
+                <TabsTrigger value="comparison">Comparison</TabsTrigger>
+              </TabsList>
+
+              
 
               {/* BMI Calculator */}
               <TabsContent value="bmi" className="space-y-4">
