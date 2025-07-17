@@ -105,7 +105,7 @@ const BlogArticle = () => {
                 <img
                   src={article.heroImage}
                   alt={article.heroImageAlt}
-                  className="w-full h-64 md:h-80 object-contain rounded-lg shadow-lg"
+                  className="w-full h-auto object-contain rounded-lg shadow-lg"
                 />
               </div>
 
