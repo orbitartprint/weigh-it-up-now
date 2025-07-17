@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import { Calculator, Rocket, BookOpen, TrendingUp, Users, Heart } from "lucide-react";
+import { Calculator, Rocket, BookOpen, TrendingUp, Users, Heart, Scale } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
@@ -139,6 +139,9 @@ const Index = () => {
             Curious About Your Weight?
           </h2>
           <div className="flex flex-col items-center space-y-6"> {/* Flexbox für Zentrierung und Abstand */}
+            <p className="text-lg text-center text-gray-700 max-w-2xl px-4">
+              Ever wondered how your weight stacks up against an animal, a grain of sand or even a dinosaur? Our new Weight Comparison Tool, now available on the Calculators page, offers a fascinating and fun way to visualize your weight!
+            </p>
             <Link to="/calculators?tab=comparison" className="block w-full max-w-lg"> {/* Bild als Link */}
               <img
                 src="/lovable-uploads/Scale_Human_vs_Bull.jpg"
@@ -146,14 +149,12 @@ const Index = () => {
                 className="w-full h-auto rounded-lg shadow-lg" // Responsive Bildgröße und Styling
               />
             </Link>
-            <p className="text-lg text-center text-gray-700 max-w-2xl px-4">
-              Ever wondered how your weight stacks up against a car, a stack of books, or even a small dinosaur? Our new Weight Comparison Tool, now available on the Calculators page, offers a fascinating and fun way to visualize your weight in relation to a diverse range of objects, animals, and more. It's a unique perspective that makes understanding scale truly engaging!
-            </p>
-            <Link to="/calculators?tab=comparison">
-              <button className="bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-blue-700 transition-colors text-lg">
+            <Button size="lg" asChild className="text-lg px-8 py-3">
+              <Link to="/calculators">
+                <Scale className="mr-2 h-5 w-5" />
                 Explore Comparisons Now!
-              </button>
-            </Link>
+              </Link>
+            </Button>
           </div>
         </div>
 
