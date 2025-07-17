@@ -18,15 +18,15 @@ const WeightInSpace = () => {
   const [useKg, setUseKg] = useState<boolean>(true);
 
   const celestialBodies = [
-    { name: "Moon", gravity: 0.166, image: "/lovable-uploads/moon.png" },
-    { name: "Mars", gravity: 0.378, image: "/lovable-uploads/mars.png" },
-    { name: "Venus", gravity: 0.907, image: "/lovable-uploads/venus.png" },
-    { name: "Mercury", gravity: 0.378, image: "/lovable-uploads/mercury.png" },
+    { name: "Moon", gravity: 0.166, image: "/lovable-uploads/moon.webp" },
+    { name: "Mars", gravity: 0.378, image: "/lovable-uploads/mars.webp" },
+    { name: "Venus", gravity: 0.907, image: "/lovable-uploads/venus.webp" },
+    { name: "Mercury", gravity: 0.378, image: "/lovable-uploads/mercury.webp" },
     { name: "Jupiter", gravity: 2.36, image: "/lovable-uploads/jupiter.webp" },
-    { name: "Saturn", gravity: 0.916, image: "/lovable-uploads/saturn.png" },
-    { name: "Uranus", gravity: 0.889, image: "/lovable-uploads/uranus.png" },
-    { name: "Neptune", gravity: 1.13, image: "/lovable-uploads/neptune.png" },
-    { name: "Pluto", gravity: 0.071, image: "/lovable-uploads/pluto.png" },
+    { name: "Saturn", gravity: 0.916, image: "/lovable-uploads/saturn.webp" },
+    { name: "Uranus", gravity: 0.889, image: "/lovable-uploads/uranus.webp" },
+    { name: "Neptune", gravity: 1.13, image: "/lovable-uploads/neptune.webp" },
+    { name: "Pluto", gravity: 0.071, image: "/lovable-uploads/pluto.webp" },
   ];
 
   const handleWeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
