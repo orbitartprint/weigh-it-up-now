@@ -144,7 +144,7 @@ const Index = () => {
             </p>
             <Link to="/calculators?tab=comparison" className="block w-full max-w-lg"> {/* Bild als Link */}
               <img
-                src="/lovable-uploads/Scale-Human-vs-Bull.jpg"
+                src="/lovable-uploads/Scale-Human-vs-Bull.webp"
                 alt="Weight Comparison Scale"
                 className="w-full h-auto rounded-lg shadow-lg" // Responsive Bildgröße und Styling
               />
