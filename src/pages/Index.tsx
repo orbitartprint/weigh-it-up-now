@@ -134,6 +134,29 @@ const Index = () => {
           </div>
         </div>
 
+        <div className="mt-12 max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
+            Curious About Your Weight?
+          </h2>
+          <div className="flex flex-col items-center space-y-6"> {/* Flexbox für Zentrierung und Abstand */}
+            <Link to="/calculators?tab=comparison" className="block w-full max-w-lg"> {/* Bild als Link */}
+              <img
+                src="/lovable-uploads/Scale_Human_vs_Bull.jpg"
+                alt="Weight Comparison Scale"
+                className="w-full h-auto rounded-lg shadow-lg" // Responsive Bildgröße und Styling
+              />
+            </Link>
+            <p className="text-lg text-center text-gray-700 max-w-2xl px-4">
+              Ever wondered how your weight stacks up against a car, a stack of books, or even a small dinosaur? Our new Weight Comparison Tool, now available on the Calculators page, offers a fascinating and fun way to visualize your weight in relation to a diverse range of objects, animals, and more. It's a unique perspective that makes understanding scale truly engaging!
+            </p>
+            <Link to="/calculators?tab=comparison">
+              <button className="bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-blue-700 transition-colors text-lg">
+                Explore Comparisons Now!
+              </button>
+            </Link>
+          </div>
+        </div>
+
         {/* CTA Section */}
         <div className="container mx-auto px-4 py-16">
           <Card className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
