@@ -97,7 +97,7 @@ Remember, the goal isn't to achieve a perfect BMI number, but to maintain a weig
 Ready to take the next step? Explore our [BMI calculator](/calculators) to track your progress, or read more about [sustainable weight management strategies](/blog/sustainable-weight-management-tips).
     `,
     readTimeMinutes: 6,
-    publishDate: "2024-01-15"
+    publishDate: "2025-07-17"
   },
   {
     slug: "daily-calorie-needs-explained",
@@ -211,7 +211,7 @@ The key is to use this knowledge as a starting point, then adjust based on your 
 Ready to calculate your daily calorie needs? Try our [calorie calculator](/calculators) to get your personalized estimate and start your journey toward better health.
     `,
     readTimeMinutes: 8,
-    publishDate: "2024-01-20"
+    publishDate: "2025-07-16"
   },
   {
     slug: "weight-percentiles-explained",
@@ -363,7 +363,7 @@ Remember, the goal isn't to achieve a specific percentile, but to maintain a wei
 Curious about where you stand? Check out our [weight percentile calculator](/calculators) to see your ranking, but remember to view the results in the context of your overall health picture.
     `,
     readTimeMinutes: 7,
-    publishDate: "2024-01-25"
+    publishDate: "2025-07-15"
   },
   {
     slug: "sustainable-weight-management-tips",
@@ -562,7 +562,7 @@ Your health is an investment, not an expense. The time and energy you put into c
 Ready to start your sustainable weight management journey? Check out our [calculators](/calculators) to establish your baseline metrics and begin making informed decisions about your health.
     `,
     readTimeMinutes: 10,
-    publishDate: "2024-02-01"
+    publishDate: "2025-07-14"
   },
   {
     slug: "holistic-health-beyond-weight",
@@ -805,7 +805,7 @@ Start where you are, use what you have, and do what you can. Your future self wi
 Ready to take a comprehensive look at your health? Explore our various [health calculators](/calculators) as tools to inform your holistic health journey, but remember – you are so much more than any number could ever capture.
     `,
     readTimeMinutes: 12,
-    publishDate: "2024-02-05"
+    publishDate: "2025-07-17"
   }
 ];
 
