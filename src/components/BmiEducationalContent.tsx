@@ -53,7 +53,7 @@ const BmiEducationalContent = () => {
             
             <div className="mt-6">
               <img 
-                src="/lovable-uploads/BMI_Categories.jpg" 
+                src="/lovable-uploads/BMI-Categories.jpg" 
                 alt="BMI Categories Chart showing underweight, normal, overweight, and obesity ranges with color-coded visual representations" 
                 className="w-full max-w-2xl mx-auto rounded-lg shadow-md"
               />
@@ -101,7 +101,7 @@ const BmiEducationalContent = () => {
             
             <div className="mt-6">
               <img 
-                src="/lovable-uploads/BMI_Limitations.jpg" 
+                src="/lovable-uploads/BMI-Limitations.jpg" 
                 alt="Infographic showing BMI limitations for athletes with high muscle mass, elderly individuals, pregnant women, fat distribution types, and different ethnicities" 
                 className="w-full max-w-2xl mx-auto rounded-lg shadow-md"
               />
