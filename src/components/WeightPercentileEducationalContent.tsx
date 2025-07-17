@@ -38,7 +38,7 @@ const WeightPercentileEducationalContent = () => {
               </p>
               
               <img 
-                src="/lovable-uploads/Percentile_Curve.jpg" 
+                src="/lovable-uploads/Percentile-Curve.jpg" 
                 alt="A bell curve diagram illustrating percentile distribution, marking 10th, 50th, and 90th percentiles for weight" 
                 className="w-full max-w-2xl mx-auto mt-6 rounded-lg shadow-md"
               />
@@ -83,7 +83,7 @@ const WeightPercentileEducationalContent = () => {
               </p>
               
               <img 
-                src="/lovable-uploads/Global_Weight_Map.jpg" 
+                src="/lovable-uploads/Global-Weight-Map.jpg" 
                 alt="Bar chart showing average weight differences across various countries, with icons representing influencing factors like diet and activity" 
                 className="w-full max-w-3xl mx-auto mt-6 rounded-lg shadow-md"
               />
@@ -124,7 +124,7 @@ const WeightPercentileEducationalContent = () => {
               </p>
               
               <img 
-                src="/lovable-uploads/Weight_vs_Health_Diagram.jpg" 
+                src="/lovable-uploads/Weight-vs-Health-Diagram.jpg" 
                 alt="Diagram showing a distinction between weight as one metric and holistic health encompassing multiple factors like diet, exercise, sleep, and mental well-being" 
                 className="w-full max-w-3xl mx-auto mt-6 rounded-lg shadow-md"
               />
