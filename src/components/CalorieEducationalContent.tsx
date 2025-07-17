@@ -36,7 +36,7 @@ const CalorieEducationalContent = () => {
               </p>
               
               <img 
-                src="/lovable-uploads/Metabolism_Diagram.jpg" 
+                src="/lovable-uploads/Metabolism-Diagram.jpg" 
                 alt="Diagram illustrating Basal Metabolic Rate (BMR) as resting energy and Total Daily Energy Expenditure (TDEE) as BMR plus activity" 
                 className="w-full max-w-2xl mx-auto mt-6 rounded-lg shadow-md"
               />
@@ -81,7 +81,7 @@ const CalorieEducationalContent = () => {
               </div>
               
               <img 
-                src="/lovable-uploads/Calorie_Factors_Infographic.jpg" 
+                src="/lovable-uploads/Calorie-Factors-Infographic.jpg" 
                 alt="Infographic showing various factors influencing calorie needs: age, gender, body composition, activity level, height, genetics" 
                 className="w-full max-w-3xl mx-auto mt-6 rounded-lg shadow-md"
               />
@@ -122,7 +122,7 @@ const CalorieEducationalContent = () => {
               </p>
               
               <img 
-                src="/lovable-uploads/Calorie_Balance_Visual.jpg" 
+                src="/lovable-uploads/Calorie-Balance-Visual.jpg" 
                 alt="Simple graphic illustrating calorie deficit for weight loss, calorie balance for maintenance, and calorie surplus for weight gain" 
                 className="w-full max-w-3xl mx-auto mt-6 rounded-lg shadow-md"
               />
