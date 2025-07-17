@@ -150,7 +150,7 @@ const Index = () => {
               />
             </Link>
             <Button size="lg" asChild className="text-lg px-8 py-3">
-              <Link to="/calculators">
+              <Link to="/calculators?tab=comparison">
                 <Scale className="mr-2 h-5 w-5" />
                 Explore Comparisons Now!
               </Link>
