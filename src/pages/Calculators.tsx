@@ -442,23 +442,6 @@ const Calculators = () => {
                 <TabsTrigger value="comparison">Weight Comparison</TabsTrigger>
               </TabsList>
 
-            <Tabs
-              value={activeTab}
-              onValueChange={(value) => {
-                setActiveTab(value);
-                setSearchParams({ tab: value }, { replace: true }); // Fügt den Tab-Parameter zur URL hinzu
-              }}
-              className="w-full"
-            >
-              <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto">
-                <TabsTrigger value="bmi">BMI</TabsTrigger>
-                <TabsTrigger value="calorie">Calorie</TabsTrigger>
-                <TabsTrigger value="percentile">Percentile</TabsTrigger>
-                <TabsTrigger value="comparison">Comparison</TabsTrigger>
-              </TabsList>
-
-              
-
               {/* BMI Calculator */}
               <TabsContent value="bmi" className="space-y-4">
                 <Card>
