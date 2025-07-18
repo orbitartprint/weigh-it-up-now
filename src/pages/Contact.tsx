@@ -1,4 +1,5 @@
 
+import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer"
 import { Helmet } from "react-helmet";
@@ -10,6 +11,9 @@ import { Button } from "@/components/ui/button";
 import { Mail, MessageSquare, HelpCircle } from "lucide-react";
 
 const Contact = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scrollt die Seite zur obersten linken Ecke
+  }, []);
   return (
     <>
       <Helmet>
