@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
@@ -14,6 +14,9 @@ import {
 import { Separator } from "@/components/ui/separator";
 
 const WeightInSpace = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scrollt die Seite zur obersten linken Ecke
+  }, []);
   const [weight, setWeight] = useState<number | "">("");
   const [useKg, setUseKg] = useState<boolean>(true);
 
