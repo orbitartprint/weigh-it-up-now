@@ -1,9 +1,13 @@
 
+import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet";
 
 const About = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scrollt die Seite zur obersten linken Ecke
+  }, []);
   return (
     <>
       <Helmet>
