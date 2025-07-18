@@ -1,4 +1,5 @@
 
+import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer"
 import { useState, useMemo } from "react";
@@ -8,6 +9,7 @@ import BlogSearch from "@/components/BlogSearch";
 import { blogArticles } from "@/data/blogArticles";
 
 const Blog = () => {
+  useEffect(() => {window.scrollTo(0, 0);}, []);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
