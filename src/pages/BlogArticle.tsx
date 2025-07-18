@@ -8,9 +8,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import TableOfContents from "@/components/TableOfContents";
 import RelatedArticles from "@/components/RelatedArticles";
 import { blogArticles, getRelatedArticles } from "@/data/blogArticles";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const BlogArticle = () => {
+  useEffect(() => {window.scrollTo(0, 0);}, []);
   const { slug } = useParams<{ slug: string }>();
   const article = blogArticles.find((a) => a.slug === slug);
 
