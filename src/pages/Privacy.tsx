@@ -4,9 +4,11 @@ import Footer from "@/components/Footer"
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const Privacy = () => {
   const navigate = useNavigate();
+  useEffect(() => {window.scrollTo(0, 0);}, []);
 
   return (
     <div className="min-h-screen bg-gray-50">
