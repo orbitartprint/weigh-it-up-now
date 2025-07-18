@@ -34,6 +34,10 @@ const Calculators = () => {
 
   const [activeTab, setActiveTab] = useState(() => searchParams.get("tab") || "bmi");
 
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scrollt die Seite zur obersten linken Ecke
+  }, []);
+
   // BMI Calculator state
   const [bmiResult, setBmiResult] = useState<{
     value: number;
