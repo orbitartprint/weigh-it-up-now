@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -44,16 +43,20 @@ const BlogSearch = ({
   return (
     <div className="space-y-6">
       {/* Search Bar */}
-      <form onSubmit={handleSearchSubmit} className="relative">
-        <div className="relative">
+      <form onSubmit={handleSearchSubmit} className="flex gap-2"> {/* Added flex gap-2 here */}
+        <div className="relative flex-grow"> {/* Added flex-grow here */}
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             placeholder="Search articles..."
             value={localSearchQuery}
             onChange={(e) => setLocalSearchQuery(e.target.value)}
-            className="pl-10"
+            className="pl-10 w-full" // Ensure input takes full width of its container
           />
         </div>
+        <Button type="submit" size="sm" className="px-4"> {/* Added submit button */}
+          <Search className="h-4 w-4" />
+          <span className="sr-only">Search</span> {/* Accessible text for screen readers */}
+        </Button>
       </form>
 
       {/* Categories */}
