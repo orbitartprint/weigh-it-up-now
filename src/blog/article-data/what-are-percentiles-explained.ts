@@ -7,7 +7,7 @@ export const whatArePercentiles = {
   slug: "what-are-percentiles",
   title: "What are Percentiles and How Do We Use Them in Health?",
   excerpt: "Unravel the mystery of percentiles in health. Learn how these statistical tools are used to compare your health metrics to a population, from growth charts to weight assessments.",
-  heroImage: "/lovable-uploads/percentile-distribution.jpg", // Prompt: A diagram showing a normal distribution (bell curve) with lines marking the 10th, 50th, and 90th percentiles. Clear, scientific aesthetic.
+  heroImage: "/lovable-uploads/percentile-curve.jpg",
   heroImageAlt: "Diagram showing a bell curve with percentile markers at 10th, 50th, and 90th percentiles",
   category: "Health Metrics",
   tags: ["Percentiles", "Health Data", "Statistics", "Growth Charts", "Weight Assessment", "Health Indicators"],
