@@ -1,6 +1,6 @@
 // src/blog/article-data/sustainable-weight-management-tips.ts
 
-import { calculateReadTime } from '../../data/blogArticles';
+import { calculateReadTime } from '../../utils/blogHelpers';
 import articleContent from '../content/sustainable-weight-management-tips.md?raw';
 
 export const sustainableWeightManagementTips = {
