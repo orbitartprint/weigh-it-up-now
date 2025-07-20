@@ -7,7 +7,7 @@ export const sustainableWeightManagementTips = {
   slug: "sustainable-weight-management-tips",
   title: "Sustainable Weight Management Tips: Beyond Quick Fixes",
   excerpt: "Discover practical, evidence-based strategies for long-term weight management that prioritize health over fleeting diet trends.",
-  heroImage: "/lovable-uploads/sustainable-weight-management.jpg", // Passe den Pfad bei Bedarf an
+  heroImage: "/lovable-uploads/holistic-health.jpg", // Passe den Pfad bei Bedarf an
   heroImageAlt: "Person balancing on a scale with healthy food and exercise equipment around, symbolizing balanced and sustainable weight management",
   category: "Weight Management",
   tags: ["Weight Loss", "Healthy Habits", "Nutrition", "Exercise", "Mindfulness"],
