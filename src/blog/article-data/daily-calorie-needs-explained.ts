@@ -1,6 +1,6 @@
 // src/blog/article-data/daily-calorie-needs-explained.ts
 
-import { calculateReadTime } from '../../data/blogArticles';
+import { calculateReadTime } from '../../utils/blogHelpers';
 import articleContent from '../content/daily-calorie-needs-explained.md?raw';
 
 export const dailyCalorieNeedsExplained = {
