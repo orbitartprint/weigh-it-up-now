@@ -1,6 +1,6 @@
 // src/blog/article-data/holistic-health-beyond-weight.ts
 
-import { calculateReadTime } from '../../data/blogArticles';
+import { calculateReadTime } from '../../utils/blogHelpers';
 import articleContent from '../content/holistic-health-beyond-weight.md?raw';
 
 export const holisticHealthBeyondWeight = {
