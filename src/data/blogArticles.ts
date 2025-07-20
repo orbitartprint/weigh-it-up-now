@@ -1,6 +1,4 @@
-// src/data/blogArticles.ts
 
-// Definition des Interfaces (bleibt wie bisher)
 export interface BlogArticle {
   slug: string;
   title: string;
@@ -9,13 +7,11 @@ export interface BlogArticle {
   heroImageAlt: string;
   category: string;
   tags: string[];
-  content: string; // Dieser String wird nun aus den Markdown-Dateien kommen
+  content: string;
   readTimeMinutes: number;
   publishDate: string;
 }
 
-// Importiere deine einzelnen Blogartikel-Metadaten.
-// Diese Dateien werden im nächsten Schritt erstellt.
 import { understandingYourBmi } from '../blog/article-data/understanding-your-bmi';
 import { dailyCalorieNeedsExplained } from '../blog/article-data/daily-calorie-needs-explained';
 import { weightPercentilesExplained } from '../blog/article-data/weight-percentiles-explained';
@@ -30,22 +26,17 @@ export const blogArticles: BlogArticle[] = [
   weightPercentilesExplained,
   sustainableWeightManagementTips,
   holisticHealthBeyondWeight,
-  // Füge hier weitere Artikel hinzu, sobald sie erstellt sind
-].sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime()); // Optional: Artikel nach Veröffentlichungsdatum absteigend sortieren
+].sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime());
 
-// Helper functions (Diese bleiben wie sie sind, da sie immer noch auf das blogArticles Array zugreifen)
-export const calculateReadTime = (content: string): number => {
-  const wordsPerMinute = 225; // Durchschnittliche Lesegeschwindigkeit in Wörtern pro Minute
-  const wordCount = content.trim().split(/\s+/).length;
-  return Math.ceil(wordCount / wordsPerMinute);
-};
+// Helper functions (Diese bleiben, da sie auf das blogArticles Array zugreifen)
+// Die calculateReadTime wurde verschoben!
 
 export const getCategories = (): string[] => {
   const categories = blogArticles.map(article => article.category);
   return Array.from(new Set(categories));
 };
 
-export const getTags = (): string[] => {
+export const getTags = (): string[] => { // Korrigiert: const getTags
   const tags = blogArticles.flatMap(article => article.tags);
   return Array.from(new Set(tags));
 };
