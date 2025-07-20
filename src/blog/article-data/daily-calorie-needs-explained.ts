@@ -7,7 +7,7 @@ export const dailyCalorieNeedsExplained = {
   slug: "daily-calorie-needs-explained",
   title: "Daily Calorie Needs Explained: Your Guide to Energy Balance",
   excerpt: "Discover how to calculate your daily calorie needs for weight loss, maintenance, or gain, and understand the importance of energy balance.",
-  heroImage: "/lovable-uploads/calorie-needs.jpg", // Passe den Pfad bei Bedarf an
+  heroImage: "/lovable-uploads/metabolism-diagram.jpg", // Passe den Pfad bei Bedarf an
   heroImageAlt: "Food pyramid with various food groups and a calculator icon, symbolizing calorie calculation and balanced diet",
   category: "Nutrition",
   tags: ["Calories", "Weight Management", "Energy Balance", "Nutrition"],
