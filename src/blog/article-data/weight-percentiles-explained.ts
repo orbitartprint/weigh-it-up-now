@@ -1,7 +1,7 @@
 
 // src/blog/article-data/weight-percentiles-explained.ts
 
-import { calculateReadTime } from '../../data/blogArticles';
+import { calculateReadTime } from '../../utils/blogHelpers';
 import articleContent from '../content/weight-percentiles-explained.md?raw';
 
 export const weightPercentilesExplained = {
