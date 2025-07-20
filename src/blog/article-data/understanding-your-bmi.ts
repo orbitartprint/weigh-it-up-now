@@ -1,6 +1,6 @@
 // src/blog/article-data/understanding-your-bmi.ts
 
-import { calculateReadTime } from '../../data/blogArticles';
+import { calculateReadTime } from '../../utils/blogHelpers';
 import articleContent from '../content/understanding-your-bmi.md?raw'; // Importiere den Markdown-Inhalt
 
 export const understandingYourBmi = {
