@@ -45,7 +45,7 @@ export const getCategories = (): string[] => {
   return Array.from(new Set(categories));
 };
 
-export const const getTags = (): string[] => {
+export const getTags = (): string[] => {
   const tags = blogArticles.flatMap(article => article.tags);
   return Array.from(new Set(tags));
 };
