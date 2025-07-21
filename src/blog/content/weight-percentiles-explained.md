@@ -72,6 +72,30 @@ On our website, [WeightVs.com](https://www.weightvs.com), you will find various 
 Weight percentiles are a valuable tool, particularly in pediatric health, for tracking growth and identifying trends. For adults, while less commonly used as a primary health metric, understanding where your weight falls within a population can offer an interesting statistical perspective. Always remember that any single number is just one piece of your overall health puzzle. A holistic view, guided by professional medical advice, is always the best approach to understanding and managing your weight.
 
 ---
+
+## Frequently Asked Questions (FAQs)
+
+### Q1: What is the main difference between BMI and weight percentiles?
+
+**A1:** BMI (Body Mass Index) is a universal formula (weight divided by height squared) used to categorize an individual's weight status (underweight, normal, overweight, obese). Weight percentiles, on the other hand, compare an individual's weight to a specific population group of similar age, sex, or height, showing where they stand relative to others. BMI gives a direct classification, while percentiles offer a comparative ranking.
+
+### Q2: Are weight percentiles primarily for children, or can adults use them too?
+
+**A2:** Weight percentiles are primarily and most critically used for children and adolescents to monitor growth and development against standardized charts. For adults, they are less commonly used as a primary health indicator because they don't account for body composition (muscle vs. fat). However, adults can still use them to understand their weight's statistical standing within a population, but always in conjunction with other health metrics.
+
+### Q3: What does being in the 90th percentile for weight mean?
+
+**A3:** If you are in the 90th percentile for weight, it means that your weight is equal to or greater than 90% of people in your specific comparison group (e.g., same age, sex). Conversely, only 10% of people in that group weigh more than you. For children, a very high or low percentile can indicate a need for further health evaluation.
+
+### Q4: Can weight percentiles indicate if I am healthy?
+
+**A4:** Weight percentiles alone do not definitively indicate health. While they show how your weight compares to a group, they don't factor in crucial elements like body composition (muscle mass vs. fat), lifestyle habits, or underlying health conditions. A holistic health assessment, including medical consultation, physical examination, and blood tests, is necessary to determine overall health status.
+
+### Q5: Where can I find reliable weight percentile charts?
+
+**A5:** Reliable weight percentile charts for children and adolescents are provided by health organizations like the World Health Organization (WHO) and the Centers for Disease Control and Prevention (CDC). You can often find calculators and information on reputable health websites, and your healthcare provider can also use these charts to assess your or your child's growth. Our own [Weight Percentile Calculator](/calculators?tab=percentile) also provides this insight.
+
+---
 **External Sources and Further Reading:**
 
 * **World Health Organization (WHO) Growth Standards:** [https://www.who.int/tools/child-growth-standards/standards](https://www.who.int/tools/child-growth-standards/standards)
