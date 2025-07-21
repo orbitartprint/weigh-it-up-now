@@ -96,3 +96,8 @@ Understanding your daily calorie needs provides a powerful framework for managin
 
 ### Q: What is the minimum number of calories I should eat per day?
 **A:** For most adults, generally, a minimum of 1200 calories per day for women and 1500 calories per day for men is recommended to ensure adequate nutrient intake and bodily function. However, very low-calorie diets should only be undertaken under strict medical supervision.
+
+---
+## External Sources and Further Reading:
+
+* **NHS - Understanding calories:** [https://www.nhs.uk/live-well/healthy-weight/managing-your-weight/understanding-calories/](https://www.nhs.uk/live-well/healthy-weight/managing-your-weight/understanding-calories/)
