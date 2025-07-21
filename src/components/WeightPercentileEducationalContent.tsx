@@ -38,7 +38,7 @@ const WeightPercentileEducationalContent = () => {
               </p>
               
               <img 
-                src="/lovable-uploads/Percentile-Curve.jpg" 
+                src="/lovable-uploads/percentile-curve.jpg" 
                 alt="A bell curve diagram illustrating percentile distribution, marking 10th, 50th, and 90th percentiles for weight" 
                 className="w-full max-w-2xl mx-auto mt-6 rounded-lg shadow-md"
               />
@@ -47,7 +47,7 @@ const WeightPercentileEducationalContent = () => {
                 <p className="text-blue-800">
                   <strong>Further Reading: </strong>
                   Curious about the statistics? Learn more in our blog article: 
-                  <a href="/blog/what-are-percentiles-explained" className="text-blue-600 underline hover:text-blue-800 ml-1">
+                  <a href="/blog/weight-percentiles-explained" className="text-blue-600 underline hover:text-blue-800 ml-1">
                     What are Percentiles and How Do We Use Them in Health?
                   </a>
                 </p>
