@@ -13,5 +13,5 @@ export const sustainableWeightManagementTips = {
   tags: ["Weight Loss", "Healthy Habits", "Nutrition", "Exercise", "Mindfulness"],
   content: articleContent,
   readTimeMinutes: calculateReadTime(articleContent),
-  publishDate: "2023-04-20", // Beispiel-Datum
+  publishDate: "2025-07-20", // Beispiel-Datum
 };
