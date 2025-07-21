@@ -14,5 +14,5 @@ export const weightPercentilesExplained = {
   tags: ["Weight", "Percentiles", "Health Assessment", "Growth"],
   content: articleContent,
   readTimeMinutes: calculateReadTime(articleContent),
-  publishDate: "2023-03-10", // Beispiel-Datum
+  publishDate: "2025-07-17", // Beispiel-Datum
 };
