@@ -23,6 +23,20 @@ Weight percentiles are most commonly used in pediatric healthcare to monitor the
 
 While less common for adults, the concept can still be applied to understand where an adult's weight falls within a large, representative sample of the adult population. However, for adults, BMI is typically the primary screening tool, as it normalizes for height.
 
+## BMI Percentiles for Children and Adolescents
+
+While adults use fixed BMI categories, children and adolescents use BMI percentiles because their body composition and fat content constantly change during growth. A child's BMI is evaluated on specific percentile curves according to their age and sex to determine overweight or underweight status.
+
+* **Underweight:** BMI below the 5th percentile
+* **Healthy Weight:** BMI between the 5th and 85th percentile
+* **Overweight:** BMI between the 85th and 95th percentile
+* **Obesity:** BMI at or above the 95th percentile
+
+This age- and sex-specific evaluation is crucial, as a BMI considered "normal" for a 10-year-old might be "overweight" for a 5-year-old.
+
+To the article about adult BMI: [Understanding Your BMI: A Complete Guide to Body Mass Index](/blog/understanding-your-bmi)
+
+
 ## Limitations and Considerations
 
 * **Reference Population:** The percentile is only meaningful when compared to a relevant reference population. For children, these are often based on large national or international studies (e.g., CDC or WHO growth charts). For adults, such universal charts are less standardized due to the complexity of adult body types and health factors.
@@ -37,6 +51,19 @@ If you've encountered your weight percentile (perhaps from a health assessment o
 * **For Children:** Always discuss with a pediatrician. They will look at the entire growth chart, not just one point.
 * **For Adults:** If an adult percentile is provided, it gives you a statistical comparison. However, combine this information with your BMI, body composition (muscle vs. fat), lifestyle, and other health indicators. For adults, percentiles are often less actionable than BMI or waist circumference for health risk assessment.
 
+## Where Can You Find Percentile Calculators?
+
+On our website, [WeightVs.com](https://www.weightvs.com), you will soon find or already have various calculators that can help you understand your or your loved ones' percentiles:
+
+* **Weight Percentile Calculator:** [Find Your Weight Percentile Here](/calculators?tab=percentile)
+
 ## Conclusion
 
 Weight percentiles are a valuable tool, particularly in pediatric health, for tracking growth and identifying trends. For adults, while less commonly used as a primary health metric, understanding where your weight falls within a population can offer an interesting statistical perspective. Always remember that any single number is just one piece of your overall health puzzle. A holistic view, guided by professional medical advice, is always the best approach to understanding and managing your weight.
+
+---
+**External Sources and Further Reading:**
+
+* **World Health Organization (WHO) Growth Standards:** [https://www.who.int/tools/child-growth-standards/standards](https://www.who.int/tools/child-growth-standards/standards)
+* **Centers for Disease Control and Prevention (CDC) Growth Charts:** [https://www.cdc.gov/growthcharts/index.htm](https://www.cdc.gov/growthcharts/index.htm)
+* **Article on Percentiles in a general context (external):** [https://en.wikipedia.org/wiki/Percentile](https://en.wikipedia.org/wiki/Percentile)
