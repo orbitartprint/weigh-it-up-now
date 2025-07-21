@@ -13,5 +13,5 @@ export const understandingYourBmi = {
   tags: ["BMI", "Health Assessment", "Weight Management", "Health"],
   content: articleContent,
   readTimeMinutes: calculateReadTime(articleContent),
-  publishDate: "2023-01-15", // Beispiel-Datum
+  publishDate: "2023-07-19", // Beispiel-Datum
 };
