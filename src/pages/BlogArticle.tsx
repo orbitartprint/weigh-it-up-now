@@ -168,7 +168,8 @@ const BlogArticle = () => {
                     <img
                       src={article.heroImage}
                       alt={article.heroImageAlt}
-                      className="w-full h-auto max-h-[90vh] object-contain rounded-lg" // max-h-[90vh] begrenzt Höhe auf 90% des Viewports
+                      //className="w-full h-auto max-h-[80vh] object-contain rounded-lg" // max-h-[90vh] begrenzt Höhe auf 90% des Viewports
+                      className="w-full h-100 object-cover rounded-lg mb-6 shadow-md cursor-pointer"
                     />
                   </DialogContent>
                 </Dialog>
