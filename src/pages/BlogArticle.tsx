@@ -13,8 +13,8 @@ import { useEffect, useState } from "react";
 
 // NEUE IMPORTE für Markdown Rendering
 import ReactMarkdown from 'react-markdown';
-import rehypeRaw from 'rehype-raw'; // Für die Unterstützung von rohem HTML innerhalb von Markdown
-import remarkGfm from 'remark-gfm'; // Für GitHub Flavored Markdown (Tabellen, Checkboxen etc.)
+import rehypeRaw from 'rehype-raw';
+import remarkGfm from 'remark-gfm';
 
 // NEUE IMPORTE für Shadcn Dialog
 import {
@@ -24,9 +24,13 @@ import {
 } from "@/components/ui/dialog"; // Importiere Dialog Komponenten
 
 const BlogArticle = () => {
-  useEffect(() => { window.scrollTo(0, 0); }, []);
-  const { slug } = useParams<{ slug: string }>();
-  const article = blogArticles.find((a) => a.slug === slug);
+const { slug } = useParams<{ slug: string }>();
+const article = blogArticles.find((a) => a.slug === slug);
+
+  // Dieser Hook wird bei jeder Änderung des 'slug' ausgeführt
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [slug]); // <-- Abhängigkeitsarray auf `slug` gesetzt
 
   // Zustand für das Öffnen/Schließen des Bild-Modals
   const [isHeroImageModalOpen, setIsHeroImageModalOpen] = useState(false);
