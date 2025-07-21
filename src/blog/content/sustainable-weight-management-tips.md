@@ -62,3 +62,27 @@ Sustainable weight management is a marathon, not a sprint. There will be plateau
 ## Conclusion
 
 Moving beyond quick fixes towards a sustainable approach to weight management involves a holistic view of your health. By focusing on whole foods, hydration, sleep, stress management, consistent activity, and mindful eating, you can build a foundation for long-term well-being that extends far beyond the numbers on the scale. Embrace the journey, be kind to yourself, and prioritize your health every day.
+
+---
+
+## Frequently Asked Questions (FAQs)
+
+### Q1: How long does it take to see results with sustainable weight management?
+
+**A1:** Sustainable weight management focuses on gradual, long-term changes rather than quick fixes. While individual results vary, a healthy and sustainable weight loss rate is typically 0.5 to 1 kg (1 to 2 pounds) per week. Consistency in healthy habits will lead to lasting results over months and years.
+
+### Q2: Do I need to count calories for sustainable weight management?
+
+**A2:** While calorie awareness can be helpful, especially in the initial stages, sustainable weight management emphasizes focusing on nutrient-dense whole foods and mindful eating rather than strict calorie counting. Listening to your body's hunger and fullness cues and making healthy food choices are often more effective long-term strategies.
+
+### Q3: What if I hit a plateau in my weight management journey?
+
+**A3:** Plateaus are common and a normal part of the process. When you hit one, consider reassessing your calorie intake, increasing your physical activity, ensuring adequate sleep, and managing stress levels. Sometimes, simply varying your routine can help. If the plateau persists, consulting a healthcare professional or dietitian is advisable.
+
+### Q4: Is exercise more important than diet for weight management?
+
+**A4:** Both diet and exercise are crucial for sustainable weight management, but they play different roles. Diet typically has a greater impact on weight loss, as it's easier to create a calorie deficit through food choices than through exercise alone. However, exercise is vital for maintaining weight, building muscle, improving metabolism, and overall health. A combination of both is most effective.
+
+### Q5: How can I stay motivated for long-term weight management?
+
+**A5:** Motivation often comes from focusing on non-scale victories, such as increased energy, better sleep, improved mood, and fitting into clothes better. Set realistic goals, track your progress (not just weight), find activities you enjoy, build a supportive community, and practice self-compassion. Remember your "why" and celebrate small successes along the way.
