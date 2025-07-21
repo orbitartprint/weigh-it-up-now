@@ -13,5 +13,5 @@ export const holisticHealthBeyondWeight = {
   tags: ["Wellness", "Mental Health", "Well-being", "Stress Management", "Nutrition", "Lifestyle"],
   content: articleContent,
   readTimeMinutes: calculateReadTime(articleContent),
-  publishDate: "2027-07-21", // Beispiel-Datum
+  publishDate: "2025-07-21", // Beispiel-Datum
 };
