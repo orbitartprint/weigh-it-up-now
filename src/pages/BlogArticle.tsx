@@ -63,7 +63,7 @@ const BlogArticle = () => {
                 <img
                   src={article.heroImage}
                   alt={article.heroImageAlt}
-                  className="w-full h-48 object-cover rounded-lg mb-6"
+                  className="w-full h-90 object-cover rounded-lg mb-6"
                 />
               )}
 
