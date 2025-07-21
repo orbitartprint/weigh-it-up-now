@@ -10,11 +10,11 @@ BMI is a simple calculation that uses your height and weight to estimate whether
 
 While this might seem overly simple, the BMI was developed by Adolphe Quetelet, a Belgian statistician, in the 19th century. It was originally designed as a quick and easy means of measuring the nutritional status of a population, rather than a diagnostic tool for an individual's health.
 
-Want to calculate your BMI right away? Use our [free BMI Calculator on WeightVs.com](https://www.weightvs.com/calculators) to quickly and easily get your current classification.
+Want to calculate your BMI right away? Use our [free BMI Calculator on WeightVs.com](https://www.weightvs.com/calculators?tab=bmi) to quickly and easily get your current classification.
 
 ## Understanding the BMI Categories
 
-BMI results fall into several categories that give you a general idea of where you stand relative to what's considered a healthy range. These categories are widely accepted globally (Source: [CDC - Adult BMI Categories](https://www.cdc.gov/bmi/adult-calculator/bmi-categories.html) ):
+BMI results fall into several categories that give you a general idea of where you stand relative to what's considered a healthy range. These categories are widely accepted globally (Source: [CDC - Adult BMI Categories](https://www.cdc.gov/bmi/adult-calculator/bmi-categories.html)):
 
 * **Underweight:** BMI below 18.5
 * **Normal Weight:** BMI from 18.5 to 24.9
