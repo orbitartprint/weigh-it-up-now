@@ -133,12 +133,9 @@ const WeightPercentileEducationalContent = () => {
                 <p className="text-purple-800">
                   <strong>Further Reading: </strong>
                   Discover why putting too much emphasis on just one number can be misleading: 
-                  <a href="/blog/weight-is-just-a-number" className="text-purple-600 underline hover:text-purple-800 ml-1">
-                    Weight is Just a Number: Why Your Health is More Than a Percentile
-                  </a>. Also, revisit our article on 
                   <a href="/blog/holistic-health-beyond-weight" className="text-purple-600 underline hover:text-purple-800 ml-1">
-                    Holistic Health: Beyond the Scale
-                  </a> for a comprehensive view.
+                    Weight is Just a Number: Why Your Health is More Than a Percentile
+                  </a>.
                 </p>
               </div>
             </div>
