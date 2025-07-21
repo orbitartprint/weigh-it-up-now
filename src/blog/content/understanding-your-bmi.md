@@ -14,14 +14,14 @@ Want to calculate your BMI right away? Use our [free BMI Calculator on WeightVs.
 
 ## Understanding the BMI Categories
 
-BMI results fall into several categories that give you a general idea of where you stand relative to what's considered a healthy range. These categories are widely accepted globally (Source: e.g., WHO or CDC):
+BMI results fall into several categories that give you a general idea of where you stand relative to what's considered a healthy range. These categories are widely accepted globally (Source: [CDC - Adult BMI Categories](https://www.cdc.gov/bmi/adult-calculator/bmi-categories.html) ):
 
 * **Underweight:** BMI below 18.5
 * **Normal Weight:** BMI from 18.5 to 24.9
 * **Overweight:** BMI from 25.0 to 29.9
 * **Obesity:** BMI of 30.0 and higher
 
-It's important to note that these categories apply to most adults, but different standards are used for children and adolescents. For individuals of Asian descent, slightly different categories may also apply (Source: e.g., specific health organizations).
+It's important to note that these categories apply to most adults, but different standards are used for children and adolescents. (Source: [CDC - Child and Teen BMI Categories](https://www.cdc.gov/bmi/child-teen-calculator/bmi-categories.html)).
 
 ## The Limitations of BMI
 
@@ -41,7 +41,7 @@ BMI is a screening tool, not a diagnostic one. If your BMI falls outside the nor
 
 Your doctor will likely consider additional factors, such as:
 
-* **Your Waist Circumference:** A large waist circumference (over 88 cm for women and 102 cm for men – Source: e.g., NIH) is an indicator of excess abdominal fat and increases the risk of chronic diseases, regardless of BMI.
+* **Your Waist Circumference:** A large waist circumference (over 88 cm for women and 102 cm for men – Source: [WHO - Obesity and overweight](https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight)) is an indicator of excess abdominal fat and increases the risk of chronic diseases, regardless of BMI.
 * **Other Risk Factors:** Is there a family history of heart disease, diabetes, or high blood pressure?
 * **Your Eating Habits and Activity Level:** Your lifestyle plays a critical role in your health.
 * **Blood Tests:** Results from blood sugar tests, cholesterol profiles, etc.
@@ -52,7 +52,7 @@ While BMI continues to be useful, there are other measurements that can provide 
 
 ### Waist-to-Height Ratio (WHR)
 
-The Waist-to-Height Ratio (WHR) is a simple, yet effective, way to assess fat distribution, particularly around the abdomen, which is linked to increased health risks. You calculate it by dividing your waist circumference by your height. A WHR of 0.5 or less is generally considered healthy for most adults (Source: e.g., World Health Organization).
+The Waist-to-Height Ratio (WHR) is a simple, yet effective, way to assess fat distribution, particularly around the abdomen, which is linked to increased health risks. You calculate it by dividing your waist circumference by your height. A WHR of 0.5 or less is generally considered healthy for most adults (Source: [Wikipedia - Waist-to-height ratio](https://en.wikipedia.org/wiki/Waist-to-height_ratio)).
 
 ### Body Fat Percentage
 
