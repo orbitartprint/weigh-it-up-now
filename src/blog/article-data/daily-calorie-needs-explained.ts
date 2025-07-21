@@ -13,5 +13,5 @@ export const dailyCalorieNeedsExplained = {
   tags: ["Calories", "Weight Management", "Energy Balance", "Nutrition"],
   content: articleContent,
   readTimeMinutes: calculateReadTime(articleContent),
-  publishDate: "2023-02-01", // Beispiel-Datum
+  publishDate: "2025-07-21", // Beispiel-Datum
 };
