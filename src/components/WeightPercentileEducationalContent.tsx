@@ -92,7 +92,7 @@ const WeightPercentileEducationalContent = () => {
                 <p className="text-green-800">
                   <strong>Further Reading: </strong>
                   Explore fascinating insights into how global lifestyles impact body weight in our article: 
-                  <a href="/blog/average-weight-global-differences" className="text-green-600 underline hover:text-green-800 ml-1">
+                  <a href="/blog/the-world-on-the-scale" className="text-green-600 underline hover:text-green-800 ml-1">
                     The World on the Scale: Average Weights Across Countries
                   </a>
                 </p>
