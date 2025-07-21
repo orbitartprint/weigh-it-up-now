@@ -36,6 +36,16 @@ This age- and sex-specific evaluation is crucial, as a BMI considered "normal" f
 
 To the article about adult BMI: [Understanding Your BMI: A Complete Guide to Body Mass Index](/blog/understanding-your-bmi)
 
+## How Percentiles Contribute to Better Health Assessment
+
+Percentiles provide essential context for individual health data. They help to:
+
+1.  **Identify trends:** They allow for tracking changes over time (e.g., whether a child is growing consistently or deviating from their curve).
+2.  **Make comparisons:** They show how an individual stands in relation to their peers or a healthy reference group.
+3.  **Identify potential problems:** Values that are extremely low or high (e.g., below the 3rd or above the 97th percentile) can indicate the need for further investigation.
+4.  **Simplify communication:** They provide a common language for healthcare professionals and patients to discuss health data.
+
+However, it's important to understand that percentiles alone are not a diagnosis. They are screening tools that, if outside the normal range, should prompt further evaluation by a healthcare provider.
 
 ## Limitations and Considerations
 
