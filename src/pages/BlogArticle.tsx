@@ -48,6 +48,7 @@ const BlogArticle = () => {
       <Helmet>
         <title>{article.title} - Your Blog Name</title>
         <meta name="description" content={article.excerpt} />
+        <link rel="canonical" href={`https://www.weightvs.com/blog/${article.slug}`} />
       </Helmet>
       <div className="bg-gradient-to-b from-blue-50 to-white min-h-screen">
         <div className="container mx-auto px-4 py-8 md:py-12">
