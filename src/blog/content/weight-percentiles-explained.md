@@ -63,7 +63,7 @@ If you've encountered your weight percentile (perhaps from a health assessment o
 
 ## Where Can You Find Percentile Calculators?
 
-On our website, [WeightVs.com](https://www.weightvs.com), you will soon find or already have various calculators that can help you understand your or your loved ones' percentiles:
+On our website, [WeightVs.com](https://www.weightvs.com), you will find various calculators that can help you understand your or your loved ones' percentiles:
 
 * **Weight Percentile Calculator:** [Find Your Weight Percentile Here](/calculators?tab=percentile)
 
