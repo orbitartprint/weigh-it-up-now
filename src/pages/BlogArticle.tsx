@@ -15,8 +15,7 @@ import { useEffect, useState } from "react";
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
-import rehypeSlug from 'rehype-slug'; // NEU: Für automatische ID-Generierung
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'; // NEU: Für verlinkbare Überschriften
+import rehypeSlug from 'rehype-slug'; // Für automatische ID-Generierung
 
 // NEUE IMPORTE für Shadcn Dialog
 import {
@@ -26,7 +25,11 @@ import {
 } from "@/components/ui/dialog"; // Importiere Dialog Komponenten
 
 const BlogArticle = () => {
-  useEffect(() => { window.scrollTo(0, 0); }, []);
+  // Stellen Sie sicher, dass dies beim Laden eines neuen Artikels immer nach oben scrollt
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [useParams().slug]); // Abhängigkeit vom slug, damit es bei jedem Artikelwechsel auslöst
+
   const { slug } = useParams<{ slug: string }>();
   const article = blogArticles.find((a) => a.slug === slug);
 
@@ -37,9 +40,6 @@ const BlogArticle = () => {
   if (!article) {
     return <div className="container mx-auto py-12 text-center">Article not found.</div>;
   }
-
-  // Helferfunktion zum Berechnen der Lesezeit (falls noch nicht in blogHelpers.ts)
-  // const calculateReadTime = (content: string): number => { /* ... */ };
 
   const relatedArticles = getRelatedArticles(article.slug);
 
@@ -104,8 +104,9 @@ const BlogArticle = () => {
 
                 <div className="prose dark:prose-invert max-w-none prose-h2:text-2xl prose-h2:font-bold prose-h3:text-xl prose-h3:font-bold prose-a:text-blue-600 prose-a:hover:underline">
                   <ReactMarkdown
-                    // Fügen Sie rehypePlugins hinzu, um IDs zu generieren und Überschriften zu verlinken
-                    rehypePlugins={[rehypeRaw, rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'wrap' }]]}
+                    // Entfernen Sie rehypeAutolinkHeadings, da es Überschriften zu Links macht
+                    // rehypeSlug generiert die IDs, die TableOfContents benötigt
+                    rehypePlugins={[rehypeRaw, rehypeSlug]}
                     remarkPlugins={[remarkGfm]}
                   >
                     {article.content}
@@ -147,7 +148,8 @@ const BlogArticle = () => {
 
             {/* Desktop Table of Contents */}
             <div className="lg:col-span-1 hidden lg:block">
-              {/* TableOfContents sollte jetzt die IDs korrekt lesen, da ReactMarkdown sie setzt */}
+              {/* TableOfContents liest die IDs jetzt direkt aus dem gerenderten DOM,
+                  die von rehypeSlug gesetzt wurden. */}
               <TableOfContents content={article.content} />
             </div>
           </div>
