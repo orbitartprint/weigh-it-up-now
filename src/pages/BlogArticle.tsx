@@ -9,17 +9,27 @@ import { Card, CardContent } from "@/components/ui/card";
 import TableOfContents from "@/components/TableOfContents";
 import RelatedArticles from "@/components/RelatedArticles";
 import { blogArticles, getRelatedArticles } from "@/data/blogArticles";
-import { useEffect } from "react";
+import { useEffect, useState } from "react"; // useState hinzugefügt
 
 // NEUE IMPORTE für Markdown Rendering
 import ReactMarkdown from 'react-markdown';
-import rehypeRaw from 'rehype-raw'; // Für die Unterstützung von rohem HTML innerhalb von Markdown
-import remarkGfm from 'remark-gfm'; // Für GitHub Flavored Markdown (Tabellen, Checkboxen etc.)
+import rehypeRaw from 'rehype-raw';
+import remarkGfm from 'remark-gfm';
+
+// NEUE IMPORTE für Shadcn Dialog
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/ui/dialog"; // Importiere Dialog Komponenten
 
 const BlogArticle = () => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
   const { slug } = useParams<{ slug: string }>();
   const article = blogArticles.find((a) => a.slug === slug);
+
+  // Zustand für das Öffnen/Schließen des Bild-Modals
+  const [isHeroImageModalOpen, setIsHeroImageModalOpen] = useState(false);
 
   // Fallback für den Fall, dass der Artikel nicht gefunden wird
   if (!article) {
@@ -29,11 +39,11 @@ const BlogArticle = () => {
   // Helferfunktion, um FAQs aus dem Markdown-Inhalt zu extrahieren
   const extractFaqs = (markdownContent: string) => {
     const faqs: { question: string; answer: string }[] = [];
-    const faqSectionMatch = markdownContent.match(/## Frequently Asked Questions \(FAQ\)[^\n]*(.*?)(?=## |\n---|$)/s); // Anpassung des Regex, um den FAQ-Abschnitt besser zu isolieren
+    const faqSectionMatch = markdownContent.match(/## Frequently Asked Questions \(FAQ\)[^\n]*(.*?)(?=## |\n---|$)/s);
 
     if (faqSectionMatch && faqSectionMatch[1]) {
       const faqText = faqSectionMatch[1];
-      const qaPairs = faqText.split(/(### Q: .*)/).slice(1); // Teilt den Text bei jedem "### Q:"
+      const qaPairs = faqText.split(/(### Q: .*)/).slice(1);
 
       for (let i = 0; i < qaPairs.length; i += 2) {
         const questionLine = qaPairs[i];
@@ -55,9 +65,9 @@ const BlogArticle = () => {
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": article.title,
-    "image": `https://www.weightvs.com${article.heroImage}`, // Absolute URL erstellen
+    "image": `https://www.weightvs.com${article.heroImage}`,
     "datePublished": article.publishDate,
-    "dateModified": article.publishDate, // Für Blog-Artikel oft gleich wie published, oder ein 'lastModified' Feld hinzufügen
+    "dateModified": article.publishDate,
     "author": {
       "@type": "Organization",
       "name": "WeightVs.com",
@@ -68,13 +78,13 @@ const BlogArticle = () => {
       "name": "WeightVs.com",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.weightvs.com/logo.png" // Passe dies an dein Logo an
+        "url": "https://www.weightvs.com/logo.png"
       }
     },
     "description": article.excerpt,
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://www.weightvs.com/blog/${article.slug}` // Absolute URL zum Artikel
+      "@id": `https://www.weightvs.com/blog/${article.slug}`
     }
   };
 
@@ -94,51 +104,39 @@ const BlogArticle = () => {
 
   const relatedArticles = getRelatedArticles(article.slug);
 
-  // useEffect für TableOfContents bleibt, da es die Headings im gerenderten HTML manipuliert
-  // ABER: Es muss NACH dem ReactMarkdown-Rendering laufen
   useEffect(() => {
     if (article) {
-      // Small delay to ensure ReactMarkdown has finished rendering
       const timeoutId = setTimeout(() => {
-        const headingRegex = /^(H[1-6])(?=\s)/; // Regex to match heading tags (H1-H6)
         const contentElement = document.querySelector('.article-content');
 
         if (contentElement) {
-          // Temporarily store innerHTML
-          let innerHtml = contentElement.innerHTML;
-          // Use a DOMParser to safely parse and manipulate HTML
           const parser = new DOMParser();
-          const doc = parser.parseFromString(innerHtml, 'text/html');
+          const doc = parser.parseFromString(contentElement.innerHTML, 'text/html');
           
-          // Select all headings (h2 and h3 in your case)
           doc.querySelectorAll('h2, h3').forEach((heading) => {
             const text = heading.textContent || '';
             const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
             heading.setAttribute('id', id);
           });
           
-          // Update the contentElement with the modified HTML
           contentElement.innerHTML = doc.body.innerHTML;
         }
-      }, 50); // Kleiner Delay, um sicherzustellen, dass ReactMarkdown fertig ist
+      }, 50);
       return () => clearTimeout(timeoutId);
     }
-  }, [article]); // Abhängigkeit vom Artikel, damit es bei Artikelwechsel neu läuft
+  }, [article]);
 
   return (
     <>
       <Helmet>
         <title>{article.title} - WeightVs.com Blog</title>
         <meta name="description" content={article.excerpt} />
-        {/* Canonical URL */}
         <link rel="canonical" href={`https://www.weightvs.com/blog/${article.slug}`} />
 
-        {/* Article Schema Markup */}
         <script type="application/ld+json">
           {JSON.stringify(articleSchema)}
         </script>
 
-        {/* FAQPage Schema Markup (nur rendern, wenn FAQs vorhanden sind) */}
         {faqs.length > 0 && (
           <script type="application/ld+json">
             {JSON.stringify(faqSchema)}
@@ -155,11 +153,26 @@ const BlogArticle = () => {
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             <div className="lg:col-span-3">
               <article>
-                <img
-                  src={article.heroImage}
-                  alt={article.heroImageAlt}
-                  className="w-full h-80 object-cover rounded-lg mb-6 shadow-md"
-                />
+                {/* Hero Image mit Dialog-Trigger */}
+                <Dialog open={isHeroImageModalOpen} onOpenChange={setIsHeroImageModalOpen}>
+                  <DialogTrigger asChild>
+                    <img
+                      src={article.heroImage}
+                      alt={article.heroImageAlt}
+                      className="w-full h-100 object-cover rounded-lg mb-6 shadow-md cursor-pointer" // cursor-pointer hinzugefügt
+                      onClick={() => setIsHeroImageModalOpen(true)} // Optional: für bessere Klick-Erkennung
+                    />
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-[800px] p-0 border-none bg-transparent">
+                    {/* Das Bild im Modal - 'object-contain' für volle Sichtbarkeit */}
+                    <img
+                      src={article.heroImage}
+                      alt={article.heroImageAlt}
+                      className="w-full h-auto max-h-[90vh] object-contain rounded-lg" // max-h-[90vh] begrenzt Höhe auf 90% des Viewports
+                    />
+                  </DialogContent>
+                </Dialog>
+
                 <h1 className="text-4xl font-bold text-gray-900 mb-4">{article.title}</h1>
                 <div className="flex items-center text-gray-600 text-sm mb-6">
                   <Calendar className="h-4 w-4 mr-2" />
@@ -185,7 +198,6 @@ const BlogArticle = () => {
                     <div 
                       className="article-content prose prose-lg max-w-none"
                     >
-                      {/* ReactMarkdown zum Rendern des Inhalts */}
                       <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}>
                         {article.content}
                       </ReactMarkdown>
