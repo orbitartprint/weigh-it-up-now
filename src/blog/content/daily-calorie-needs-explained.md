@@ -6,7 +6,7 @@ This guide will demystify calories, break down the science behind energy expendi
 
 ## What Are Calories?
 
-A calorie is simply a unit of energy. In nutrition, the "calories" you see on food labels are actually kilocalories (kcal), but the terms are often used interchangeably. Your body needs calories to fuel every single process, from the most basic functions like breathing and thinking to intense physical activity. (Source: [NHS - Understanding calories](https://www.nhs.uk/live-well/healthy-weight/managing-your-weight/understanding-calories/)
+A calorie is simply a unit of energy. In nutrition, the "calories" you see on food labels are actually kilocalories (kcal), but the terms are often used interchangeably. Your body needs calories to fuel every single process, from the most basic functions like breathing and thinking to intense physical activity. (Source: [NHS - Understanding calories](https://www.nhs.uk/live-well/healthy-weight/managing-your-weight/understanding-calories/))
 
 Your total daily calorie expenditure is broadly divided into three main components:
 
@@ -55,7 +55,7 @@ Once you have your BMR, you multiply it by an activity factor to estimate your T
     = 600 + 1031.25 - 150 - 161 = 1320.25 calories
 2.  TDEE = 1320.25 × 1.55 (Moderately Active) = ~2046 calories per day
 
-These calculations can be complex to do manually. Why not try our [Daily Calorie Needs Calculator on WeightVs.com](https://www.weightvs.com/calculators) for an instant, personalized estimate?
+These calculations can be complex to do manually. Why not try our [Daily Calorie Needs Calculator on WeightVs.com](https://www.weightvs.com/calculators?tab=calories) for an instant, personalized estimate?
 
 ## Adjusting Calories for Your Goals
 
@@ -70,7 +70,7 @@ Your TDEE is the number of calories you need to maintain your current weight. To
 Estimating calorie needs provides a valuable starting point, but it's crucial to acknowledge these factors:
 
 * **Individual Variability:** These formulas are estimates. Metabolic rates can vary significantly between individuals due to unique genetics, hormonal factors, gut microbiome, and underlying health conditions. For instance, two people with identical stats might have slightly different true TDEEs.
-* **Nutrient Density:** Focus on nutrient-dense foods (whole foods, lean proteins, fruits, vegetables, healthy fats) rather than just obsessing over calorie numbers. The quality of your calories matters immensely for satiety, overall health, and energy levels. 200 calories from an apple offer different nutritional benefits than 200 calories from a candy bar (Source: [WHO - Healthy diet](https://www.who.int/news-room/fact-sheets/detail/healthy-diet).
+* **Nutrient Density:** Focus on nutrient-dense foods (whole foods, lean proteins, fruits, vegetables, healthy fats) rather than just obsessing over calorie numbers. The quality of your calories matters immensely for satiety, overall health, and energy levels. 200 calories from an apple offer different nutritional benefits than 200 calories from a candy bar (Source: [WHO - Healthy diet](https://www.who.int/news-room/fact-sheets/detail/healthy-diet)).
 * **Consistency and Adjustments:** Your body adapts over time. As your weight or activity level changes, so will your calorie needs. Consistent tracking of your intake and progress, coupled with regular adjustments to your calorie target, is key to long-term success.
 * **Professional Guidance:** Always consult with a healthcare professional, registered dietitian, or certified nutritionist before making significant changes to your diet or exercise routine, especially if you have underlying health conditions, are pregnant, or have specific dietary needs.
 
