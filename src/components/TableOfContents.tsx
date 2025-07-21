@@ -26,13 +26,15 @@ const TableOfContents = ({ content, mobile = false }: TableOfContentsProps) => {
   useEffect(() => {
     // Kurze Verzögerung, um sicherzustellen, dass ReactMarkdown das Rendering abgeschlossen hat
     const timeoutId = setTimeout(() => {
-      const headings = document.querySelectorAll<HTMLElement>('.prose h2, .prose h3'); // Wähle die Überschriften im Prose-Container
+      // Wähle die Überschriften im Prose-Container
+      const headings = document.querySelectorAll<HTMLElement>('.prose h2, .prose h3');
       const items: TocItem[] = [];
       headings.forEach(heading => {
         const id = heading.id;
         const text = heading.textContent || '';
         const level = parseInt(heading.tagName.substring(1)); // H1 -> 1, H2 -> 2, etc.
-        if (id && text && (level === 2 || level === 3)) { // Filtern nach H2 und H3 wie im Original-Regex
+        // Filtern nach H2 und H3, und stellen Sie sicher, dass eine ID und Text vorhanden sind
+        if (id && text && (level === 2 || level === 3)) {
           items.push({ id, text, level });
         }
       });
