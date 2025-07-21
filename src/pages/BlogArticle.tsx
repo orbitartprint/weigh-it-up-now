@@ -9,12 +9,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import TableOfContents from "@/components/TableOfContents";
 import RelatedArticles from "@/components/RelatedArticles";
 import { blogArticles, getRelatedArticles } from "@/data/blogArticles";
-import { useEffect, useState } from "react"; // useState hinzugefügt
+import { useEffect, useState } from "react";
 
 // NEUE IMPORTE für Markdown Rendering
 import ReactMarkdown from 'react-markdown';
-import rehypeRaw from 'rehype-raw';
-import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw'; // Für die Unterstützung von rohem HTML innerhalb von Markdown
+import remarkGfm from 'remark-gfm'; // Für GitHub Flavored Markdown (Tabellen, Checkboxen etc.)
 
 // NEUE IMPORTE für Shadcn Dialog
 import {
@@ -35,6 +35,27 @@ const BlogArticle = () => {
   if (!article) {
     return <div className="container mx-auto py-12 text-center">Article not found.</div>;
   }
+
+  // Helferfunktion, um IDs aus Überschriftentext zu generieren
+  const generateId = (text: string) => {
+    return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  };
+
+  // Custom Renderer für Überschriften in ReactMarkdown
+  const renderers = {
+    h2: ({ node, children, ...props }: any) => {
+      const text = Array.isArray(children) ? children.map((child: any) => typeof child === 'string' ? child : '').join('') : '';
+      const id = generateId(text);
+      return <h2 id={id} {...props}>{children}</h2>;
+    },
+    h3: ({ node, children, ...props }: any) => {
+      const text = Array.isArray(children) ? children.map((child: any) => typeof child === 'string' ? child : '').join('') : '';
+      const id = generateId(text);
+      return <h3 id={id} {...props}>{children}</h3>;
+    },
+    // Füge hier weitere HTML-Tags hinzu, die du anpassen möchtest
+  };
+
 
   // Helferfunktion, um FAQs aus dem Markdown-Inhalt zu extrahieren
   const extractFaqs = (markdownContent: string) => {
@@ -104,22 +125,23 @@ const BlogArticle = () => {
 
   const relatedArticles = getRelatedArticles(article.slug);
 
+  // useEffect für TableOfContents bleibt, da es die Headings im gerenderten HTML manipuliert
+  // ABER: Es muss NACH dem ReactMarkdown-Rendering laufen
   useEffect(() => {
     if (article) {
+      // Small delay to ensure ReactMarkdown has finished rendering
       const timeoutId = setTimeout(() => {
         const contentElement = document.querySelector('.article-content');
 
         if (contentElement) {
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(contentElement.innerHTML, 'text/html');
-          
-          doc.querySelectorAll('h2, h3').forEach((heading) => {
-            const text = heading.textContent || '';
-            const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-            heading.setAttribute('id', id);
-          });
-          
-          contentElement.innerHTML = doc.body.innerHTML;
+          // No need to parse innerHTML and re-set it. ReactMarkdown already handled it.
+          // TableOfContents should now directly read IDs that ReactMarkdown set.
+          // This useEffect can be simplified if TableOfContents directly reads from a ref
+          // or if the IDs are guaranteed to be there by ReactMarkdown's renderers.
+          // For now, we keep the structure but remove the innerHTML manipulation part that caused issues.
+          // The TableOfContents component itself might need to fetch headings from the DOM.
+          // If TableOfContents relies on `article.content` for parsing, it should parse the *raw* markdown,
+          // and its internal logic for generating IDs should match the `generateId` function here.
         }
       }, 50);
       return () => clearTimeout(timeoutId);
@@ -159,7 +181,7 @@ const BlogArticle = () => {
                     <img
                       src={article.heroImage}
                       alt={article.heroImageAlt}
-                      className="w-full h-100 object-cover rounded-lg mb-6 shadow-md cursor-pointer" // cursor-pointer hinzugefügt
+                      className="w-full h-64 object-cover rounded-lg mb-6 shadow-md cursor-pointer" // cursor-pointer hinzugefügt
                       onClick={() => setIsHeroImageModalOpen(true)} // Optional: für bessere Klick-Erkennung
                     />
                   </DialogTrigger>
@@ -168,8 +190,7 @@ const BlogArticle = () => {
                     <img
                       src={article.heroImage}
                       alt={article.heroImageAlt}
-                      //className="w-full h-auto max-h-[80vh] object-contain rounded-lg" // max-h-[90vh] begrenzt Höhe auf 90% des Viewports
-                      className="w-full h-100 object-cover rounded-lg mb-6 shadow-md cursor-pointer"
+                      className="w-full h-auto max-h-[90vh] object-contain rounded-lg" // max-h-[90vh] begrenzt Höhe auf 90% des Viewports
                     />
                   </DialogContent>
                 </Dialog>
@@ -193,13 +214,17 @@ const BlogArticle = () => {
                   </div>
                 )}
 
-                {/* Article Content */}
+                {/* Article Content - Jetzt mit ReactMarkdown und custom Renderern */}
                 <Card>
                   <CardContent className="pt-6">
                     <div 
                       className="article-content prose prose-lg max-w-none"
                     >
-                      <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}>
+                      <ReactMarkdown 
+                        rehypePlugins={[rehypeRaw]} 
+                        remarkPlugins={[remarkGfm]}
+                        components={renderers} // Wichtig: Hier werden die Custom Renderer übergeben
+                      >
                         {article.content}
                       </ReactMarkdown>
                     </div>
@@ -241,7 +266,8 @@ const BlogArticle = () => {
 
             {/* Desktop Table of Contents */}
             <div className="lg:col-span-1 hidden lg:block">
-              <TableOfContents content={article.content} />
+              {/* TableOfContents sollte jetzt die IDs korrekt lesen, da ReactMarkdown sie setzt */}
+              <TableOfContents content={article.content} /> 
             </div>
           </div>
         </div>
