@@ -134,7 +134,7 @@ const BlogArticle = () => {
             <img
               src={article.heroImage}
               alt={article.heroImageAlt}
-              className="w-full h-64 object-cover rounded-lg shadow-md mb-8"
+              className="w-full h-auto object-contain mb-8 rounded-lg shadow-md"
             />
 
             <div className="flex justify-between items-center text-sm text-gray-600 mb-4">
