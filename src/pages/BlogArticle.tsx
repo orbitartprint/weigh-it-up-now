@@ -16,11 +16,83 @@ import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw'; // Für die Unterstützung von rohem HTML innerhalb von Markdown
 import remarkGfm from 'remark-gfm'; // Für GitHub Flavored Markdown (Tabellen, Checkboxen etc.)
 
-
 const BlogArticle = () => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
   const { slug } = useParams<{ slug: string }>();
   const article = blogArticles.find((a) => a.slug === slug);
+
+  // Fallback für den Fall, dass der Artikel nicht gefunden wird
+  if (!article) {
+    return <div className="container mx-auto py-12 text-center">Article not found.</div>;
+  }
+
+  // Helferfunktion, um FAQs aus dem Markdown-Inhalt zu extrahieren
+  const extractFaqs = (markdownContent: string) => {
+    const faqs: { question: string; answer: string }[] = [];
+    const faqSectionMatch = markdownContent.match(/## Frequently Asked Questions \(FAQ\)[^\n]*(.*?)(?=## |\n---|$)/s); // Anpassung des Regex, um den FAQ-Abschnitt besser zu isolieren
+
+    if (faqSectionMatch && faqSectionMatch[1]) {
+      const faqText = faqSectionMatch[1];
+      const qaPairs = faqText.split(/(### Q: .*)/).slice(1); // Teilt den Text bei jedem "### Q:"
+
+      for (let i = 0; i < qaPairs.length; i += 2) {
+        const questionLine = qaPairs[i];
+        const answerText = qaPairs[i + 1] ? qaPairs[i + 1].split('**A:**')[1]?.trim() : '';
+
+        if (questionLine && answerText) {
+          const question = questionLine.replace('### Q: ', '').trim();
+          faqs.push({ question, answer: answerText });
+        }
+      }
+    }
+    return faqs;
+  };
+
+  const faqs = extractFaqs(article.content);
+
+  // Schema Markup für Article
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": article.title,
+    "image": `https://www.weightvs.com${article.heroImage}`, // Absolute URL erstellen
+    "datePublished": article.publishDate,
+    "dateModified": article.publishDate, // Für Blog-Artikel oft gleich wie published, oder ein 'lastModified' Feld hinzufügen
+    "author": {
+      "@type": "Organization",
+      "name": "WeightVs.com",
+      "url": "https://www.weightvs.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "WeightVs.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.weightvs.com/logo.png" // Passe dies an dein Logo an
+      }
+    },
+    "description": article.excerpt,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://www.weightvs.com/blog/${article.slug}` // Absolute URL zum Artikel
+    }
+  };
+
+  // Schema Markup für FAQPage
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
+
+  const relatedArticles = getRelatedArticles(article.slug);
 
   // useEffect für TableOfContents bleibt, da es die Headings im gerenderten HTML manipuliert
   // ABER: Es muss NACH dem ReactMarkdown-Rendering laufen
@@ -32,190 +104,132 @@ const BlogArticle = () => {
         const contentElement = document.querySelector('.article-content');
 
         if (contentElement) {
-          const headings = contentElement.querySelectorAll('h1, h2, h3, h4, h5, h6');
-          headings.forEach((heading) => {
-            const text = heading.textContent;
-            if (text) {
-              const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-              heading.setAttribute('id', id);
-            }
+          // Temporarily store innerHTML
+          let innerHtml = contentElement.innerHTML;
+          // Use a DOMParser to safely parse and manipulate HTML
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(innerHtml, 'text/html');
+          
+          // Select all headings (h2 and h3 in your case)
+          doc.querySelectorAll('h2, h3').forEach((heading) => {
+            const text = heading.textContent || '';
+            const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+            heading.setAttribute('id', id);
           });
+          
+          // Update the contentElement with the modified HTML
+          contentElement.innerHTML = doc.body.innerHTML;
         }
-      }, 100); // Adjust delay if needed
-
+      }, 50); // Kleiner Delay, um sicherzustellen, dass ReactMarkdown fertig ist
       return () => clearTimeout(timeoutId);
     }
-  }, [article]); // Abhängigkeit von article hinzufügen
-
-  if (!article) {
-    return (
-      <>
-        <div className="min-h-screen flex items-center justify-center">
-          <p className="text-xl text-gray-600">Artikel nicht gefunden.</p>
-        </div>
-      </>
-    );
-  }
-
-  const relatedArticles = getRelatedArticles(article.slug);
-
-  // Funktion zum Formatieren des Datums für das Schema.org Markup (ISO 8601)
-  const formatISODate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toISOString().split('T')[0]; // YYYY-MM-DD
-  };
-
-  // Generiere das Schema.org Markup (JSON-LD)
-  const articleSchema = {
-    "@context": "https://schema.org",
-    "@type": "Article", // Oder "BlogPosting"
-    "headline": article.title,
-    "image": article.heroImage,
-    "datePublished": formatISODate(article.publishDate),
-    "dateModified": formatISODate(article.publishDate), // Oder ein 'lastModifiedDate' wenn verfügbar
-    "author": {
-      "@type": "Person",
-      "name": "WeightVs.com Team" // Passe den Autor an
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "WeightVs.com",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://www.weightvs.com/logo.png" // Passe den Pfad zum Logo an
-      }
-    },
-    "description": article.excerpt,
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": `https://www.weightvs.com/blog/${article.slug}` // Passe die Basis-URL an
-    },
-    "articleBody": article.content.substring(0, 1000) + "..." // Optional: Kürze den Inhalt für Schema, um die Größe zu begrenzen
-  };
+  }, [article]); // Abhängigkeit vom Artikel, damit es bei Artikelwechsel neu läuft
 
   return (
     <>
       <Helmet>
-        <title>{article.title} | WeightVs.com Blog</title>
+        <title>{article.title} - WeightVs.com Blog</title>
         <meta name="description" content={article.excerpt} />
-        <meta name="keywords" content={article.tags.join(', ')} />
+        {/* Canonical URL */}
         <link rel="canonical" href={`https://www.weightvs.com/blog/${article.slug}`} />
 
-        {/* Open Graph / Facebook Meta Tags */}
-        <meta property="og:title" content={article.title} />
-        <meta property="og:description" content={article.excerpt} />
-        <meta property="og:image" content={`https://www.weightvs.com${article.heroImage}`} /> {/* Absolute URL */}
-        <meta property="og:url" content={`https://www.weightvs.com/blog/${article.slug}`} />
-        <meta property="og:type" content="article" />
-        <meta property="og:site_name" content="WeightVs.com" />
-        <meta property="article:published_time" content={new Date(article.publishDate).toISOString()} />
-        <meta property="article:author" content="WeightVs.com Team" />
-
-        {/* Twitter Card Meta Tags */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={article.title} />
-        <meta name="twitter:description" content={article.excerpt} />
-        <meta name="twitter:image" content={`https://www.weightvs.com${article.heroImage}`} /> {/* Absolute URL */}
-
-        {/* Schema.org JSON-LD Markup */}
+        {/* Article Schema Markup */}
         <script type="application/ld+json">
           {JSON.stringify(articleSchema)}
         </script>
+
+        {/* FAQPage Schema Markup (nur rendern, wenn FAQs vorhanden sind) */}
+        {faqs.length > 0 && (
+          <script type="application/ld+json">
+            {JSON.stringify(faqSchema)}
+          </script>
+        )}
       </Helmet>
 
       <div className="bg-gray-50 min-h-screen">
         <div className="container mx-auto px-4 py-8">
-          <div className="max-w-4xl mx-auto">
-            <Link to="/blog" className="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors mb-6">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Zurück zum Blog
-            </Link>
+          <Link to="/blog" className="text-blue-600 hover:underline flex items-center mb-6">
+            <ArrowLeft className="h-4 w-4 mr-2" /> Back to Blog
+          </Link>
 
-            <img
-              src={article.heroImage}
-              alt={article.heroImageAlt}
-              className="w-full h-auto object-contain mb-8 rounded-lg shadow-md"
-            />
-
-            <div className="flex justify-between items-center text-sm text-gray-600 mb-4">
-              <div className="flex items-center space-x-4">
-                <span className="flex items-center">
-                  <Clock className="h-4 w-4 mr-1 text-gray-500" />
-                  {article.readTimeMinutes} Min. Lesezeit
-                </span>
-                <span className="flex items-center">
-                  <Calendar className="h-4 w-4 mr-1 text-gray-500" />
-                  {new Date(article.publishDate).toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' })}
-                </span>
-              </div>
-              <Badge variant="secondary" className="bg-blue-100 text-blue-800">{article.category}</Badge>
-            </div>
-
-            <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-6">
-              {article.title}
-            </h1>
-
-            <p className="text-xl text-gray-700 mb-8 font-serif italic">
-              {article.excerpt}
-            </p>
-
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-              {/* Mobile Table of Contents (hidden on large screens) */}
-              <div className="lg:hidden mb-8">
-                <TableOfContents content={article.content} isMobile={true} />
-              </div>
-
-              {/* Article Content */}
-              <Card className="lg:col-span-3"> {/* Artikelinhalt nimmt mehr Platz ein */}
-                <CardContent className="pt-6">
-                  <div className="article-content prose prose-lg max-w-none">
-                    {/* HIER WIRD DER MARKDOWN-INHALT GERENDERT */}
-                    <ReactMarkdown
-                      rehypePlugins={[rehypeRaw]}
-                      remarkPlugins={[remarkGfm]}
-                    >
-                      {article.content}
-                    </ReactMarkdown>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Desktop Table of Contents */}
-              <div className="lg:col-span-1 hidden lg:block">
-                <TableOfContents content={article.content} />
-              </div>
-            </div>
-
-            {/* Tags Section */}
-            {article.tags && article.tags.length > 0 && (
-              <div className="mt-8 flex flex-wrap gap-2">
-                {article.tags.map(tag => (
-                  <Badge key={tag} variant="outline" className="text-gray-600 hover:bg-gray-100 cursor-pointer">
-                    {tag}
-                  </Badge>
-                ))}
-              </div>
-            )}
-
-            {/* Call to Action */}
-            <Card className="mt-8">
-              <CardContent className="pt-6">
-                <div className="text-center">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                    Ready to Take Action?
-                  </h3>
-                  <p className="text-gray-600 mb-4">
-                    Apply what you've learned with our free health calculators and tools.
-                  </p>
-                  <Button asChild>
-                    <Link to="/calculators">Explore Our Calculators</Link>
-                  </Button>
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div className="lg:col-span-3">
+              <article>
+                <img
+                  src={article.heroImage}
+                  alt={article.heroImageAlt}
+                  className="w-full h-80 object-cover rounded-lg mb-6 shadow-md"
+                />
+                <h1 className="text-4xl font-bold text-gray-900 mb-4">{article.title}</h1>
+                <div className="flex items-center text-gray-600 text-sm mb-6">
+                  <Calendar className="h-4 w-4 mr-2" />
+                  <span>{new Date(article.publishDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                  <Clock className="h-4 w-4 ml-4 mr-2" />
+                  <span>{article.readTimeMinutes} min read</span>
                 </div>
-              </CardContent>
-            </Card>
 
-            {/* Related Articles */}
-            <RelatedArticles articles={relatedArticles} />
+                {/* Tags Section (Mobile) */}
+                {article.tags && article.tags.length > 0 && (
+                  <div className="mb-6 flex flex-wrap gap-2 lg:hidden">
+                    {article.tags.map(tag => (
+                      <Badge key={tag} variant="secondary" className="text-gray-600">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+
+                {/* Article Content */}
+                <Card>
+                  <CardContent className="pt-6">
+                    <div 
+                      className="article-content prose prose-lg max-w-none"
+                    >
+                      {/* ReactMarkdown zum Rendern des Inhalts */}
+                      <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}>
+                        {article.content}
+                      </ReactMarkdown>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Tags Section (Desktop) */}
+                {article.tags && article.tags.length > 0 && (
+                  <div className="mt-8 flex flex-wrap gap-2 hidden lg:block">
+                    {article.tags.map(tag => (
+                      <Badge key={tag} variant="secondary" className="text-gray-600">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+
+                {/* Call to Action */}
+                <Card className="mt-8">
+                  <CardContent className="pt-6">
+                    <div className="text-center">
+                      <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                        Ready to Take Action?
+                      </h3>
+                      <p className="text-gray-600 mb-4">
+                        Apply what you've learned with our free health calculators and tools.
+                      </p>
+                      <Button asChild>
+                        <Link to="/calculators">Explore Our Calculators</Link>
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Related Articles */}
+                <RelatedArticles articles={relatedArticles} />
+              </article>
+            </div>
+
+            {/* Desktop Table of Contents */}
+            <div className="lg:col-span-1 hidden lg:block">
+              <TableOfContents content={article.content} />
+            </div>
           </div>
         </div>
       </div>
