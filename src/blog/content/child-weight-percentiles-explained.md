@@ -25,7 +25,7 @@ Globally, two main sets of growth charts are widely used for children aged 0-5 y
 1.  **WHO (World Health Organization) Growth Standards:** These charts describe the growth of children in optimal conditions. They are considered prescriptive, showing how healthy children *should* grow when their needs are met (e.g., predominantly breastfed for the first six months, healthy environment). The WHO recommends these for children worldwide aged 0-5 years.
     * [WHO Child Growth Standards](https://www.who.int/tools/child-growth-standards/standards)
 2.  **CDC (Centers for Disease Control and Prevention) Growth Charts:** These charts describe the growth of children in the United States over a specific period. They are considered descriptive, showing how children *did* grow, reflecting typical growth patterns in the U.S. population, including those who are formula-fed. While often used in the U.S., the WHO standards are generally preferred for children under two years.
-    * [CDC Growth Charts](https://www.www.cdc.gov/growthcharts/index.htm)
+    * [CDC Growth Charts](https://www.cdc.gov/growthcharts/cdc-growth-charts.htm)
 
 Our **[Child Weight Percentile Calculator](/calculators)** utilizes data based on these widely accepted standards to provide you with an accurate assessment for your little one.
 
@@ -87,6 +87,6 @@ Understanding your child's weight percentile is a valuable part of monitoring th
 * **World Health Organization (WHO) Growth Standards:** [https://www.who.int/tools/child-growth-standards/standards](https://www.who.int/tools/child-growth-standards/standards)
 * **Centers for Disease Control and Prevention (CDC) Growth Charts:** [https://www.cdc.gov/growthcharts/index.htm](https://www.cdc.gov/growthcharts/index.htm)
 * **American Academy of Pediatrics - HealthyChildren.org:** [https://www.healthychildren.org/](https://www.healthychildren.org/)* (This is a general link, you might want to find a more specific article on growth charts from them during your deep research)
-* **NHS - Your child's weight:** [https://www.nhs.uk/start-for-life/baby/baby-health/baby-weight-and-growth/your-babys-weight/](https://www.nhs.uk/start-for-life/baby/baby-health/baby-weight-and-growth/your-babys-weight/)
+* **NHS - Your child's weight:** [https://www.nhs.uk/live-well/healthy-weight/childrens-weight/national-child-measurement-programme/](https://www.nhs.uk/live-well/healthy-weight/childrens-weight/national-child-measurement-programme/)
 
 ---
