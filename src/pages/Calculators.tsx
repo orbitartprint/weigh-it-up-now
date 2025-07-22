@@ -1,3 +1,5 @@
+// src/pages/Calculators.tsx
+
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Link, useSearchParams } from "react-router-dom";
@@ -20,857 +22,810 @@ import CalorieEducationalContent from "@/components/CalorieEducationalContent";
 import WeightPercentileEducationalContent from "@/components/WeightPercentileEducationalContent";
 import WeightComparison from "@/components/WeightComparison";
 import WeightComparisonContent from "@/components/WeightComparisonContent";
+import ChildWeightPercentileEducationalContent from "@/components/ChildWeightPercentileEducationalContent"; // New import
 import { WeightItem, weightItems, getItemsByCategory } from "@/data/weightItems";
-import { averageWeightMen, averageWeightWomen, getAllCountries } from "@/data/averageWeightData";
-import { calculateWeightPercentile } from "@/utils/statistics";
+import { averageWeightMen, averageWeightWomen, getAllCountries } from "@/data/averageWeights";
+
+// Recharts imports for visual representation
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
+
 
 const Calculators = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  // Shared state for weight and height across calculators
-  const [sharedWeight, setSharedWeight] = useState<number | "">("");
-  const [sharedHeight, setSharedHeight] = useState<number | "">("");
-  const [sharedWeightUnit, setSharedWeightUnit] = useState("kg");
-  const [sharedHeightUnit, setSharedHeightUnit] = useState("cm");
-
-  const [activeTab, setActiveTab] = useState(() => searchParams.get("tab") || "bmi");
+  const initialTab = searchParams.get("tab") || "bmi";
+  const [activeTab, setActiveTab] = useState(initialTab);
 
   useEffect(() => {
-    window.scrollTo(0, 0); // Scrollt die Seite zur obersten linken Ecke
-  }, []);
+    setSearchParams({ tab: activeTab });
+  }, [activeTab, setSearchParams]);
 
-  // BMI Calculator state
-  const [bmiResult, setBmiResult] = useState<{
-    value: number;
-    category: string;
-    insight?: string;
-  } | null>(null);
-  const [isLoadingInsight, setIsLoadingInsight] = useState(false);
+  // BMI Calculator states
+  const [heightCm, setHeightCm] = useState("");
+  const [weightKg, setWeightKg] = useState("");
+  const [bmiResult, setBmiResult] = useState<string | null>(null);
+  const [bmiCategory, setBmiCategory] = useState<string | null>(null);
+  const [showBmiResults, setShowBmiResults] = useState(false);
 
-  // Daily Calorie Calculator state
-  const [age, setAge] = useState<number | "">("");
-  const [gender, setGender] = useState<string>("");
-  const [activityLevel, setActivityLevel] = useState([3]);
-  const [weightGoal, setWeightGoal] = useState("");
-  const [calorieResult, setCalorieResult] = useState<{
-    bmr: number;
-    tdee: number;
-    advice?: string;
-  } | null>(null);
-  const [isLoadingAdvice, setIsLoadingAdvice] = useState(false);
+  // Calorie Calculator states
+  const [calorieGender, setCalorieGender] = useState("male");
+  const [calorieAge, setCalorieAge] = useState("");
+  const [calorieWeightKg, setCalorieWeightKg] = useState("");
+  const [calorieHeightCm, setCalorieHeightCm] = useState("");
+  const [activityLevel, setActivityLevel] = useState("sedentary");
+  const [calorieNeedsResult, setCalorieNeedsResult] = useState<string | null>(null);
+  const [showCalorieResults, setShowCalorieResults] = useState(false);
 
-  // Weight Percentile Calculator state
-  const [percentileGender, setPercentileGender] = useState<string>("");
-  const [selectedCountry, setSelectedCountry] = useState<string>("");
-  const [percentileResult, setPercentileResult] = useState<{
-    percentile: number;
-    meanWeight: number;
-    // Added these to store the values used for the calculation, to ensure consistency in display
-    calculatedGender: string;
-    calculatedCountry: string;
-    insight?: string;
-  } | null>(null);
-  const [isLoadingPercentileInsight, setIsLoadingPercentileInsight] = useState(false);
+  // Weight Percentile Calculator (Adults) states
+  const [percentileGender, setPercentileGender] = useState("male");
+  const [percentileAge, setPercentileAge] = useState("");
+  const [percentileWeightKg, setPercentileWeightKg] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState("Germany");
+  const [percentileResult, setPercentileResult] = useState<string | null>(null);
+  const [showPercentileResults, setShowPercentileResults] = useState(false);
 
-  // Weight Comparison State - lifted up to persist across tab changes
-  const [comparisonWeight, setComparisonWeight] = useState<number>(70);
-  const [comparisonUseKg, setComparisonUseKg] = useState<boolean>(true);
-  const [comparisonSelectedCategory, setComparisonSelectedCategory] = useState<string>("animals");
-  const [compareToId, setCompareToId] = useState<string>("wolf");
+
+  // Child Weight Percentile Calculator states (NEW)
+  const [childGender, setChildGender] = useState("male");
+  const [childAgeMonths, setChildAgeMonths] = useState("");
+  const [childWeightKg, setChildWeightKg] = useState("");
+  const [childPercentileResult, setChildPercentileResult] = useState<string | null>(null);
+  const [childPercentileCategory, setChildPercentileCategory] = useState<string | null>(null);
+  const [showChildResults, setShowChildResults] = useState(false);
+
+  // Placeholder WHO Percentile Data (simplified for demonstration)
+  // In a real application, this data would be comprehensive and imported from a reliable source.
+  const whoPercentileData = {
+    male: [
+      { ageMonths: 0, p3: 2.5, p50: 3.3, p97: 4.5 },
+      { ageMonths: 6, p3: 6.0, p50: 7.9, p97: 10.0 },
+      { ageMonths: 12, p3: 7.7, p50: 9.9, p97: 12.5 },
+      { ageMonths: 24, p3: 9.5, p50: 12.0, p97: 15.0 },
+      { ageMonths: 36, p3: 11.0, p50: 13.9, p97: 17.0 },
+      { ageMonths: 48, p3: 12.5, p50: 15.5, p97: 19.0 },
+      { ageMonths: 60, p3: 13.5, p50: 16.8, p97: 21.0 },
+    ],
+    female: [
+      { ageMonths: 0, p3: 2.4, p50: 3.2, p97: 4.4 },
+      { ageMonths: 6, p3: 5.5, p50: 7.3, p97: 9.5 },
+      { ageMonths: 12, p3: 7.0, p50: 9.2, p97: 11.8 },
+      { ageMonths: 24, p3: 9.0, p50: 11.5, p97: 14.5 },
+      { ageMonths: 36, p3: 10.5, p50: 13.3, p97: 16.5 },
+      { ageMonths: 48, p3: 11.8, p50: 14.8, p97: 18.2 },
+      { ageMonths: 60, p3: 13.0, p50: 16.2, p97: 20.0 },
+    ],
+  };
+
+  const calculateChildPercentile = () => {
+    const age = parseInt(childAgeMonths);
+    const weight = parseFloat(childWeightKg);
+
+    if (isNaN(age) || isNaN(weight) || age < 0 || weight <= 0) {
+      setChildPercentileResult("Please enter valid age and weight.");
+      setChildPercentileCategory(null);
+      setShowChildResults(true);
+      return;
+    }
+
+    const dataForGender = whoPercentileData[childGender as keyof typeof whoPercentileData];
+    if (!dataForGender || dataForGender.length === 0) {
+      setChildPercentileResult("No data available for the selected gender.");
+      setChildPercentileCategory(null);
+      setShowChildResults(true);
+      return;
+    }
+
+    // Find the closest age group in the data
+    let lowerBound = dataForGender[0];
+    let upperBound = dataForGender[dataForGender.length - 1];
+
+    for (let i = 0; i < dataForGender.length - 1; i++) {
+      if (age >= dataForGender[i].ageMonths && age <= dataForGender[i + 1].ageMonths) {
+        lowerBound = dataForGender[i];
+        upperBound = dataForGender[i + 1];
+        break;
+      }
+    }
+
+    // Simple linear interpolation (for demonstration purposes)
+    const interpolate = (val: number, x1: number, y1: number, x2: number, y2: number) => {
+      if (x1 === x2) return y1;
+      return y1 + ((val - x1) * (y2 - y1)) / (x2 - x1);
+    };
+
+    const p3_interpolated = interpolate(age, lowerBound.ageMonths, lowerBound.p3, upperBound.ageMonths, upperBound.p3);
+    const p50_interpolated = interpolate(age, lowerBound.ageMonths, lowerBound.p50, upperBound.ageMonths, upperBound.p50);
+    const p97_interpolated = interpolate(age, lowerBound.ageMonths, lowerBound.p97, upperBound.ageMonths, upperBound.p97);
+
+    let percentile: number;
+    let category: string;
+
+    if (weight <= p3_interpolated) {
+      percentile = Math.round((weight / p3_interpolated) * 3);
+      category = "Underweight";
+    } else if (weight <= p50_interpolated) {
+      percentile = Math.round(3 + ((weight - p3_interpolated) / (p50_interpolated - p3_interpolated)) * 47);
+      category = "Normal Weight";
+    } else if (weight <= p97_interpolated) {
+      percentile = Math.round(50 + ((weight - p50_interpolated) / (p97_interpolated - p50_interpolated)) * 47);
+      category = "At Risk of Overweight";
+    } else {
+      percentile = Math.round(97 + ((weight - p97_interpolated) / (p97_interpolated * 0.1)) * 3); // Simple extrapolation
+      category = "Overweight";
+    }
+
+    // Cap percentile at 99.9 or 100 for display
+    percentile = Math.min(Math.max(0, percentile), 100);
+
+    setChildPercentileResult(`Your child's weight is at the ${percentile}th percentile.`);
+    setChildPercentileCategory(category);
+    setShowChildResults(true);
+  };
+
+
+  const calculateBmi = () => {
+    const heightM = parseFloat(heightCm) / 100;
+    const weight = parseFloat(weightKg);
+
+    if (isNaN(heightM) || isNaN(weight) || heightM <= 0 || weight <= 0) {
+      setBmiResult("Please enter valid height and weight.");
+      setBmiCategory(null);
+      setShowBmiResults(true);
+      return;
+    }
+
+    const bmi = weight / (heightM * heightM);
+    const calculatedBmi = bmi.toFixed(2);
+
+    let category = "";
+    if (bmi < 18.5) {
+      category = "Underweight";
+    } else if (bmi >= 18.5 && bmi < 24.9) {
+      category = "Normal Weight";
+    } else if (bmi >= 25 && bmi < 29.9) {
+      category = "Overweight";
+    } else {
+      category = "Obesity";
+    }
+
+    setBmiResult(`Your BMI is ${calculatedBmi}`);
+    setBmiCategory(category);
+    setShowBmiResults(true);
+  };
+
+  const calculateCalorieNeeds = () => {
+    const age = parseInt(calorieAge);
+    const weight = parseFloat(calorieWeightKg);
+    const height = parseFloat(calorieHeightCm);
+
+    if (isNaN(age) || isNaN(weight) || isNaN(height) || age <= 0 || weight <= 0 || height <= 0) {
+      setCalorieNeedsResult("Please enter valid age, weight, and height.");
+      setShowCalorieResults(true);
+      return;
+    }
+
+    let bmr;
+    if (calorieGender === "male") {
+      bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+    } else {
+      bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+    }
+
+    let tdee; // Total Daily Energy Expenditure
+    switch (activityLevel) {
+      case "sedentary":
+        tdee = bmr * 1.2;
+        break;
+      case "lightly-active":
+        tdee = bmr * 1.375;
+        break;
+      case "moderately-active":
+        tdee = bmr * 1.55;
+        break;
+      case "very-active":
+        tdee = bmr * 1.725;
+        break;
+      case "extra-active":
+        tdee = bmr * 1.9;
+        break;
+      default:
+        tdee = bmr * 1.2;
+    }
+
+    setCalorieNeedsResult(`Your estimated daily calorie needs are ${tdee.toFixed(0)} kcal.`);
+    setShowCalorieResults(true);
+  };
+
+  const calculatePercentile = () => {
+    const age = parseInt(percentileAge);
+    const weight = parseFloat(percentileWeightKg);
+
+    if (isNaN(age) || isNaN(weight) || age <= 0 || weight <= 0) {
+      setPercentileResult("Please enter valid age and weight.");
+      setShowPercentileResults(true);
+      return;
+    }
+
+    const averageWeights = percentileGender === "male" ? averageWeightMen : averageWeightWomen;
+    const countryData = averageWeights.find(data => data.country === selectedCountry);
+
+    if (!countryData) {
+      setPercentileResult("No average weight data available for the selected country.");
+      setShowPercentileResults(true);
+      return;
+    }
+
+    const ageGroup = countryData.age_groups.find(group => age >= group.min_age && age <= group.max_age);
+
+    if (!ageGroup) {
+      setPercentileResult("No average weight data for your age group in the selected country.");
+      setShowPercentileResults(true);
+      return;
+    }
+
+    const averageWeight = ageGroup.average_weight_kg;
+    const stdDev = ageGroup.standard_deviation_kg;
+
+    // A simplified percentile calculation (for demonstration, a full statistical model would be complex)
+    let percentile;
+    if (weight < averageWeight - stdDev) {
+      percentile = "below 16th"; // Roughly 16th percentile for 1 standard deviation below mean
+    } else if (weight >= averageWeight - stdDev && weight <= averageWeight + stdDev) {
+      percentile = "between 16th and 84th"; // Roughly between 16th and 84th percentile
+    } else {
+      percentile = "above 84th"; // Roughly above 84th percentile
+    }
+
+    // For a more precise percentile, one would use a Z-score and normal distribution table.
+    // This is a simplified example.
+    const approximatePercentile = ((weight - averageWeight) / (2 * stdDev) * 40 + 50).toFixed(0);
+
+    setPercentileResult(
+      `For a ${age}-year-old ${percentileGender} in ${selectedCountry}, the average weight is ${averageWeight} kg (± ${stdDev} kg). ` +
+      `Your weight of ${weight} kg is approximately at the ${approximatePercentile}th percentile for your group. ` +
+      `This means you are ${percentile} percentile.`
+    );
+    setShowPercentileResults(true);
+  };
+
+  // Weight Comparison Calculator states
+  const [userWeight, setUserWeight] = useState<number | ''>('');
+  const [userUnit, setUserUnit] = useState<'kg' | 'lbs'>('kg');
   const [compareToItems, setCompareToItems] = useState<WeightItem[]>([]);
-  const [selectedComparisonItems, setSelectedComparisonItems] = useState<(WeightItem & { side: 'left' | 'right' })[]>([]);
-  const [totalWeightLeft, setTotalWeightLeft] = useState<number>(0);
-  const [totalWeightRight, setTotalWeightRight] = useState<number>(0);
+  const [selectedComparisonItems, setSelectedComparisonItems] = useState<WeightItem[]>([]);
+  const [totalWeightLeft, setTotalWeightLeft] = useState(0);
+  const [totalWeightRight, setTotalWeightRight] = useState(0);
   const [userWeightSide, setUserWeightSide] = useState<'left' | 'right'>('left');
-  const [showScale, setShowScale] = useState<boolean>(false);
-  const [customObjects, setCustomObjects] = useState<WeightItem[]>([]);
-  const [customObjectName, setCustomObjectName] = useState<string>("");
+  const [showScale, setShowScale] = useState(false);
+  const [customObjects, setCustomObjects] = useState<{ name: string; weight: number; useKg: boolean }[]>([]);
+  const [customObjectName, setCustomObjectName] = useState("");
   const [customObjectWeight, setCustomObjectWeight] = useState<string>("");
-  const [customObjectUseKg, setCustomObjectUseKg] = useState<boolean>(true);
+  const [customObjectUseKg, setCustomObjectUseKg] = useState(true);
 
   const { toast } = useToast();
 
-  // Activity level mapping
-  const activityLevels = [
-    { step: 1, label: "Sedentary (little to no exercise)", factor: 1.2 },
-    { step: 2, label: "Lightly Active (light exercise 1-3 days/week)", factor: 1.375 },
-    { step: 3, label: "Moderately Active (moderate exercise 3-5 days/week)", factor: 1.55 },
-    { step: 4, label: "Very Active (hard exercise 6-7 days/week)", factor: 1.725 },
-    { step: 5, label: "Extra Active (very hard exercise & physical job)", factor: 1.9 }
-  ];
-
-  // Helper function for BMI Category
-  const getBMICategory = (bmi: number): string => {
-    if (bmi < 18.5) return "Underweight";
-    if (bmi <= 24.9) return "Normal Weight";
-    if (bmi <= 29.9) return "Overweight";
-    return "Obese";
-  };
-
-  // Helper functions for BMI Scale display
-  const getBMIColor = (bmi: number): string => {
-    if (bmi < 18.5) return "bg-blue-400";
-    if (bmi <= 24.9) return "bg-green-400";
-    if (bmi <= 29.9) return "bg-yellow-400";
-    return "bg-red-400";
-  };
-
-  const getBMIPosition = (bmi: number): number => {
-    const minBMI = 15;
-    const maxBMI = 40;
-    return Math.min(Math.max(((bmi - minBMI) / (maxBMI - minBMI)) * 100, 0), 100);
-  };
-
-  // BMI Calculation Function
-  const calculateBMI = async (e?: React.FormEvent) => {
-    if (e) {
-      e.preventDefault();
-    }
-
-    const weightNum = parseFloat(String(sharedWeight));
-    const heightNum = parseFloat(String(sharedHeight));
-
-    // Input Validation
-    if (!sharedWeight || !sharedHeight || isNaN(weightNum) || isNaN(heightNum) || weightNum <= 0 || heightNum <= 0) {
-      toast({
-        title: "Invalid Input",
-        description: "Please enter valid positive numbers for both weight and height.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    // Plausible limits validation
-    let weightInKg = weightNum;
-    if (sharedWeightUnit === "lbs") {
-      weightInKg = weightNum * 0.453592;
-    }
-
-    let heightInCm = heightNum;
-    if (sharedHeightUnit === "in") {
-      heightInCm = heightNum * 2.54;
-    }
-    
-    if (weightInKg < 10 || weightInKg > 400) {
-      toast({
-        title: "Invalid Weight",
-        description: "Please enter a weight between 10 kg (22 lbs) and 400 kg (882 lbs).",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    if (heightInCm < 50 || heightInCm > 230) {
-      toast({
-        title: "Invalid Height",
-        description: "Please enter a height between 50 cm (19.7 in) and 230 cm (90.5 in).",
-        variant: "destructive",
-      });
-      return;
-    }
-
-
-    let heightInM = heightInCm / 100; // Convert cm to meters
-
-    // BMI Calculation
-    const bmi = weightInKg / (heightInM * heightInM);
-    const category = getBMICategory(bmi);
-
-    setBmiResult({ value: bmi, category });
-
-    // API Call & AI Output
-    setIsLoadingInsight(true);
-    try {
-      console.log('Calling BMI insight function...');
-      const { data, error } = await supabase.functions.invoke('bmi-insight', {
-        body: {
-          bmiValue: bmi,
-          bmiCategory: category,
-        },
-      });
-
-      console.log('BMI insight response:', { data, error });
-
-      if (error) {
-        throw error;
-      }
-
-      if (data && data.insight) {
-        setBmiResult(prev => prev ? { ...prev, insight: data.insight } : null);
-      } else {
-        throw new Error('No insight received');
-      }
-    } catch (error) {
-      console.error('Error getting personalized insight:', error);
-      setBmiResult(prev => prev ? { 
-        ...prev, 
-        insight: "Sorry, we couldn't generate a personalized insight at the moment. Please try again later." 
-      } : null);
-    } finally {
-      setIsLoadingInsight(false);
+  const handleBmiHeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (/^\d*\.?\d*$/.test(value) || value === "") {
+      setHeightCm(value);
     }
   };
 
-  // Calorie Calculation Function
-  const calculateCalories = async (e?: React.FormEvent) => {
-    if (e) {
-      e.preventDefault();
-    }
-    
-    const ageNum = parseFloat(String(age));
-    const weightNum = parseFloat(String(sharedWeight));
-    const heightNum = parseFloat(String(sharedHeight));
-
-    // Input Validation
-    if (!age || !gender || !sharedWeight || !sharedHeight || 
-        isNaN(ageNum) || isNaN(weightNum) || isNaN(heightNum) || 
-        ageNum <= 0 || weightNum <= 0 || heightNum <= 0) {
-      toast({
-        title: "Invalid Input",
-        description: "Please fill in all fields with valid positive numbers and select your gender.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    // Plausible limits validation
-    let weightInKg = weightNum;
-    if (sharedWeightUnit === "lbs") {
-      weightInKg = weightNum * 0.453592;
-    }
-
-    let heightInCm = heightNum;
-    if (sharedHeightUnit === "in") {
-      heightInCm = heightNum * 2.54;
-    }
-
-    if (ageNum < 1 || ageNum > 120) {
-      toast({
-        title: "Invalid Age",
-        description: "Please enter an age between 1 and 120 years.",
-        variant: "destructive",
-      });
-      return;
-    }
-    if (weightInKg < 10 || weightInKg > 400) {
-      toast({
-        title: "Invalid Weight",
-        description: "Please enter a weight between 10 kg (22 lbs) and 400 kg (882 lbs).",
-        variant: "destructive",
-      });
-      return;
-    }
-    if (heightInCm < 50 || heightInCm > 230) {
-      toast({
-        title: "Invalid Height",
-        description: "Please enter a height between 50 cm (19.7 in) and 230 cm (90.5 in).",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    // Calorie Calculation (Mifflin-St Jeor formula)
-    let bmr: number;
-    if (gender === "male") {
-      bmr = (10 * weightInKg) + (6.25 * heightInCm) - (5 * ageNum) + 5;
-    } else {
-      bmr = (10 * weightInKg) + (6.25 * heightInCm) - (5 * ageNum) - 161;
-    }
-
-    const activityFactor = activityLevels[activityLevel[0] - 1].factor;
-    const tdee = bmr * activityFactor;
-
-    setCalorieResult({ bmr, tdee });
-
-    // API Call & AI Output
-    setIsLoadingAdvice(true);
-    try {
-      console.log('Calling calorie advice function...');
-      const { data, error } = await supabase.functions.invoke('calorie-advice', {
-        body: {
-          age: ageNum,
-          gender,
-          tdeeValue: tdee,
-          weightGoal: weightGoal || "Maintain Weight",
-        },
-      });
-
-      console.log('Calorie advice response:', { data, error });
-
-      if (error) {
-        throw error;
-      }
-
-      if (data && data.advice) {
-        setCalorieResult(prev => prev ? { ...prev, advice: data.advice } : null);
-      } else {
-        throw new Error('No advice received');
-      }
-    } catch (error) {
-      console.error('Error getting personalized advice:', error);
-      setCalorieResult(prev => prev ? { 
-        ...prev, 
-        advice: "Sorry, we couldn't generate personalized advice at the moment. Please try again later." 
-      } : null);
-    } finally {
-      setIsLoadingAdvice(false);
+  const handleBmiWeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (/^\d*\.?\d*$/.test(value) || value === "") {
+      setWeightKg(value);
     }
   };
 
-  // Weight Percentile Calculation Function
-  const calculatePercentile = async (e?: React.FormEvent) => {
-    if (e) {
-      e.preventDefault();    
-    }
-
-    const weightNum = parseFloat(String(sharedWeight));
-
-    // Input Validation
-    if (!sharedWeight || !percentileGender || !selectedCountry || 
-        isNaN(weightNum) || weightNum <= 0) {
-      toast({
-        title: "Invalid Input",
-        description: "Please enter a valid weight, select your gender, and choose a country.",
-        variant: "destructive",
-      });
-      setPercentileResult(null); // Clear previous result if inputs are invalid
-      return;
-    }
-
-    // Plausible limits validation
-    let weightInKg = weightNum;
-    if (sharedWeightUnit === "lbs") {
-      weightInKg = weightNum * 0.453592;
-    }
-
-    if (weightInKg < 10 || weightInKg > 400) {
-      toast({
-        title: "Invalid Weight",
-        description: "Please enter a weight between 10 kg (22 lbs) and 400 kg (882 lbs).",
-        variant: "destructive",
-      });
-      setPercentileResult(null); // Clear previous result if inputs are invalid
-      return;
-    }
-
-    // Get the appropriate average weight based on gender and country
-    const weightData = percentileGender === "Male" ? averageWeightMen : averageWeightWomen;
-    const countryData = weightData.find(data => data.country === selectedCountry);
-
-    if (!countryData) {
-      toast({
-        title: "Data Not Found",
-        description: "Average weight data for the selected country and gender is not available.",
-        variant: "destructive",
-      });
-      setPercentileResult(null); // Clear previous result if data is missing
-      return;
-    }
-
-    const meanWeight = countryData.averageWeightKg;
-    const standardDeviation = 15.4; // Fixed standard deviation as discussed
-    const percentile = calculateWeightPercentile(weightInKg, meanWeight, standardDeviation);
-
-    // Store the calculated gender and country along with percentile and mean weight
-    setPercentileResult({ 
-      percentile, 
-      meanWeight, 
-      calculatedGender: percentileGender, 
-      calculatedCountry: selectedCountry 
-    });
-
-    // Get AI insight
-    setIsLoadingPercentileInsight(true);
-    try {
-      console.log('Calling weight percentile insight function...');
-      const { data, error } = await supabase.functions.invoke('weight-percentile-insight', {
-        body: {
-          userWeightKg: weightInKg,
-          gender: percentileGender,
-          country: selectedCountry,
-          percentile,
-          meanWeightKg: meanWeight,
-          stdDevKg: standardDeviation,
-        },
-      });
-
-      console.log('Weight percentile insight response:', { data, error });
-
-      if (error) {
-        throw error;
-      }
-
-      if (data && data.insight) {
-        setPercentileResult(prev => prev ? { ...prev, insight: data.insight } : null);
-      } else {
-        throw new Error('No insight received');
-      }
-    } catch (error) {
-      console.error('Error getting personalized percentile insight:', error);
-      setPercentileResult(prev => prev ? { 
-        ...prev, 
-        insight: "Sorry, we couldn't generate a personalized insight at the moment. Please try again later." 
-      } : null);
-    } finally {
-      setIsLoadingPercentileInsight(false);
+  const handleCalorieAgeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (/^\d*$/.test(value) || value === "") {
+      setCalorieAge(value);
     }
   };
+
+  const handleCalorieWeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (/^\d*\.?\d*$/.test(value) || value === "") {
+      setCalorieWeightKg(value);
+    }
+  };
+
+  const handleCalorieHeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (/^\d*\.?\d*$/.test(value) || value === "") {
+      setCalorieHeightCm(value);
+    }
+  };
+
+  const handlePercentileAgeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (/^\d*$/.test(value) || value === "") {
+      setPercentileAge(value);
+    }
+  };
+
+  const handlePercentileWeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (/^\d*\.?\d*$/.test(value) || value === "") {
+      setPercentileWeightKg(value);
+    }
+  };
+
+  // Child Weight Percentile Handlers (NEW)
+  const handleChildAgeMonthsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    // Allow only integers for months, from 0 to 60 (5 years) as a plausible range for WHO charts
+    if (/^\d*$/.test(value) && parseInt(value) >= 0 && parseInt(value) <= 60 || value === "") {
+      setChildAgeMonths(value);
+    } else if (parseInt(value) > 60) {
+      toast({
+        title: "Input Error",
+        description: "Age in months should not exceed 60 months (5 years) for this calculator.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleChildWeightKgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    // Allow positive numbers with decimals, setting a reasonable upper limit like 30kg for children up to 5 years
+    if (/^\d*\.?\d*$/.test(value) && parseFloat(value) > 0 && parseFloat(value) <= 30 || value === "") {
+      setChildWeightKg(value);
+    } else if (parseFloat(value) > 30) {
+      toast({
+        title: "Input Error",
+        description: "Weight in kg should not exceed 30 kg for this calculator.",
+        variant: "destructive",
+      });
+    }
+  };
+
+
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+    setShowBmiResults(false);
+    setShowCalorieResults(false);
+    setShowPercentileResults(false);
+    setShowChildResults(false); // Reset child results on tab change
+    // Reset Weight Comparison state when changing tabs
+    setUserWeight('');
+    setUserUnit('kg');
+    setCompareToItems([]);
+    setSelectedComparisonItems([]);
+    setTotalWeightLeft(0);
+    setTotalWeightRight(0);
+    setUserWeightSide('left');
+    setShowScale(false);
+    setCustomObjects([]);
+    setCustomObjectName('');
+    setCustomObjectWeight('');
+    setCustomObjectUseKg(true);
+  };
+
 
   return (
     <>
       <Helmet>
-        <title>Free Health Calculators - BMI, Calorie Needs, Weight Percentile, Weight Comparison | WeightVs.com</title>
-        <meta
-          name="description"
-          content="Free, accurate health calculators for BMI, daily calorie needs, weight percentiles, and interactive weight comparisons. Get personalized insights and educational content for better health decisions."
-        />
+        <title>Calculators - WeightVs.com</title>
+        <meta name="description" content="Use our health calculators for BMI, daily calorie needs, weight percentiles, and fun weight comparisons." />
       </Helmet>
-
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="flex flex-col min-h-screen">
         <Navigation />
-        
-        <div className="container mx-auto px-4 py-12">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Health Calculators
-            </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Get accurate health insights with our free calculators. Calculate your BMI, daily calorie needs, weight percentile, and compare your weight with fun interactive comparisons.
-            </p>
-          </div>
+        <div className="flex-grow container mx-auto px-4 py-8">
+          <h1 className="text-4xl font-bold text-center mb-8">Health Calculators & Tools</h1>
+
           <div className="max-w-4xl mx-auto">
-            <Tabs value={activeTab} onValueChange={(value) => {setActiveTab(value); setSearchParams({ tab: value }, { replace: true }); }} className="w-full">
-              <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto">
+            <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
+              <TabsList className="grid w-full grid-cols-5 h-auto"> {/* Adjusted grid-cols to 5 */}
                 <TabsTrigger value="bmi">BMI Calculator</TabsTrigger>
                 <TabsTrigger value="calories">Calorie Calculator</TabsTrigger>
                 <TabsTrigger value="percentile">Weight Percentile</TabsTrigger>
                 <TabsTrigger value="comparison">Weight Comparison</TabsTrigger>
+                <TabsTrigger value="child-weight-percentile">Child Weight Percentile</TabsTrigger> {/* New Tab */}
               </TabsList>
 
-              {/* BMI Calculator */}
-              <TabsContent value="bmi" className="space-y-4">
+              <TabsContent value="bmi" className="mt-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Body Mass Index (BMI) Calculator</CardTitle>
+                    <CardTitle>BMI Calculator</CardTitle>
                     <CardDescription>
-                      Calculate your Body Mass Index (BMI) to get an indicator of whether you have a healthy weight in relation to your height. Find out what your result means for you.
+                      Calculate your Body Mass Index (BMI) to assess if you are in a healthy weight range.
                     </CardDescription>
                   </CardHeader>
-                  <CardContent className="space-y-6">
-                    <form onSubmit={calculateBMI} className="space-y-6">
-                      <div className="space-y-4">
-                        <Label htmlFor="weight" className="text-lg font-medium">Weight</Label>
-                        <div className="flex flex-col sm:flex-row gap-4 sm:items-end">
-                          <div className="flex-1">
-                            <Input
-                              id="weight"
-                              type="number"
-                              placeholder="Enter your weight"
-                              value={sharedWeight}
-                              onChange={(e) => setSharedWeight(e.target.value === "" ? "" : Number(e.target.value))}
-                              className="text-lg"
-                            />
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <Label htmlFor="weight-unit-toggle-bmi" className={cn(sharedWeightUnit === "kg" ? "font-bold" : "")}>KG</Label>
-                            <Switch 
-                              id="weight-unit-toggle-bmi" 
-                              checked={sharedWeightUnit === "lbs"} 
-                              onCheckedChange={(checked) => setSharedWeightUnit(checked ? "lbs" : "kg")} 
-                            />
-                            <Label htmlFor="weight-unit-toggle-bmi" className={cn(sharedWeightUnit === "lbs" ? "font-bold" : "")}>LBS</Label>
-                          </div>
+                  <CardContent className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="height">Height (cm)</Label>
+                      <Input
+                        id="height"
+                        type="number"
+                        placeholder="e.g., 175"
+                        value={heightCm}
+                        onChange={handleBmiHeightChange}
+                        min="50"
+                        max="250"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="weight">Weight (kg)</Label>
+                      <Input
+                        id="weight"
+                        type="number"
+                        placeholder="e.g., 70"
+                        value={weightKg}
+                        onChange={handleBmiWeightChange}
+                        min="20"
+                        max="300"
+                      />
+                    </div>
+                    <Button onClick={calculateBmi}>Calculate BMI</Button>
+
+                    {showBmiResults && bmiResult && (
+                      <div className="mt-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
+                        <h3 className="text-lg font-semibold">{bmiResult}</h3>
+                        {bmiCategory && <p className="text-sm text-gray-700 dark:text-gray-300">Category: {bmiCategory}</p>}
+                        <div className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+                          <h4 className="font-medium">AI Output:</h4>
+                          <p>
+                            Based on your BMI of {bmiResult}, which falls into the "{bmiCategory}" category,
+                            it is important to understand what this means for your health.
+                            BMI is a screening tool and does not diagnose body fatness or health.
+                            Consult a healthcare professional for a comprehensive health assessment.
+                          </p>
+                        </div>
+                        <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                          <h4 className="font-medium">Disclaimer:</h4>
+                          <p>
+                            This BMI calculation is for informational purposes only and should not be used as a substitute for professional medical advice.
+                            Individual health needs vary.
+                          </p>
                         </div>
                       </div>
-                      <div className="space-y-4">
-                        <Label htmlFor="height" className="text-lg font-medium">Height</Label>
-                        <div className="flex flex-col sm:flex-row gap-4 sm:items-end">
-                          <div className="flex-1">
-                            <Input
-                              id="height"
-                              type="number"
-                              placeholder="Enter your height"
-                              value={sharedHeight}
-                              onChange={(e) => setSharedHeight(e.target.value === "" ? "" : Number(e.target.value))}
-                              className="text-lg"
-                            />
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <Label htmlFor="height-unit-toggle-bmi" className={cn(sharedHeightUnit === "cm" ? "font-bold" : "")}>CM</Label>
-                            <Switch 
-                              id="height-unit-toggle-bmi" 
-                              checked={sharedHeightUnit === "in"} 
-                              onCheckedChange={(checked) => setSharedHeightUnit(checked ? "in" : "cm")} 
-                            />
-                            <Label htmlFor="height-unit-toggle-bmi" className={cn(sharedHeightUnit === "in" ? "font-bold" : "")}>IN</Label>
-                          </div>
-                        </div>
-                      </div>
-                      <Button type="submit" className="w-full text-lg py-6" size="lg">
-                        Calculate BMI
-                      </Button>
-                      {bmiResult && (
-                        <div className="space-y-6 pt-6 border-t">
-                          <div className="text-center space-y-2">
-                            <h3 className="text-2xl font-bold">Your BMI: {bmiResult.value.toFixed(1)}</h3>
-                            <p className="text-lg text-gray-600">Category: {bmiResult.category}</p>
-                          </div>
-                          <div className="space-y-2">
-                            <div className="relative h-8 bg-gradient-to-r from-blue-200 via-green-200 via-yellow-200 to-red-200 rounded-lg overflow-hidden">
-                              <div className="absolute top-0 bottom-0 w-1 bg-gray-800 z-10" style={{ left: `${getBMIPosition(bmiResult.value)}%` }} />
-                              <div className={`absolute top-0 bottom-0 w-2 ${getBMIColor(bmiResult.value)} z-20 rounded-full`} style={{ left: `${getBMIPosition(bmiResult.value) - 0.5}%` }} />
-                            </div>
-                            <div className="flex justify-between text-xs text-gray-500">
-                              <span>Underweight (&lt;18.5)</span>
-                              <span>Normal (18.5-24.9)</span>
-                              <span>Overweight (25-29.9)</span>
-                              <span>Obese (≥30)</span>
-                            </div>
-                          </div>
-                          <div className="bg-blue-50 p-6 rounded-lg">
-                            <h4 className="text-lg font-semibold mb-3">Your Personalized Insight</h4>
-                            {isLoadingInsight ? (
-                              <div className="flex items-center gap-2">
-                                <div className="animate-spin w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full"></div>
-                                <span className="text-gray-600">Generating personalized insight...</span>
-                              </div>
-                            ) : (
-                              <div className="space-y-3">
-                                <p className="text-gray-700 leading-relaxed">{bmiResult.insight}</p>
-                                <p className="text-xs text-gray-500 italic">
-                                  This insight is generated by AI and is for informational purposes only. It is not medical advice. Always consult a healthcare professional for personalized guidance.
-                                </p>
-                              </div>
-                            )}
-                          </div>
-                          <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
-                            <p className="text-sm text-gray-700">
-                              <strong>Please note:</strong> BMI is a general indicator and does not account for muscle mass, body composition, or individual health conditions. It should not be used as a sole diagnostic tool for health status. Always consult a healthcare professional for personalized advice.
-                            </p>
-                          </div>
-                        </div>
-                      )}
-                    </form>
+                    )}
                   </CardContent>
                 </Card>
                 <BmiEducationalContent />
               </TabsContent>
 
-              {/* Calorie Calculator */}
-              <TabsContent value="calories" className="space-y-4">
+              <TabsContent value="calories" className="mt-6">
                 <Card>
                   <CardHeader>
                     <CardTitle>Daily Calorie Needs Calculator</CardTitle>
                     <CardDescription>
-                      Calculate your Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure (TDEE) to understand your daily calorie needs for weight management.
+                      Estimate your daily calorie needs based on your age, gender, weight, height, and activity level.
                     </CardDescription>
                   </CardHeader>
-                  <CardContent className="space-y-6">
-                    <form onSubmit={calculateCalories} className="space-y-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="age">Age</Label>
-                        <Input
-                          type="number"
-                          id="age"
-                          placeholder="Enter your age"
-                          value={age}
-                          onChange={(e) => setAge(e.target.value === "" ? "" : Number(e.target.value))}
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label>Gender</Label>
-                        <RadioGroup value={gender} onValueChange={setGender} className="flex gap-4">
-                          <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="male" id="male" />
-                            <Label htmlFor="male">Male</Label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="female" id="female" />
-                            <Label htmlFor="female">Female</Label>
-                          </div>
-                        </RadioGroup>
-                      </div>
-                      <div className="space-y-4">
-                        <Label htmlFor="weight-calorie" className="text-lg font-medium">Weight</Label>
-                        <div className="flex flex-col sm:flex-row gap-4 sm:items-end">
-                          <div className="flex-1">
-                            <Input
-                              id="weight-calorie"
-                              type="number"
-                              placeholder="Enter your weight"
-                              value={sharedWeight}
-                              onChange={(e) => setSharedWeight(e.target.value === "" ? "" : Number(e.target.value))}
-                              className="text-lg"
-                            />
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <Label htmlFor="weight-unit-toggle-calories" className={cn(sharedWeightUnit === "kg" ? "font-bold" : "")}>KG</Label>
-                            <Switch 
-                              id="weight-unit-toggle-calories" 
-                              checked={sharedWeightUnit === "lbs"} 
-                              onCheckedChange={(checked) => setSharedWeightUnit(checked ? "lbs" : "kg")} 
-                            />
-                            <Label htmlFor="weight-unit-toggle-calories" className={cn(sharedWeightUnit === "lbs" ? "font-bold" : "")}>LBS</Label>
-                          </div>
+                  <CardContent className="space-y-4">
+                    <div className="space-y-2">
+                      <Label>Gender</Label>
+                      <RadioGroup value={calorieGender} onValueChange={setCalorieGender} className="flex space-x-4">
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="male" id="male-calorie" />
+                          <Label htmlFor="male-calorie">Male</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="female" id="female-calorie" />
+                          <Label htmlFor="female-calorie">Female</Label>
+                        </div>
+                      </RadioGroup>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="calorie-age">Age (years)</Label>
+                      <Input
+                        id="calorie-age"
+                        type="number"
+                        placeholder="e.g., 30"
+                        value={calorieAge}
+                        onChange={handleCalorieAgeChange}
+                        min="1"
+                        max="120"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="calorie-weight">Weight (kg)</Label>
+                      <Input
+                        id="calorie-weight"
+                        type="number"
+                        placeholder="e.g., 70"
+                        value={calorieWeightKg}
+                        onChange={handleCalorieWeightChange}
+                        min="20"
+                        max="300"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="calorie-height">Height (cm)</Label>
+                      <Input
+                        id="calorie-height"
+                        type="number"
+                        placeholder="e.g., 175"
+                        value={calorieHeightCm}
+                        onChange={handleCalorieHeightChange}
+                        min="50"
+                        max="250"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="activity-level">Activity Level</Label>
+                      <Select value={activityLevel} onValueChange={setActivityLevel}>
+                        <SelectTrigger id="activity-level">
+                          <SelectValue placeholder="Select activity level" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="sedentary">Sedentary (little or no exercise)</SelectItem>
+                          <SelectItem value="lightly-active">Lightly active (light exercise/sports 1-3 days/week)</SelectItem>
+                          <SelectItem value="moderately-active">Moderately active (moderate exercise/sports 3-5 days/week)</SelectItem>
+                          <SelectItem value="very-active">Very active (hard exercise/sports 6-7 days/week)</SelectItem>
+                          <SelectItem value="extra-active">Extra active (very hard exercise/physical job)</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <Button onClick={calculateCalorieNeeds}>Calculate Calorie Needs</Button>
+
+                    {showCalorieResults && calorieNeedsResult && (
+                      <div className="mt-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
+                        <h3 className="text-lg font-semibold">{calorieNeedsResult}</h3>
+                        <div className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+                          <h4 className="font-medium">AI Output:</h4>
+                          <p>
+                            Understanding your daily calorie needs is crucial for weight management.
+                            If your goal is weight loss, you might aim for a slight calorie deficit,
+                            while for weight gain, a surplus is needed. For maintenance, consume close to your estimated needs.
+                            Remember that these are estimates, and individual needs can vary.
+                          </p>
+                        </div>
+                        <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                          <h4 className="font-medium">Disclaimer:</h4>
+                          <p>
+                            This calorie needs estimation is for informational purposes only.
+                            It should not replace personalized advice from a registered dietitian or healthcare professional.
+                          </p>
                         </div>
                       </div>
-                      <div className="space-y-4">
-                        <Label htmlFor="height-calorie" className="text-lg font-medium">Height</Label>
-                        <div className="flex flex-col sm:flex-row gap-4 sm:items-end">
-                          <div className="flex-1">
-                            <Input
-                              id="height-calorie"
-                              type="number"
-                              placeholder="Enter your height"
-                              value={sharedHeight}
-                              onChange={(e) => setSharedHeight(e.target.value === "" ? "" : Number(e.target.value))}
-                              className="text-lg"
-                            />
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <Label htmlFor="height-unit-toggle-calories" className={cn(sharedHeightUnit === "cm" ? "font-bold" : "")}>CM</Label>
-                            <Switch 
-                              id="height-unit-toggle-calories" 
-                              checked={sharedHeightUnit === "in"} 
-                              onCheckedChange={(checked) => setSharedHeightUnit(checked ? "in" : "cm")} 
-                            />
-                            <Label htmlFor="height-unit-toggle-calories" className={cn(sharedHeightUnit === "in" ? "font-bold" : "")}>IN</Label>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="activity-level">Activity Level</Label>
-                        <Slider
-                          id="activity-level"
-                          min={1}
-                          max={5}
-                          step={1}
-                          value={activityLevel}
-                          onValueChange={setActivityLevel}
-                          className="w-full"
-                        />
-                        <p className="text-sm text-muted-foreground">
-                          {activityLevels.find(level => level.step === activityLevel[0])?.label}
-                        </p>
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="weight-goal">Weight Goal (Optional)</Label>
-                        <Select value={weightGoal} onValueChange={setWeightGoal}>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select a goal" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="Maintain Weight">Maintain Weight</SelectItem>
-                            <SelectItem value="Mild Weight Loss">Mild Weight Loss (0.25 kg/week)</SelectItem>
-                            <SelectItem value="Weight Loss">Weight Loss (0.5 kg/week)</SelectItem>
-                            <SelectItem value="Extreme Weight Loss">Extreme Weight Loss (1 kg/week)</SelectItem>
-                            <SelectItem value="Mild Weight Gain">Mild Weight Gain (0.25 kg/week)</SelectItem>
-                            <SelectItem value="Weight Gain">Weight Gain (0.5 kg/week)</SelectItem>
-                            <SelectItem value="Extreme Weight Gain">Extreme Weight Gain (1 kg/week)</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <Button type="submit" className="w-full text-lg py-6" size="lg">
-                        Calculate Calories
-                      </Button>
-                      {calorieResult && (
-                        <div className="space-y-6 pt-6 border-t">
-                          <div className="text-center space-y-2">
-                            <h3 className="text-2xl font-bold">Your Basal Metabolic Rate (BMR): {calorieResult.bmr.toFixed(0)} calories/day</h3>
-                            <p className="text-lg text-gray-600">Your Total Daily Energy Expenditure (TDEE): {calorieResult.tdee.toFixed(0)} calories/day</p>
-                          </div>
-                          <div className="bg-gray-50 p-4 rounded-lg">
-                            <p className="text-sm text-gray-700 leading-relaxed">
-                              Your <strong>BMR (Basal Metabolic Rate)</strong> is the energy your body needs at rest to perform basic life-sustaining functions. Your <strong>TDEE (Total Daily Energy Expenditure)</strong> is the total energy your body burns daily, including your physical activity.
-                              <br /><br />
-                              Based on your TDEE of {calorieResult.tdee.toFixed(0)} calories:
-                              <ul>
-                                <li>To **maintain weight**, consume around {calorieResult.tdee.toFixed(0)} calories.</li>
-                                <li>To **lose weight**, aim for a deficit (e.g., {Math.round(calorieResult.tdee - 500)}-{Math.round(calorieResult.tdee - 400)} calories).</li>
-                                <li>To **gain weight**, aim for a surplus (e.g., {Math.round(calorieResult.tdee + 400)}-{Math.round(calorieResult.tdee + 500)} calories).</li>
-                              </ul>
-                              These are general guidelines; individual needs may vary.
-                            </p>
-                          </div>
-                          <div className="bg-blue-50 p-6 rounded-lg">
-                            <h4 className="text-lg font-semibold mb-3">Personalized Advice</h4>
-                            {isLoadingAdvice ? (
-                              <div className="flex items-center gap-2">
-                                <div className="animate-spin w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full"></div>
-                                <span className="text-gray-600">Generating personalized advice...</span>
-                              </div>
-                            ) : (
-                              <div className="space-y-3">
-                                <p className="text-gray-700 leading-relaxed">{calorieResult.advice}</p>
-                                <p className="text-xs text-gray-500 italic">
-                                  This advice is generated by AI and is for informational purposes only. It is not medical advice. Always consult a healthcare professional for personalized guidance.
-                                </p>
-                              </div>
-                            )}
-                          </div>
-                          <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
-                            <p className="text-sm text-gray-700">
-                              <strong>Please note:</strong> These calculations are estimates. Individual calorie needs vary based on metabolism, genetics, and other factors. For personalized dietary advice, consult a registered dietitian or healthcare professional.
-                            </p>
-                          </div>
-                        </div>
-                      )}
-                    </form>
+                    )}
                   </CardContent>
                 </Card>
                 <CalorieEducationalContent />
               </TabsContent>
 
-              {/* Weight Percentile Calculator */}
-              <TabsContent value="percentile" className="space-y-4">
+              <TabsContent value="percentile" className="mt-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Weight Percentile Calculator</CardTitle>
+                    <CardTitle>Adult Weight Percentile Calculator</CardTitle>
                     <CardDescription>
-                      Compare your weight to the average weight of people in a selected country and gender.
+                      See how your weight compares to others in your age group and country.
                     </CardDescription>
                   </CardHeader>
-                  <CardContent className="space-y-6">
-                    <form onSubmit={calculatePercentile} className="space-y-6">
-                      <div className="space-y-2">
-                        <Label>Gender</Label>
-                        <RadioGroup value={percentileGender} onValueChange={setPercentileGender} className="flex gap-4">
-                          <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="Male" id="percentile-male" />
-                            <Label htmlFor="percentile-male">Male</Label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="Female" id="percentile-female" />
-                            <Label htmlFor="percentile-female">Female</Label>
-                          </div>
-                        </RadioGroup>
-                      </div>
-                      <div className="space-y-4">
-                        <Label htmlFor="weight-percentile" className="text-lg font-medium">Weight</Label>
-                        <div className="flex flex-col sm:flex-row gap-4 sm:items-end">
-                          <div className="flex-1">
-                            <Input
-                              id="weight-percentile"
-                              type="number"
-                              placeholder="Enter your weight"
-                              value={sharedWeight}
-                              onChange={(e) => setSharedWeight(e.target.value === "" ? "" : Number(e.target.value))}
-                              className="text-lg"
-                            />
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <Label htmlFor="weight-unit-toggle-percentile" className={cn(sharedWeightUnit === "kg" ? "font-bold" : "")}>KG</Label>
-                            <Switch 
-                              id="weight-unit-toggle-percentile" 
-                              checked={sharedWeightUnit === "lbs"} 
-                              onCheckedChange={(checked) => setSharedWeightUnit(checked ? "lbs" : "kg")} 
-                            />
-                            <Label htmlFor="weight-unit-toggle-percentile" className={cn(sharedWeightUnit === "lbs" ? "font-bold" : "")}>LBS</Label>
-                          </div>
+                  <CardContent className="space-y-4">
+                    <div className="space-y-2">
+                      <Label>Gender</Label>
+                      <RadioGroup value={percentileGender} onValueChange={setPercentileGender} className="flex space-x-4">
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="male" id="male-percentile" />
+                          <Label htmlFor="male-percentile">Male</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="female" id="female-percentile" />
+                          <Label htmlFor="female-percentile">Female</Label>
+                        </div>
+                      </RadioGroup>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="percentile-age">Age (years)</Label>
+                      <Input
+                        id="percentile-age"
+                        type="number"
+                        placeholder="e.g., 30"
+                        value={percentileAge}
+                        onChange={handlePercentileAgeChange}
+                        min="18"
+                        max="100"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="percentile-weight">Weight (kg)</Label>
+                      <Input
+                        id="percentile-weight"
+                        type="number"
+                        placeholder="e.g., 70"
+                        value={percentileWeightKg}
+                        onChange={handlePercentileWeightChange}
+                        min="20"
+                        max="300"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="country-select">Country</Label>
+                      <Select value={selectedCountry} onValueChange={setSelectedCountry}>
+                        <SelectTrigger id="country-select">
+                          <SelectValue placeholder="Select your country" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {getAllCountries().map(country => (
+                            <SelectItem key={country} value={country}>{country}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <Button onClick={calculatePercentile}>Calculate Percentile</Button>
+
+                    {showPercentileResults && percentileResult && (
+                      <div className="mt-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
+                        <h3 className="text-lg font-semibold">Your Percentile Result:</h3>
+                        <p className="text-sm text-gray-700 dark:text-gray-300">{percentileResult}</p>
+                        <div className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+                          <h4 className="font-medium">AI Output:</h4>
+                          <p>
+                            Understanding your weight percentile can offer insight into how your weight compares to your peers.
+                            It's a statistical measure, not a direct health assessment.
+                            For a complete picture of your health, consider other factors like body composition, lifestyle, and medical history.
+                          </p>
+                        </div>
+                        <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                          <h4 className="font-medium">Disclaimer:</h4>
+                          <p>
+                            This weight percentile calculation is based on generalized population data and is for informational purposes only.
+                            It does not account for individual variations in body composition, genetics, or health conditions.
+                            Consult a healthcare professional for personalized health advice.
+                          </p>
                         </div>
                       </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="country-select">Country</Label>
-                        <Select value={selectedCountry} onValueChange={setSelectedCountry}>
-                          <SelectTrigger id="country-select">
-                            <SelectValue placeholder="Select a country" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {getAllCountries().map((country) => (
-                              <SelectItem key={country} value={country}>
-                                {country}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <Button type="submit" className="w-full text-lg py-6" size="lg">
-                        Calculate Percentile
-                      </Button>
-                      {percentileResult && (
-                        <div className="space-y-6 pt-6 border-t">
-                          <div className="text-center space-y-2">
-                            <h3 className="text-2xl font-bold">Your Weight Percentile: {percentileResult.percentile.toFixed(1) === "0.0" ? "< 0.1%" : 
-                               percentileResult.percentile.toFixed(1) === "100.0" ? "> 99.9%" : 
-                               `${percentileResult.percentile.toFixed(1)}%`}</h3>
-                            <p className="text-lg text-gray-600">
-                              Based on average weight in <b>{percentileResult.calculatedCountry}</b> for <b>{percentileResult.calculatedGender === "Male" ? "men" : "women"}</b> (Average: {percentileResult.meanWeight.toFixed(1)} kg)
-                            </p>
-                          </div>
-                          <div className="bg-blue-50 p-6 rounded-lg">
-                            <h4 className="text-lg font-semibold mb-3">Personalized Insight</h4>
-                            {isLoadingPercentileInsight ? (
-                              <div className="flex items-center gap-2">
-                                <div className="animate-spin w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full"></div>
-                                <span className="text-gray-600">Generating personalized insight...</span>
-                              </div>
-                            ) : (
-                              <div className="space-y-3">
-                                <p className="text-gray-700 leading-relaxed">{percentileResult.insight}</p>
-                                <p className="text-xs text-gray-500 italic">
-                                  This insight is generated by AI and is for informational purposes only. It is not medical advice. Always consult a healthcare professional for personalized guidance.
-                                </p>
-                              </div>
-                            )}
-                          </div>
-                          <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
-                            <p className="text-sm text-gray-700">
-                              <strong>Please note:</strong> Weight percentile is a statistical comparison and does not directly indicate health status. Individual body composition, muscle mass, and health conditions vary. Consult a healthcare professional for personalized health assessment.
-                            </p>
-                          </div>
-                        </div>
-                      )}
-                    </form>
+                    )}
                   </CardContent>
                 </Card>
                 <WeightPercentileEducationalContent />
               </TabsContent>
-              
-              {/* Weight Comparison Tool */}
-              <TabsContent value="comparison" className="space-y-4">
+
+              <TabsContent value="comparison" className="mt-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Interactive Weight Comparison Tool</CardTitle>
+                    <CardTitle>Weight Comparison Tool</CardTitle>
                     <CardDescription>
-                      Compare your weight with animals, objects, celebrities, and more! Create custom items and build interactive scale comparisons to visualize weight differences in a fun and engaging way.
+                      Compare your weight to everyday objects or combinations of items.
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
-                    <div className="bg-gradient-to-br from-blue-50 to-indigo-100 p-6 rounded-lg">
-                      <WeightComparison 
-                        // Pass all state as props to maintain state across tab changes
-                        weight={comparisonWeight}
-                        setWeight={setComparisonWeight}
-                        useKg={comparisonUseKg}
-                        setUseKg={setComparisonUseKg}
-                        selectedCategory={comparisonSelectedCategory}
-                        setSelectedCategory={setComparisonSelectedCategory}
-                        compareToId={compareToId}
-                        setCompareToId={setCompareToId}
-                        compareToItems={compareToItems}
-                        setCompareToItems={setCompareToItems}
-                        selectedComparisonItems={selectedComparisonItems}
-                        setSelectedComparisonItems={setSelectedComparisonItems}
-                        totalWeightLeft={totalWeightLeft}
-                        setTotalWeightLeft={setTotalWeightLeft}
-                        totalWeightRight={totalWeightRight}
-                        setTotalWeightRight={setTotalWeightRight}
-                        userWeightSide={userWeightSide}
-                        setUserWeightSide={setUserWeightSide}
-                        showScale={showScale}
-                        setShowScale={setShowScale}
-                        customObjects={customObjects}
-                        setCustomObjects={setCustomObjects}
-                        customObjectName={customObjectName}
-                        setCustomObjectName={setCustomObjectName}
-                        customObjectWeight={customObjectWeight}
-                        setCustomObjectWeight={setCustomObjectWeight}
-                        customObjectUseKg={customObjectUseKg}
-                        setCustomObjectUseKg={setCustomObjectUseKg}
-                      />
-                    </div>
+                  <CardContent className="pt-6">
+                    <WeightComparison
+                      userWeight={userWeight}
+                      setUserWeight={setUserWeight}
+                      userUnit={userUnit}
+                      setUserUnit={setUserUnit}
+                      compareToItems={compareToItems}
+                      setCompareToItems={setCompareToItems}
+                      selectedComparisonItems={selectedComparisonItems}
+                      setSelectedComparisonItems={setSelectedComparisonItems}
+                      totalWeightLeft={totalWeightLeft}
+                      setTotalWeightLeft={setTotalWeightLeft}
+                      totalWeightRight={totalWeightRight}
+                      setTotalWeightRight={setTotalWeightRight}
+                      userWeightSide={userWeightSide}
+                      setUserWeightSide={setUserWeightSide}
+                      showScale={showScale}
+                      setShowScale={setShowScale}
+                      customObjects={customObjects}
+                      setCustomObjects={setCustomObjects}
+                      customObjectName={customObjectName}
+                      setCustomObjectName={setCustomObjectName}
+                      customObjectWeight={customObjectWeight}
+                      setCustomObjectWeight={setCustomObjectWeight}
+                      customObjectUseKg={customObjectUseKg}
+                      setCustomObjectUseKg={setCustomObjectUseKg}
+                    />
                   </CardContent>
                 </Card>
                 <WeightComparisonContent />
+              </TabsContent>
+
+              {/* New Child Weight Percentile Tab Content */}
+              <TabsContent value="child-weight-percentile" className="mt-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Child Weight Percentile Calculator (WHO Data)</CardTitle>
+                    <CardDescription>
+                      Assess your child's growth by calculating their weight percentile based on WHO data.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="space-y-2">
+                      <Label>Child's Gender</Label>
+                      <RadioGroup value={childGender} onValueChange={setChildGender} className="flex space-x-4">
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="male" id="child-male" />
+                          <Label htmlFor="child-male">Male</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="female" id="child-female" />
+                          <Label htmlFor="child-female">Female</Label>
+                        </div>
+                      </RadioGroup>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="child-age-months">Child's Age (months, max 60)</Label>
+                      <Input
+                        id="child-age-months"
+                        type="number"
+                        placeholder="e.g., 24"
+                        value={childAgeMonths}
+                        onChange={handleChildAgeMonthsChange}
+                        min="0"
+                        max="60"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="child-weight-kg">Child's Weight (kg, max 30)</Label>
+                      <Input
+                        id="child-weight-kg"
+                        type="number"
+                        placeholder="e.g., 12.5"
+                        value={childWeightKg}
+                        onChange={handleChildWeightKgChange}
+                        min="0.1"
+                        max="30"
+                      />
+                    </div>
+                    <Button onClick={calculateChildPercentile}>Calculate Child Percentile</Button>
+
+                    {showChildResults && childPercentileResult && (
+                      <div className="mt-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
+                        <h3 className="text-lg font-semibold">{childPercentileResult}</h3>
+                        {childPercentileCategory && <p className="text-sm text-gray-700 dark:text-gray-300">Category: {childPercentileCategory}</p>}
+
+                        <div className="mt-6 h-64">
+                          <h4 className="font-medium mb-2">Visual Representation:</h4>
+                          <ResponsiveContainer width="100%" height="100%">
+                            <LineChart
+                              data={whoPercentileData[childGender as keyof typeof whoPercentileData]}
+                              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                            >
+                              <CartesianGrid strokeDasharray="3 3" />
+                              <XAxis dataKey="ageMonths" label={{ value: "Age (Months)", position: "insideBottom", offset: 0 }} />
+                              <YAxis label={{ value: "Weight (kg)", angle: -90, position: "insideLeft" }} />
+                              <Tooltip />
+                              <Line type="monotone" dataKey="p3" stroke="#8884d8" name="3rd Percentile" dot={false} />
+                              <Line type="monotone" dataKey="p50" stroke="#82ca9d" name="50th Percentile" dot={false} />
+                              <Line type="monotone" dataKey="p97" stroke="#ffc658" name="97th Percentile" dot={false} />
+                              {childAgeMonths && childWeightKg && (
+                                <ReferenceLine
+                                  x={parseInt(childAgeMonths)}
+                                  y={parseFloat(childWeightKg)}
+                                  label={{ value: "Your Child", position: "top" }}
+                                  stroke="red"
+                                  strokeDasharray="3 3"
+                                  is
+                                  segment={[{ x: parseInt(childAgeMonths), y: parseFloat(childWeightKg) }]}
+                                />
+                              )}
+                               <Line dataKey="childWeight" stroke="red" dot={{ r: 8 }} activeDot={false} />
+                            </LineChart>
+                          </ResponsiveContainer>
+                          {childAgeMonths && childWeightKg && (
+                            <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-2">
+                              Your child's weight (red dot) at {childAgeMonths} months and {childWeightKg} kg.
+                            </p>
+                          )}
+                        </div>
+
+                        <div className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+                          <h4 className="font-medium">AI Output:</h4>
+                          <p>
+                            The child weight percentile helps track a child's growth pattern relative to other children of the same age and gender.
+                            Being within a certain percentile range is generally considered healthy, but significant deviations or sudden changes
+                            should be discussed with a pediatrician. This tool uses simplified WHO growth chart data for illustration.
+                          </p>
+                        </div>
+                        <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                          <h4 className="font-medium">Disclaimer:</h4>
+                          <p>
+                            This Child Weight Percentile Calculator is for general informational purposes only and is based on simplified WHO growth data.
+                            It is not a substitute for professional medical advice, diagnosis, or treatment.
+                            Always consult with your pediatrician or another qualified healthcare provider regarding your child's growth and health.
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+                <ChildWeightPercentileEducationalContent /> {/* New Educational Content */}
               </TabsContent>
             </Tabs>
           </div>
