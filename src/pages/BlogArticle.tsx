@@ -109,6 +109,25 @@ const BlogArticle = () => {
                     // rehypeSlug generiert die IDs, die TableOfContents benötigt
                     rehypePlugins={[rehypeRaw, rehypeSlug]}
                     remarkPlugins={[remarkGfm]}
+                    components={{
+                      a: ({ node, ...props }) => {
+                        const href = props.href || '';
+                        const isExternal = href.startsWith('http://') || href.startsWith('https://');
+                        const isOurDomain = href.includes('weightvs.com') || href.startsWith('/');
+            
+                        // Überprüfe, ob es sich um einen externen Link handelt UND nicht um deine eigene Domain
+                        if (isExternal && !isOurDomain) {
+                          return (
+                            <a
+                              {...props}
+                              target="_blank"
+                              rel="noopener noreferrer" // Wichtig für Sicherheit und Performance
+                            />
+                          );
+                        }
+                        return <a {...props} />; // Lasse interne Links normal
+                      },
+                    }}
                   >
                     {article.content}
                   </ReactMarkdown>
