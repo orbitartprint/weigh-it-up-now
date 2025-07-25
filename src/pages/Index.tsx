@@ -35,6 +35,25 @@ const Index = () => {
     { icon: Heart, value: "99%", label: "Satisfaction Rate" }
   ];
 
+  const organizationSchema = {
+    "@context": "http://schema.org",
+    "@type": "Organization",
+    "name": "WeightVs.com",
+    "url": "https://www.weightvs.com",
+    "logo": "https://www.weightvs.com/logo.png",
+    "sameAs": [
+      // Fügen Sie hier Ihre Social-Media-Links ein
+    ]
+  };
+
+  const websiteSchema = {
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "WeightVs.com - Your Health & Weight Management Companion",
+    "url": "https://www.weightvs.com"
+    }
+  };
+
   return (
     <>
       <Helmet>
@@ -43,6 +62,14 @@ const Index = () => {
           name="description"
           content="Free health calculators, weight management tools, and expert insights. Calculate BMI, daily calorie needs, weight percentiles, and explore your weight on different planets."
         />
+        {/* Organization Schema */}
+        <script type="application/ld+json">
+          {JSON.stringify(organizationSchema)}
+        </script>
+        {/* WebSite Schema */}
+        <script type="application/ld+json">
+          {JSON.stringify(websiteSchema)}
+        </script>
       </Helmet>
 
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
