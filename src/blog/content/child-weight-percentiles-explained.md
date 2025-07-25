@@ -86,7 +86,6 @@ Understanding your child's weight percentile is a valuable part of monitoring th
 
 * **World Health Organization (WHO) Growth Standards:** [https://www.who.int/tools/child-growth-standards/standards](https://www.who.int/tools/child-growth-standards/standards)
 * **Centers for Disease Control and Prevention (CDC) Growth Charts:** [https://www.cdc.gov/growthcharts/index.htm](https://www.cdc.gov/growthcharts/index.htm)
-* **American Academy of Pediatrics - HealthyChildren.org:** [https://www.healthychildren.org/](https://www.healthychildren.org/)* (This is a general link, you might want to find a more specific article on growth charts from them during your deep research)
 * **NHS - Your child's weight:** [https://www.nhs.uk/live-well/healthy-weight/childrens-weight/national-child-measurement-programme/](https://www.nhs.uk/live-well/healthy-weight/childrens-weight/national-child-measurement-programme/)
 
 ---
