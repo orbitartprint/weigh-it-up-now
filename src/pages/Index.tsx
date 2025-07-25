@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Calculator, Rocket, BookOpen, TrendingUp, Users, Heart, Scale } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -40,9 +39,11 @@ const Index = () => {
     "@type": "Organization",
     "name": "WeightVs.com",
     "url": "https://www.weightvs.com",
-    "logo": "https://www.weightvs.com/logo.png",
+    "logo": "https://www.weightvs.com/logo.png", // Sicherstellen, dass dies der korrekte Pfad ist
     "sameAs": [
-      // Fügen Sie hier Ihre Social-Media-Links ein
+      // Fügen Sie hier Ihre Social-Media-Links ein, z.B.:
+      // "https://twitter.com/WeightVs",
+      // "https://facebook.com/WeightVsOfficial"
     ]
   };
 
@@ -51,7 +52,7 @@ const Index = () => {
     "@type": "WebSite",
     "name": "WeightVs.com - Your Health & Weight Management Companion",
     "url": "https://www.weightvs.com"
-    }
+    // "potentialAction" ist weggelassen, da keine Suchseite vorhanden ist
   };
 
   return (
@@ -165,15 +166,15 @@ const Index = () => {
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
             Curious About Your Weight?
           </h2>
-          <div className="flex flex-col items-center space-y-6"> {/* Flexbox für Zentrierung und Abstand */}
+          <div className="flex flex-col items-center space-y-6">
             <p className="text-lg text-center text-gray-700 max-w-2xl px-4">
               Ever wondered how your weight stacks up against an animal, a grain of sand or even a dinosaur? Our new Weight Comparison Tool, now available on the Calculators page, offers a fascinating and fun way to visualize your weight!
             </p>
-            <Link to="/calculators?tab=comparison" className="block w-full max-w-lg"> {/* Bild als Link */}
+            <Link to="/calculators?tab=comparison" className="block w-full max-w-lg">
               <img
                 src="/lovable-uploads/Scale-Human-vs-Bull.webp"
                 alt="Weight Comparison Scale"
-                className="w-full h-auto rounded-lg shadow-lg" // Responsive Bildgröße und Styling
+                className="w-full h-auto rounded-lg shadow-lg"
               />
             </Link>
             <Button size="lg" asChild className="text-lg px-8 py-3">
