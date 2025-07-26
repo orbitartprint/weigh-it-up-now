@@ -93,7 +93,7 @@ const Index = () => {
             <div className="text-center max-w-4xl mx-auto">
               <h1 className="text-4xl md:text-6xl font-bold mb-6 drop-shadow-md text-white">
                 Your Path to a
-                span className="text-[#7AB0E0]"> Healthier You</span>
+                <span className="text-[#7AB0E0]"> Healthier You</span>
               </h1>
               <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto drop-shadow-md">
                 Health calculators, weight management tools, and expert insights
