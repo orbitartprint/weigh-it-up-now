@@ -80,19 +80,19 @@ const Index = () => {
         <div className="container mx-auto px-4 py-16">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Your Health Journey
-              <span className="text-blue-600"> Starts Here</span>
+              Your Path to a
+              <span className="text-blue-600"> Healthier You</span>
             </h1>
             <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              Discover comprehensive health calculators, weight management tools, and expert insights 
-              to support your wellness journey. Free, accurate, and science-based.
+              Health calculators, weight management tools, and expert insights 
+              for your well-being. Free, accurate, and science-based.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild className="text-lg px-8 py-3">
                 <Link to="/calculators">
                   <Calculator className="mr-2 h-5 w-5" />
-                  Try Our Calculators
+                  Start Your Calculations
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild className="text-lg px-8 py-3">
