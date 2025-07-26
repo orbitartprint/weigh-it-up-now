@@ -81,7 +81,7 @@ const Index = () => {
             {/* Das Hintergrundbild */}
             <img
               src="/lovable-uploads/family-health-hero.webp" // Pfad zu deinem WEBP Bild
-              alt="Diverse family laughing and active in nature, symbolizing health and well-being."
+              alt="Diverse Familie lachend und aktiv in der Natur, symbolisiert Gesundheit und Wohlbefinden."
               className="absolute inset-0 w-full h-full object-cover"
             />
 
@@ -89,14 +89,14 @@ const Index = () => {
             <div className="absolute inset-0 bg-black bg-opacity-40"></div>
 
             {/* Der Container für den Inhalt (Text und Buttons) - sitzt ÜBER dem Bild und Overlay */}
-            <div className="container mx-auto px-4 py-16">
+            <div className="relative z-10 container mx-auto px-4 py-16 text-white">
               <div className="text-center max-w-4xl mx-auto">
-                <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+                <h1 className="text-4xl md:text-6xl font-bold mb-6 drop-shadow-md">
                   Your Path to a
-                  <span className="text-blue-600"> Healthier You</span>
+                  <span className="text-weightBlue-light"> Healthier You</span>
                 </h1>
-                <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-                  Health calculators, weight management tools, and expert insights 
+                <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto drop-shadow-md">
+                  Health calculators, weight management tools, and expert insights
                   for your well-being. Free, accurate, and science-based.
                 </p>
 
@@ -109,7 +109,7 @@ const Index = () => {
                   </Button>
                   <Button size="lg" variant="outline" asChild className="text-lg px-8 py-3">
                     <Link to="/blog">
-                      <BookOpen className="mr-2 h-5 w-5 text-gray-900" />
+                      <BookOpen className="mr-2 h-5 w-5" />
                       Read Expert Insights
                     </Link>
                   </Button>
@@ -117,7 +117,7 @@ const Index = () => {
               </div>
             </div>
           </div>
-          {/* END Hero Section */}
+          {/* END Hero Section */
 
         {/* Features Section */}
         <div className="container mx-auto px-4 py-16">
