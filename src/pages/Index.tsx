@@ -81,7 +81,7 @@ const Index = () => {
             {/* Das Hintergrundbild */}
             <img
               src="/lovable-uploads/family-health-hero.webp" // Pfad zu deinem WEBP Bild
-              alt="Diverse Familie lachend und aktiv in der Natur, symbolisiert Gesundheit und Wohlbefinden."
+              alt="Diverse family laughing and active in nature, symbolizing health and well-being."
               className="absolute inset-0 w-full h-full object-cover"
             />
 
@@ -91,7 +91,7 @@ const Index = () => {
             {/* Der Container für den Inhalt (Text und Buttons) - sitzt ÜBER dem Bild und Overlay */}
             <div className="relative z-10 container mx-auto px-4 py-16 text-white">
               <div className="text-center max-w-4xl mx-auto">
-                <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+                <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
                   Your Path to a
                   <span className="text-weightBlue-light"> Healthier You</span>
                 </h1>
@@ -109,7 +109,7 @@ const Index = () => {
                   </Button>
                   <Button size="lg" variant="outline" asChild className="text-lg px-8 py-3">
                     <Link to="/blog">
-                      <BookOpen className="mr-2 h-5 w-5" />
+                      <BookOpen className="mr-2 h-5 w-5 text-gray-900" />
                       Read Expert Insights
                     </Link>
                   </Button>
