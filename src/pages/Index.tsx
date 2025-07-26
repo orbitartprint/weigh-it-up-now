@@ -101,13 +101,13 @@ const Index = () => {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" asChild className="text-lg px-8 py-3 bg-white text-gray-900 border-2 border-transparent hover:bg-gray-100 hover:text-weightBlue shadow-lg">
+                <Button size="lg" asChild className="text-lg px-8 py-3">
                   <Link to="/calculators">
                     <Calculator className="mr-2 h-5 w-5" />
                     Start Your Calculations
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" asChild className="text-lg px-8 py-3">
+                <Button size="lg" variant="outline" asChild className="text-lg px-8 py-3 bg-white text-gray-900 border-2 border-transparent hover:bg-gray-100 hover:text-weightBlue shadow-lg">
                   <Link to="/blog">
                     <BookOpen className="mr-2 h-5 w-5" />
                     Read Expert Insights
