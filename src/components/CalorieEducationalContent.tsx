@@ -36,7 +36,7 @@ const CalorieEducationalContent = () => {
               </p>
               
               <img 
-                src="/lovable-uploads/Metabolism-Diagram.jpg" 
+                src="/lovable-uploads/metabolism-diagram.jpg" 
                 alt="Diagram illustrating Basal Metabolic Rate (BMR) as resting energy and Total Daily Energy Expenditure (TDEE) as BMR plus activity" 
                 className="w-full max-w-2xl mx-auto mt-6 rounded-lg shadow-md"
               />
