@@ -77,48 +77,48 @@ const Index = () => {
         <Navigation />
         
         {/* Hero Section - UPDATED */}
-          <div className="relative w-full h-[450px] md:h-[550px] lg:h-[650px] overflow-hidden flex items-center justify-center">
-            {/* Das Hintergrundbild */}
-            <img
-              src="/lovable-uploads/family-health-hero.webp" // Pfad zu deinem WEBP Bild
-              alt="Diverse Familie lachend und aktiv in der Natur, symbolisiert Gesundheit und Wohlbefinden."
-              className="absolute inset-0 w-full h-full object-cover"
-            />
+        <div className="relative w-full h-[450px] md:h-[550px] lg:h-[650px] overflow-hidden flex items-center justify-center">
+          {/* Das Hintergrundbild */}
+          <img
+            src="/lovable-uploads/family-health-hero.webp" // Pfad zu deinem WEBP Bild
+            alt="Diverse Familie lachend und aktiv in der Natur, symbolisiert Gesundheit und Wohlbefinden."
+            className="absolute inset-0 w-full h-full object-cover"
+          />
 
-            {/* Das transparente Overlay für bessere Lesbarkeit des Textes */}
-            <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+          {/* Das transparente Overlay für bessere Lesbarkeit des Textes */}
+          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
 
-            {/* Der Container für den Inhalt (Text und Buttons) - sitzt ÜBER dem Bild und Overlay */}
-            <div className="relative z-10 container mx-auto px-4 py-16 text-white">
-              <div className="text-center max-w-4xl mx-auto">
-                <h1 className="text-4xl md:text-6xl font-bold mb-6 drop-shadow-md">
-                  Your Path to a
-                  <span className="text-weightBlue-light"> Healthier You</span>
-                </h1>
-                <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto drop-shadow-md">
-                  Health calculators, weight management tools, and expert insights
-                  for your well-being. Free, accurate, and science-based.
-                </p>
+          {/* Der Container für den Inhalt (Text und Buttons) - sitzt ÜBER dem Bild und Overlay */}
+          <div className="relative z-10 container mx-auto px-4 py-16 text-white">
+            <div className="text-center max-w-4xl mx-auto">
+              <h1 className="text-4xl md:text-6xl font-bold mb-6 drop-shadow-md">
+                Your Path to a
+                <span className="text-weightBlue-light"> Healthier You</span>
+              </h1>
+              <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto drop-shadow-md">
+                Health calculators, weight management tools, and expert insights
+                for your well-being. Free, accurate, and science-based.
+              </p>
 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button size="lg" asChild className="text-lg px-8 py-3">
-                    <Link to="/calculators">
-                      <Calculator className="mr-2 h-5 w-5" />
-                      Start Your Calculations
-                    </Link>
-                  </Button>
-                  <Button size="lg" variant="outline" asChild className="text-lg px-8 py-3">
-                    <Link to="/blog">
-                      <BookOpen className="mr-2 h-5 w-5" />
-                      Read Expert Insights
-                    </Link>
-                  </Button>
-                </div>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg" asChild className="text-lg px-8 py-3">
+                  <Link to="/calculators">
+                    <Calculator className="mr-2 h-5 w-5" />
+                    Start Your Calculations
+                  </Link>
+                </Button>
+                <Button size="lg" variant="outline" asChild className="text-lg px-8 py-3">
+                  <Link to="/blog">
+                    <BookOpen className="mr-2 h-5 w-5" />
+                    Read Expert Insights
+                  </Link>
+                </Button>
               </div>
             </div>
           </div>
-          {/* END Hero Section */
-
+        </div>
+        {/* END Hero Section */}
+        
         {/* Features Section */}
         <div className="container mx-auto px-4 py-16">
           <div className="text-center mb-12">
