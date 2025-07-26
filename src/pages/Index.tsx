@@ -39,28 +39,44 @@ const Index = () => {
     "@type": "Organization",
     "name": "WeightVs.com",
     "url": "https://www.weightvs.com",
-    "logo": "https://www.weightvs.com/logo.png", // Passe dies bei Bedarf an
+    "logo": "https://www.weightvs.com/logo.png", // Sicherstellen, dass dies der korrekte Pfad ist
     "sameAs": [
-      // Optional: Links zu Social Media Profilen
-      // "https://www.facebook.com/yourpage",
-      // "https://www.twitter.com/yourpage"
+      // Fügen Sie hier Ihre Social-Media-Links ein, z.B.:
+      // "https://twitter.com/WeightVs",
+      // "https://facebook.com/WeightVsOfficial"
     ]
+  };
+
+  const websiteSchema = {
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "WeightVs.com - Your Health & Weight Management Companion",
+    "url": "https://www.weightvs.com"
+    // "potentialAction" ist weggelassen, da keine Suchseite vorhanden ist
   };
 
   return (
     <>
       <Helmet>
-        <title>WeightVs.com - Health Calculators, Weight Tools & Expert Insights</title>
-        <meta name="description" content="Free, accurate health calculators, weight management tools, and expert insights for your well-being. BMI, calorie needs, percentiles, and more." />
+        <title>WeightVs.com - Your Health & Weight Management Companion</title>
+        <meta
+          name="description"
+          content="Free health calculators, weight management tools, and expert insights. Calculate BMI, daily calorie needs, weight percentiles, and explore your weight on different planets."
+        />
+        {/* Organization Schema */}
         <script type="application/ld+json">
           {JSON.stringify(organizationSchema)}
         </script>
+        {/* WebSite Schema */}
+        <script type="application/ld+json">
+          {JSON.stringify(websiteSchema)}
+        </script>
       </Helmet>
-      <div className="flex flex-col min-h-screen">
-        <Navigation />
-        <main className="flex-grow">
 
-          {/* Hero Section - UPDATED */}
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+        <Navigation />
+        
+        {/* Hero Section - UPDATED */}
           <div className="relative w-full h-[450px] md:h-[550px] lg:h-[650px] overflow-hidden flex items-center justify-center">
             {/* Das Hintergrundbild */}
             <img
@@ -75,7 +91,7 @@ const Index = () => {
             {/* Der Container für den Inhalt (Text und Buttons) - sitzt ÜBER dem Bild und Overlay */}
             <div className="relative z-10 container mx-auto px-4 py-16 text-white">
               <div className="text-center max-w-4xl mx-auto">
-                <h1 className="text-4xl md:text-6xl font-bold mb-6 drop-shadow-md">
+                <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
                   Your Path to a
                   <span className="text-weightBlue-light"> Healthier You</span>
                 </h1>
@@ -85,13 +101,13 @@ const Index = () => {
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button size="lg" asChild className="text-lg px-8 py-3 bg-weightBlue text-white hover:bg-weightBlue-dark shadow-lg">
+                  <Button size="lg" asChild className="text-lg px-8 py-3">
                     <Link to="/calculators">
                       <Calculator className="mr-2 h-5 w-5" />
                       Start Your Calculations
                     </Link>
                   </Button>
-                  <Button size="lg" variant="outline" asChild className="text-lg px-8 py-3 border-2 border-white text-white hover:bg-white hover:text-weightBlue shadow-lg">
+                  <Button size="lg" variant="outline" asChild className="text-lg px-8 py-3">
                     <Link to="/blog">
                       <BookOpen className="mr-2 h-5 w-5" />
                       Read Expert Insights
@@ -103,61 +119,72 @@ const Index = () => {
           </div>
           {/* END Hero Section */}
 
-
-          {/* Features Section */}
-          <section className="container mx-auto px-4 py-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">
-              Why Choose WeightVs.com?
+        {/* Features Section */}
+        <div className="container mx-auto px-4 py-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Everything You Need for Better Health
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {features.map((feature, index) => (
-                <Card key={index} className="flex flex-col items-center text-center p-6">
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              From calculators to educational content, we provide the tools and knowledge 
+              you need to make informed health decisions.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <Card key={index} className="text-center hover:shadow-lg transition-shadow">
                   <CardHeader>
-                    <feature.icon className="h-12 w-12 text-blue-600 mb-4" />
-                    <CardTitle className="text-xl font-semibold text-gray-900 mb-2">
-                      {feature.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="flex-grow">
-                    <CardDescription className="text-gray-600 mb-4">
+                    <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Icon className="h-8 w-8 text-blue-600" />
+                    </div>
+                    <CardTitle className="text-xl">{feature.title}</CardTitle>
+                    <CardDescription className="text-base">
                       {feature.description}
                     </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Button asChild className="w-full">
+                      <Link to={feature.link}>Explore</Link>
+                    </Button>
                   </CardContent>
-                  <Button variant="link" asChild>
-                    <Link to={feature.link}>Learn More</Link>
-                  </Button>
                 </Card>
-              ))}
-            </div>
-          </section>
+              );
+            })}
+          </div>
+        </div>
 
-          {/* Stats Section */}
-          <section className="bg-gray-50 py-16">
-            <div className="container mx-auto px-4">
-              <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">
-                Our Impact at a Glance
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
-                {stats.map((stat, index) => (
-                  <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-                    <stat.icon className="h-10 w-10 text-blue-600 mx-auto mb-3" />
-                    <p className="text-4xl font-bold text-gray-900 mb-2">{stat.value}</p>
-                    <p className="text-gray-600">{stat.label}</p>
+        {/* Stats Section */}
+        <div className="bg-white/80 py-16">
+          <div className="container mx-auto px-4">
+            <div className="grid md:grid-cols-3 gap-8">
+              {stats.map((stat, index) => {
+                const Icon = stat.icon;
+                return (
+                  <div key={index} className="text-center">
+                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Icon className="h-6 w-6 text-blue-600" />
+                    </div>
+                    <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
+                    <div className="text-gray-600">{stat.label}</div>
                   </div>
-                ))}
-              </div>
+                );
+              })}
             </div>
-          </section>
+          </div>
+        </div>
 
-          {/* Call to Action for Weight Comparison */}
-          <div className="container mx-auto px-4 py-16 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Ever Wondered "Weight Vs." What?
-            </h2>
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              Compare your weight to everyday objects, animals, or even celestial bodies! It's fun, educational, and puts weight into perspective!
+        <div className="mt-12 max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
+            Curious About Your Weight?
+          </h2>
+          <div className="flex flex-col items-center space-y-6">
+            <p className="text-lg text-center text-gray-700 max-w-2xl px-4">
+              Ever wondered how your weight stacks up against an animal, a grain of sand or even a dinosaur? Our new Weight Comparison Tool, now available on the Calculators page, offers a fascinating and fun way to visualize your weight!
             </p>
-            <Link to="/calculators?tab=comparison" className="block w-full max-w-lg mx-auto mb-8">
+            <Link to="/calculators?tab=comparison" className="block w-full max-w-lg">
               <img
                 src="/lovable-uploads/Scale-Human-vs-Bull.webp"
                 alt="Weight Comparison Scale"
@@ -171,25 +198,25 @@ const Index = () => {
               </Link>
             </Button>
           </div>
+        </div>
 
-          {/* CTA Section */}
-          <div className="container mx-auto px-4 py-16">
-            <Card className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
-              <CardContent className="text-center py-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                  Ready to Start Your Health Journey?
-                </h2>
-                <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-                  Join thousands of users who trust WeightVs.com for their health calculations and insights.
-                </p>
-                <Button size="lg" variant="secondary" asChild className="text-lg px-8 py-3">
-                  <Link to="/calculators">Get Started Free</Link>
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
+        {/* CTA Section */}
+        <div className="container mx-auto px-4 py-16">
+          <Card className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+            <CardContent className="text-center py-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Ready to Start Your Health Journey?
+              </h2>
+              <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+                Join thousands of users who trust WeightVs.com for their health calculations and insights.
+              </p>
+              <Button size="lg" variant="secondary" asChild className="text-lg px-8 py-3">
+                <Link to="/calculators">Get Started Free</Link>
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
 
-        </main>
         <Footer />
       </div>
     </>
