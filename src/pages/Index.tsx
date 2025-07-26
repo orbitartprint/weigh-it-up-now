@@ -91,9 +91,9 @@ const Index = () => {
           {/* Der Container für den Inhalt (Text und Buttons) - sitzt ÜBER dem Bild und Overlay */}
           <div className="relative z-10 container mx-auto px-4 py-16 text-white">
             <div className="text-center max-w-4xl mx-auto">
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 drop-shadow-md">
+              <h1 className="text-4xl md:text-6xl font-bold mb-6 drop-shadow-md text-white">
                 Your Path to a
-                <span className="text-weightBlue-light"> Healthier You</span>
+                span className="text-[#7AB0E0]"> Healthier You</span>
               </h1>
               <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto drop-shadow-md">
                 Health calculators, weight management tools, and expert insights
@@ -101,7 +101,7 @@ const Index = () => {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" asChild className="text-lg px-8 py-3">
+                <Button size="lg" asChild className="text-lg px-8 py-3 bg-white text-gray-900 border-2 border-transparent hover:bg-gray-100 hover:text-weightBlue shadow-lg">
                   <Link to="/calculators">
                     <Calculator className="mr-2 h-5 w-5" />
                     Start Your Calculations
