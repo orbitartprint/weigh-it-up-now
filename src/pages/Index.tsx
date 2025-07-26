@@ -89,14 +89,14 @@ const Index = () => {
             <div className="absolute inset-0 bg-black bg-opacity-40"></div>
 
             {/* Der Container für den Inhalt (Text und Buttons) - sitzt ÜBER dem Bild und Overlay */}
-            <div className="relative z-10 container mx-auto px-4 py-16 text-white">
+            <div className="container mx-auto px-4 py-16">
               <div className="text-center max-w-4xl mx-auto">
-                <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
+                <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
                   Your Path to a
-                  <span className="text-weightBlue-light"> Healthier You</span>
+                  <span className="text-blue-600"> Healthier You</span>
                 </h1>
-                <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto drop-shadow-md">
-                  Health calculators, weight management tools, and expert insights
+                <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                  Health calculators, weight management tools, and expert insights 
                   for your well-being. Free, accurate, and science-based.
                 </p>
 
