@@ -124,7 +124,7 @@ const WeightPercentileEducationalContent = () => {
               </p>
               
               <img 
-                src="/lovable-uploads/Weight-vs-Health-Diagram.jpg" 
+                src="/lovable-uploads/weight-vs-health-diagram.jpg" 
                 alt="Diagram showing a distinction between weight as one metric and holistic health encompassing multiple factors like diet, exercise, sleep, and mental well-being" 
                 className="w-full max-w-3xl mx-auto mt-6 rounded-lg shadow-md"
               />
