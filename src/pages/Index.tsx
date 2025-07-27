@@ -90,7 +90,7 @@ const Index = () => {
         <div className="relative w-full h-[450px] md:h-[550px] lg:h-[650px] overflow-hidden flex items-center justify-center">
           {/* Das Hintergrundbild */}
           <img
-            src="/lovable-uploads/family-health-hero2.webp" // Pfad zu deinem WEBP Bild
+            src="/lovable-uploads/family-health-hero.webp" // Pfad zu deinem WEBP Bild
             alt="Diverse family laughing and active in nature, symbolizing health and well-being"
             className="absolute inset-0 w-full h-full object-cover"
           />
@@ -117,7 +117,7 @@ const Index = () => {
                     Start Your Calculations
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" asChild className="text-lg px-8 py-3 bg-white text-gray-900 border-2 border-transparent hover:bg-gray-100 hover:text-weightBlue shadow-lg">
+                <Button size="lg" variant="outline" asChild className="text-lg px-8 py-3 bg-white text-gray-900 border-2 border-transparent hover:bg-gray-100 shadow-lg">
                   <Link to="/blog">
                     <BookOpen className="mr-2 h-5 w-5" />
                     Read Expert Insights
