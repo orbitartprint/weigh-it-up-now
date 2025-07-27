@@ -77,6 +77,8 @@ Dive deeper into your health journey with our comprehensive calculators and insi
 
 [**Explore All Our Calculators & Blog Articles**](/calculators)
 
+![Holistic Health Diagram](https://www.weightvs.com/lovable-uploads/holistic-health-graphic.jpg)
+
 ---
 
 ## Frequently Asked Questions (FAQs)
