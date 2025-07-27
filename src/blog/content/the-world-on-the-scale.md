@@ -59,7 +59,7 @@ Tracking average weights and BMI trends is crucial for public health:
 
 The "average weight" of a country is far more than just a statistic; it's a window into the health, lifestyle, and societal challenges faced by its people. While these numbers provide valuable insights for public health, it's essential to remember that they are population averages and do not define individual health. Your personal health journey is unique and multifaceted.
 
-![Examples of average weights across different countries](https://www.weightvs.com/lovable-uploads/global-weight-map.jpg)
+![Examples of average weights across different countries](/lovable-uploads/global-weight-map.jpg)
 
 ---
 
