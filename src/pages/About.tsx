@@ -16,6 +16,16 @@ const About = () => {
           name="description"
           content="Learn about WeightVs.com's mission to provide accurate, free health calculators and evidence-based insights for better weight management and wellness decisions."
         />
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y60WQZCGGY"></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-Y60WQZCGGY');
+          `}
+        </script>
       </Helmet>
 
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
