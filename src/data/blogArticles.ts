@@ -20,6 +20,7 @@ import { holisticHealthBeyondWeight } from '../blog/article-data/holistic-health
 import { theWorldOnTheScale } from '../blog/article-data/the-world-on-the-scale';
 import { childWeightPercentilesExplained } from '../blog/article-data/child-weight-percentiles-explained';
 import { theScienceOfSleepAndWeight } from '../blog/article-data/the-science-of-sleep-and-weight';
+import { understandingMacronutrients } from '../blog/article-data/understanding-macronutrients';
 
 
 // Exportiere das Array aller Blogartikel
@@ -31,7 +32,8 @@ export const blogArticles: BlogArticle[] = [
   holisticHealthBeyondWeight,
   theWorldOnTheScale,
   childWeightPercentilesExplained,
-  theScienceOfSleepAndWeight
+  theScienceOfSleepAndWeight,
+  understandingMacronutrients
 ].sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime());
 
 // Helper functions (Diese bleiben, da sie auf das blogArticles Array zugreifen)
