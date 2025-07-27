@@ -63,11 +63,7 @@ const BlogArticle = () => {
       </Helmet>
       <div className="bg-gradient-to-b from-blue-50 to-white min-h-screen">
         <div className="container mx-auto px-4 py-8 md:py-12">
-          <Button variant="ghost" className="mb-6" asChild>
-            <Link to="/blog">
-              <ArrowLeft className="mr-2 h-4 w-4" /> Back to Blog
-            </Link>
-          </Button>
+          <Navigation />
 
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             <div className="lg:col-span-3">
