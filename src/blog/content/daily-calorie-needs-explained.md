@@ -76,7 +76,7 @@ Estimating calorie needs provides a valuable starting point, but it's crucial to
 
 Understanding your daily calorie needs provides a powerful framework for managing your weight and achieving your health goals. However, remember that calories are only one piece of the puzzle. A holistic approach that includes balanced nutrition, regular physical activity, adequate sleep, stress management, and mindful eating is essential for long-term health and well-being. Use calorie calculations as an informed guide, not a rigid rule, and always listen to your body's unique signals.
 
-![Metabolism Diagram](/lovable-uploads/metabolism-diagram.jpg)
+![Metabolism Diagram](https://www.weightvs.com/public/lovable-uploads/metabolism-diagram.jpg)
 
 ---
 
