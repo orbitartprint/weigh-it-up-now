@@ -63,7 +63,7 @@ Your TDEE is the number of calories you need to maintain your current weight. To
 * **Weight Gain:** Consume more calories than your TDEE (create a calorie surplus). A surplus of 300-500 calories per day is generally recommended for healthy muscle gain. For example, if your TDEE is 2000 calories, aim for 2300-2500 calories per day to gain weight.
 * **Weight Maintenance:** Consume roughly your TDEE.
 
-![Calorie Balance Visual](https://weightvs.com/lovable-uploads/calorie-balance-visual.jpg)
+![Calorie Balance Visual](/lovable-uploads/calorie-balance-visual.jpg)
 
 ## Important Considerations
 
