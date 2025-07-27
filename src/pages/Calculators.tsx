@@ -423,14 +423,16 @@ const Calculators = () => {
           name="description"
           content="Free, accurate health calculators for BMI, daily calorie needs, weight percentiles, and interactive weight comparisons. Get personalized insights and educational content for better health decisions."
         />
-        <!-- Google tag (gtag.js) -->
+        {/* Google tag (gtag.js) */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y60WQZCGGY"></script>
         <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-        
-          gtag('config', 'G-Y60WQZCGGY');
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+      
+            gtag('config', 'G-Y60WQZCGGY');
+          `}
         </script>
       </Helmet>
 
