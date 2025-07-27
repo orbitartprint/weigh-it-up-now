@@ -83,7 +83,7 @@ const WeightPercentileEducationalContent = () => {
               </p>
               
               <img 
-                src="/lovable-uploads/Global-Weight-Map.jpg" 
+                src="/lovable-uploads/global-weight-map.jpg" 
                 alt="Bar chart showing average weight differences across various countries, with icons representing influencing factors like diet and activity" 
                 className="w-full max-w-3xl mx-auto mt-6 rounded-lg shadow-md"
               />
