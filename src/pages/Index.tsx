@@ -91,7 +91,7 @@ const Index = () => {
           {/* Das Hintergrundbild */}
           <img
             src="/lovable-uploads/family-health-hero2.webp" // Pfad zu deinem WEBP Bild
-            alt="Diverse Familie lachend und aktiv in der Natur, symbolisiert Gesundheit und Wohlbefinden."
+            alt="Diverse family laughing and active in nature, symbolizing health and well-being"
             className="absolute inset-0 w-full h-full object-cover"
           />
 
