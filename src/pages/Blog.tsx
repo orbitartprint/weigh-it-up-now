@@ -67,6 +67,15 @@ const Blog = () => {
           name="description"
           content="Expert insights on BMI, weight management, nutrition, and holistic health. Evidence-based articles to support your wellness journey."
         />
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y60WQZCGGY"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'G-Y60WQZCGGY');
+        </script>
       </Helmet>
 
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
