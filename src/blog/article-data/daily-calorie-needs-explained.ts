@@ -7,7 +7,7 @@ export const dailyCalorieNeedsExplained = {
   slug: "daily-calorie-needs-explained",
   title: "Daily Calorie Needs Explained: Your Guide to Energy Balance",
   excerpt: "Master your weight goals by understanding your daily calorie needs. Learn how to calculate your personalized energy expenditure for sustainable weight loss, gain, or maintenance.",
-  heroImage: "/lovable-uploads/metabolism-diagram.jpg",
+  heroImage: "/lovable-uploads/daily-calorie-hero.webp",
   heroImageAlt: "A vibrant illustration depicting human metabolism with food, energy output, and a calculator symbol, representing daily calorie needs.",
   category: "Nutrition",
   tags: ["Calories", "Weight Management", "Energy Balance", "Nutrition", "Diet", "Health"],
