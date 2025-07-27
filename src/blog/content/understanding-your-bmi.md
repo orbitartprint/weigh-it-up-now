@@ -33,6 +33,8 @@ A common critique of BMI is its inability to differentiate between muscle mass a
 
 BMI categories are generally standardized for adults, but the impact of age, sex, and ethnic background on body composition and health risks can vary. For instance, older adults may have a lower muscle mass and higher body fat percentage at the same BMI compared to younger adults. Also, certain ethnic groups may have different healthy BMI ranges due to genetic predispositions for body fat distribution and disease risk.
 
+![BMI Limitations Graphic](https://www.weightvs.com/lovable-uploads/bmi-limitations.jpg)
+
 ### Not a Direct Measure of Health
 
 BMI is a screening tool, not a diagnostic one. If your BMI falls outside the normal range, it's a signal to consider further evaluation.
