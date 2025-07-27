@@ -16,11 +16,13 @@ const BlogCard = ({ article, featured = false }: BlogCardProps) => {
     <Card className={`h-full hover:shadow-lg transition-shadow ${featured ? 'md:col-span-2 lg:col-span-2' : ''}`}>
       <div className={featured ? 'md:flex' : ''}>
         <div className={featured ? 'md:w-1/2' : ''}>
-          <img
-            src={article.heroImage}
-            alt={article.heroImageAlt}
-            className={`w-full object-cover rounded-t-lg ${featured ? 'md:rounded-l-lg md:rounded-tr-none md:h-full' : 'h-48'}`}
-          />
+          <Link to={`/blog/${article.slug}`}>
+            <img
+              src={article.heroImage}
+              alt={article.heroImageAlt}
+              className={`w-full object-cover rounded-t-lg ${featured ? 'md:rounded-l-lg md:rounded-tr-none md:h-full' : 'h-48'}`}
+            />
+          </Link>
         </div>
         <div className={featured ? 'md:w-1/2 md:flex md:flex-col' : ''}>
           <CardHeader>
@@ -32,7 +34,7 @@ const BlogCard = ({ article, featured = false }: BlogCardProps) => {
               </div>
             </div>
             <CardTitle className={featured ? 'text-xl md:text-2xl' : 'text-lg'}>
-              {article.title}
+              <Link to={`/blog/${article.slug}`}>{article.title}</Link>
             </CardTitle>
             <CardDescription className={featured ? 'text-base' : ''}>
               {article.excerpt}
