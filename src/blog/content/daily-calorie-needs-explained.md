@@ -55,8 +55,6 @@ Once you have your BMR, you multiply it by an activity factor to estimate your T
 
 These calculations can be complex to do manually. Why not try our [Daily Calorie Needs Calculator on WeightVs.com](https://www.weightvs.com/calculators?tab=calories) for an instant, personalized estimate?
 
-![Metabolism Diagram](https://www.weightvs.com/lovable-uploads/metabolism-diagram.jpg)
-
 ## Adjusting Calories for Your Goals
 
 Your TDEE is the number of calories you need to maintain your current weight. To achieve specific goals:
@@ -64,6 +62,8 @@ Your TDEE is the number of calories you need to maintain your current weight. To
 * **Weight Loss:** Consume fewer calories than your TDEE (create a calorie deficit). A deficit of 500 calories per day is often recommended for a sustainable weight loss of 0.5-1 kg (1-2 pounds) per week. For example, if your TDEE is 2000 calories, aim for 1500 calories per day to lose weight.
 * **Weight Gain:** Consume more calories than your TDEE (create a calorie surplus). A surplus of 300-500 calories per day is generally recommended for healthy muscle gain. For example, if your TDEE is 2000 calories, aim for 2300-2500 calories per day to gain weight.
 * **Weight Maintenance:** Consume roughly your TDEE.
+
+![Calorie Balance Visual](/lovable-uploads/calorie-balance-visual.jpg)
 
 ## Important Considerations
 
