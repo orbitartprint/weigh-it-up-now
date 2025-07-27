@@ -81,7 +81,7 @@ const CalorieEducationalContent = () => {
               </div>
               
               <img 
-                src="/lovable-uploads/Calorie-Factors-Infographic.jpg" 
+                src="/lovable-uploads/calorie-factors-infographic.webp" 
                 alt="Infographic showing various factors influencing calorie needs: age, gender, body composition, activity level, height, genetics" 
                 className="w-full max-w-3xl mx-auto mt-6 rounded-lg shadow-md"
               />
@@ -122,7 +122,7 @@ const CalorieEducationalContent = () => {
               </p>
               
               <img 
-                src="/lovable-uploads/Calorie-Balance-Visual.jpg" 
+                src="/lovable-uploads/calorie-balance-visual.jpg" 
                 alt="Simple graphic illustrating calorie deficit for weight loss, calorie balance for maintenance, and calorie surplus for weight gain" 
                 className="w-full max-w-3xl mx-auto mt-6 rounded-lg shadow-md"
               />
