@@ -62,14 +62,15 @@ const WeightInSpace = () => {
           name="description"
           content="Discover how much you would weigh on different planets and celestial bodies. Fun, educational space weight calculator with accurate gravity calculations."
         />
-        <!-- Google tag (gtag.js) -->
+        {/* Google tag (gtag.js) */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y60WQZCGGY"></script>
         <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-        
-          gtag('config', 'G-Y60WQZCGGY');
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-Y60WQZCGGY');
+          `}
         </script>
       </Helmet>
 
