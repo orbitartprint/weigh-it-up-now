@@ -158,7 +158,7 @@ const BmiEducationalContent = () => {
             
             <div className="mt-6">
               <img 
-                src="/lovable-uploads/holistic-health.webp" 
+                src="/lovable-uploads/holistic-health-graphic.jpg" 
                 alt="Diagram illustrating interconnected factors for holistic health including body composition, nutrition, physical activity, mental well-being, clinical markers, lifestyle habits, and social relationships" 
                 className="w-full max-w-2xl mx-auto rounded-lg shadow-md"
               />
