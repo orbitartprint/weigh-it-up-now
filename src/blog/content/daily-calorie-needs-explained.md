@@ -78,8 +78,6 @@ Estimating calorie needs provides a valuable starting point, but it's crucial to
 
 Understanding your daily calorie needs provides a powerful framework for managing your weight and achieving your health goals. However, remember that calories are only one piece of the puzzle. A holistic approach that includes balanced nutrition, regular physical activity, adequate sleep, stress management, and mindful eating is essential for long-term health and well-being. Use calorie calculations as an informed guide, not a rigid rule, and always listen to your body's unique signals.
 
-![Calorie Factors Infographic](https://weightvs.com/lovable-uploads/calorie-factors-infographic.webp)
-
 ---
 
 ## Frequently Asked Questions (FAQ) About Daily Calorie Needs
