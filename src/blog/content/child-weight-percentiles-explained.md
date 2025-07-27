@@ -1,5 +1,3 @@
-# Understanding Your Child's Weight Percentile: A Guide for Parents (0-5 Years)
-
 As parents, watching our children grow is one of life's greatest joys. From those first tiny weights at birth to their rapid development through toddlerhood, every stage brings new milestones. One tool pediatricians frequently use to monitor this amazing journey is the **weight percentile chart**. But what exactly do these numbers mean for *your* child, and how can you use them to ensure healthy development?
 
 This comprehensive guide is designed to help you, as parents, understand your child's weight percentile from birth to five years, interpret their position on the growth chart, and know when to seek professional advice.
