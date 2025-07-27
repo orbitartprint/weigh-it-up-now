@@ -90,7 +90,7 @@ const Index = () => {
         <div className="relative w-full h-[450px] md:h-[550px] lg:h-[650px] overflow-hidden flex items-center justify-center">
           {/* Das Hintergrundbild */}
           <img
-            src="/lovable-uploads/family-health-hero.webp" // Pfad zu deinem WEBP Bild
+            src="/lovable-uploads/family-health-hero2.webp" // Pfad zu deinem WEBP Bild
             alt="Diverse Familie lachend und aktiv in der Natur, symbolisiert Gesundheit und Wohlbefinden."
             className="absolute inset-0 w-full h-full object-cover"
           />
