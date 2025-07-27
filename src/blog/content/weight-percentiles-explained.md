@@ -1,5 +1,3 @@
-# Weight Percentiles Explained: What They Mean for You
-
 When it comes to understanding your body weight, BMI and calorie needs are common metrics. However, another powerful tool often used, especially in health assessments for children and adolescents, is the concept of **weight percentiles**. While less frequently discussed for adults, understanding percentiles can offer a unique perspective on how your weight compares to a broader population.
 
 This guide will explain what weight percentiles are, how they are used, and what they can tell you about your own weight relative to others.
