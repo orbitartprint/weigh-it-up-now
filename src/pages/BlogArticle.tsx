@@ -49,14 +49,16 @@ const BlogArticle = () => {
         <title>{article.title} - Your Blog Name</title>
         <meta name="description" content={article.excerpt} />
         <link rel="canonical" href={`https://www.weightvs.com/blog/${article.slug}`} />
-        <!-- Google tag (gtag.js) -->
+        {/* Google tag (gtag.js) */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y60WQZCGGY"></script>
         <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-        
-          gtag('config', 'G-Y60WQZCGGY');
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+      
+            gtag('config', 'G-Y60WQZCGGY');
+          `}
         </script>
       </Helmet>
       <div className="bg-gradient-to-b from-blue-50 to-white min-h-screen">
