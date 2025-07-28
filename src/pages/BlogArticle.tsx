@@ -12,7 +12,6 @@ import { blogArticles, getRelatedArticles } from "@/data/blogArticles";
 import { useEffect, useState } from "react";
 import remarkMath from 'remark-math'; // Importiere remark-math
 import rehypeKatex from 'rehype-katex'; // Importiere rehype-katex
-import 'katex/dist/katex.min.css'; // KaTeX CSS importieren
 
 // NEUE IMPORTE für Markdown Rendering
 import ReactMarkdown from 'react-markdown';
