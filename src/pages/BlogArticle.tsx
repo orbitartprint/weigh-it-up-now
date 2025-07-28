@@ -120,8 +120,8 @@ const BlogArticle = () => {
                   <ReactMarkdown
                     // Entfernen Sie rehypeAutolinkHeadings, da es Überschriften zu Links macht
                     // rehypeSlug generiert die IDs, die TableOfContents benötigt
-                    rehypePlugins={[rehypeRaw, rehypeSlug]}
-                    remarkPlugins={[remarkGfm]}
+                    rehypePlugins={[rehypeRaw, rehypeSlug,rehypeKatex]}
+                    remarkPlugins={[remarkGfm,remarkMath]}
                     components={{
                       a: ({ node, ...props }) => {
                         const href = props.href || '';
