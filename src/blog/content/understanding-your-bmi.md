@@ -68,6 +68,10 @@ BMI is a quick, simple, and inexpensive tool for assessing weight status in the 
 
 ---
 
+**Important Note:** While BMI is a handy first metric, it alone doesn't provide a complete picture of your health. For a more comprehensive understanding of your body composition and associated health risks, we recommend looking beyond BMI. **Dive deeper and learn about other important health metrics you should know in our article ["Beyond BMI: When to Look at Other Health Metrics"](/blog/beyond-bmi).**
+
+---
+
 ## Frequently Asked Questions (FAQ) About Body Mass Index
 
 ### Q: Is BMI the same for children and adolescents as for adults?
