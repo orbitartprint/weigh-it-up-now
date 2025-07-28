@@ -19,7 +19,7 @@ High waist circumference is strongly associated with an increased risk of type 2
 **Healthy ranges (according to CDC and WHO guidelines):**
 * **Men:** Less than 102 cm (40 inches)
 * **Women:** Less than 88 cm (35 inches)
-    * [Source: Centers for Disease Control and Prevention (CDC) - About Adult BMI](https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html)
+    * [Source: Centers for Disease Control and Prevention (CDC) - About Adult BMI](https://www.cdc.gov/bmi/adult-calculator/bmi-categories.html)
 
 ## 2. Waist-to-Hip Ratio (WHR): Body Fat Distribution
 
@@ -36,7 +36,7 @@ An "apple" shape (higher WHR) indicates more abdominal fat, which, as mentioned,
 **Healthy ranges (according to WHO guidelines):**
 * **Men:** Below 0.90
 * **Women:** Below 0.85
-    * [Source: World Health Organization (WHO) - Waist Hip Ratio](https://apps.who.int/iris/bitstream/handle/10665/44038/9789241598276_eng.pdf) (See page 32)
+    * [Source: World Health Organization (WHO) - Waist Hip Ratio](https://iris.who.int/bitstream/handle/10665/44583/9789241501491_eng.pdf?sequence=1) (See page 32)
 
 ## 3. Body Fat Percentage: The True Measure of Body Composition
 
@@ -83,4 +83,4 @@ These additional metrics help you understand not just how much you weigh, but wh
 1.  **Centers for Disease Control and Prevention (CDC) - About Adult BMI:** [https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html](https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html)
 2.  **World Health Organization (WHO) - Waist Hip Ratio:** [https://iris.who.int/bitstream/handle/10665/44583/9789241501491_eng.pdf](https://iris.who.int/bitstream/handle/10665/44583/9789241501491_eng.pdf?sequence=1)
 3.  **American Council on Exercise (ACE) - What are the guidelines for percentage of body fat loss?:** [https://www.acefitness.org/education-and-resources/lifestyle/blog/5008/what-are-the-guidelines-for-percentage-of-body-fat-loss/](https://www.acefitness.org/education-and-resources/lifestyle/blog/5008/what-are-the-guidelines-for-percentage-of-body-fat-loss/)
-5.  **National Institutes of Health (NIH) - Sarcopenia:** [https://www.ncbi.nlm.nih.gov/books/NBK560647/](https://www.ncbi.nlm.nih.gov/books/NBK560647/)
+4.  **National Institutes of Health (NIH) - Sarcopenia:** [https://www.ncbi.nlm.nih.gov/books/NBK560647/](https://www.ncbi.nlm.nih.gov/books/NBK560647/)
