@@ -1,4 +1,4 @@
-The Body Mass Index (BMI) has long been a standard tool for assessing whether a person's weight is healthy relative to their height. Calculated as weight in kilograms divided by the square of height in meters ($BMI = \frac{weight (kg)}{height (m)^2}$), it provides a quick, easy-to-use screening tool for weight categories such as underweight, normal weight, overweight, and obesity. You can easily calculate your BMI using our dedicated [BMI Rechner](/calculators?tab=bmi).
+The Body Mass Index (BMI) has long been a standard tool for assessing whether a person's weight is healthy relative to their height. Calculated as weight in kilograms divided by the square of height in meters ($\text{BMI} = \frac{\text{weight (kg)}}{\text{height (m)}^2}$), it provides a quick, easy-to-use screening tool for weight categories such as underweight, normal weight, overweight, and obesity. You can easily calculate your BMI using our dedicated [BMI Rechner](/calculators?tab=bmi).
 
 However, the BMI alone tells an incomplete story. It doesn't differentiate between fat mass and muscle mass, nor does it account for where fat is distributed on the body – a crucial factor for health risks. For athletes with high muscle mass, for example, BMI might incorrectly classify them as "overweight" or "obese." Conversely, individuals with a "normal" BMI might carry excessive body fat and still be at health risk (often referred to as "skinny fat").
 
@@ -23,7 +23,7 @@ High waist circumference is strongly associated with an increased risk of type 2
 
 ## 2. Waist-to-Hip Ratio (WHR): Body Fat Distribution
 
-The Waist-to-Hip Ratio is another valuable metric that indicates where your body stores fat. It's calculated by dividing your waist circumference by your hip circumference ($WHR = \frac{Waist\ Circumference}{Hip\ Circumference}$). It helps to distinguish between an "apple" body shape (fat mostly around the waist) and a "pear" body shape (fat mostly around the hips and thighs).
+The Waist-to-Hip Ratio is another valuable metric that indicates where your body stores fat. It's calculated by dividing your waist circumference by your hip circumference ($\text{WHR} = \frac{\text{Waist\ Circumference}}{\text{Hip\ Circumference}}$). It helps to distinguish between an "apple" body shape (fat mostly around the waist) and a "pear" body shape (fat mostly around the hips and thighs).
 
 **Why it matters:**
 An "apple" shape (higher WHR) indicates more abdominal fat, which, as mentioned, carries higher health risks than fat stored on the hips and thighs.
@@ -80,7 +80,7 @@ These additional metrics help you understand not just how much you weigh, but wh
 ---
 **External Sources and Further Reading:**
 
-1.  **Centers for Disease Control and Prevention (CDC) - About Adult BMI:** [https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html](https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html)
+1.  **Centers for Disease Control and Prevention (CDC) - About Adult BMI:** [[https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html](https://www.cdc.gov/bmi/adult-calculator/bmi-categories.html)](https://www.cdc.gov/bmi/adult-calculator/bmi-categories.html)
 2.  **World Health Organization (WHO) - Waist Hip Ratio:** [https://iris.who.int/bitstream/handle/10665/44583/9789241501491_eng.pdf](https://iris.who.int/bitstream/handle/10665/44583/9789241501491_eng.pdf?sequence=1)
 3.  **American Council on Exercise (ACE) - What are the guidelines for percentage of body fat loss?:** [https://www.acefitness.org/education-and-resources/lifestyle/blog/5008/what-are-the-guidelines-for-percentage-of-body-fat-loss/](https://www.acefitness.org/education-and-resources/lifestyle/blog/5008/what-are-the-guidelines-for-percentage-of-body-fat-loss/)
 4.  **National Institutes of Health (NIH) - Sarcopenia:** [https://www.ncbi.nlm.nih.gov/books/NBK560647/](https://www.ncbi.nlm.nih.gov/books/NBK560647/)
