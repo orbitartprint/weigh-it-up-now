@@ -21,7 +21,7 @@ import { theWorldOnTheScale } from '../blog/article-data/the-world-on-the-scale'
 import { childWeightPercentilesExplained } from '../blog/article-data/child-weight-percentiles-explained';
 import { theScienceOfSleepAndWeight } from '../blog/article-data/the-science-of-sleep-and-weight';
 import { understandingMacronutrients } from '../blog/article-data/understanding-macronutrients';
-import { beyondBmi } from '../blog/article-data/beyond-Bmi';
+import { beyondBmi } from '../blog/article-data/beyond-bmi';
 
 
 // Exportiere das Array aller Blogartikel
