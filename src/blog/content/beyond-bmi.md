@@ -80,7 +80,7 @@ These additional metrics help you understand not just how much you weigh, but wh
 ---
 **External Sources and Further Reading:**
 
-1.  **Centers for Disease Control and Prevention (CDC) - About Adult BMI:** [[https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html](https://www.cdc.gov/bmi/adult-calculator/bmi-categories.html)](https://www.cdc.gov/bmi/adult-calculator/bmi-categories.html)
+1.  **Centers for Disease Control and Prevention (CDC) - About Adult BMI:** [https://www.cdc.gov/bmi/adult-calculator/bmi-categories.html](https://www.cdc.gov/bmi/adult-calculator/bmi-categories.html)
 2.  **World Health Organization (WHO) - Waist Hip Ratio:** [https://iris.who.int/bitstream/handle/10665/44583/9789241501491_eng.pdf](https://iris.who.int/bitstream/handle/10665/44583/9789241501491_eng.pdf?sequence=1)
 3.  **American Council on Exercise (ACE) - What are the guidelines for percentage of body fat loss?:** [https://www.acefitness.org/education-and-resources/lifestyle/blog/5008/what-are-the-guidelines-for-percentage-of-body-fat-loss/](https://www.acefitness.org/education-and-resources/lifestyle/blog/5008/what-are-the-guidelines-for-percentage-of-body-fat-loss/)
 4.  **National Institutes of Health (NIH) - Sarcopenia:** [https://www.ncbi.nlm.nih.gov/books/NBK560647/](https://www.ncbi.nlm.nih.gov/books/NBK560647/)
