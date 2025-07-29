@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet";
 import BlogCard from "@/components/BlogCard";
 import { blogArticles } from "@/data/blogArticles";
-import { cn } from "@/lib/utils"; // Importiere cn utility für konditionale Klassen
+import { cn } from "@/lib/utils";
 
 // UI Components, die für die Filter benötigt werden (vermutlich aus shadcn/ui)
 import { Input } from "@/components/ui/input";
@@ -36,6 +36,7 @@ const Blog = () => {
     return Array.from(tags).sort();
   }, [blogArticles]);
 
+  // Filterung der Artikel basierend auf Suchanfrage, Kategorie und Tag
   const filteredArticles = useMemo(() => {
     return blogArticles.filter((article) => {
       const matchesSearch = searchQuery === "" ||
@@ -51,30 +52,32 @@ const Blog = () => {
     });
   }, [searchQuery, selectedCategory, selectedTag, blogArticles]);
 
-  const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
+  // Featured Article: Der erste Artikel aus der GEFILTERTEN Liste
+  const featuredArticle = useMemo(() => {
+    return filteredArticles.length > 0 ? filteredArticles[0] : null;
+  }, [filteredArticles]);
 
+  // Artikel, die nach dem Featured Article übrig bleiben und paginiert werden
+  const articlesForPagination = useMemo(() => {
+    if (featuredArticle) {
+      // Schließe den Featured Article aus der Liste aus, die paginiert wird
+      return filteredArticles.slice(1);
+    }
+    return filteredArticles; // Wenn kein Featured Article, werden alle gefilterten Artikel paginiert
+  }, [filteredArticles, featuredArticle]);
+
+  // Gesamtzahl der Seiten basierend auf den Artikeln, die paginiert werden
+  const totalPages = Math.ceil(articlesForPagination.length / articlesPerPage);
+
+  // Aktuell paginierte Artikel
   const paginatedArticles = useMemo(() => {
     const startIndex = (currentPage - 1) * articlesPerPage;
     const endIndex = startIndex + articlesPerPage;
-    return filteredArticles.slice(startIndex, endIndex);
-  }, [currentPage, filteredArticles, articlesPerPage]);
+    return articlesForPagination.slice(startIndex, endIndex);
+  }, [currentPage, articlesForPagination, articlesPerPage]);
 
-  // Featured Article Logic
-  const featuredArticle = useMemo(() => {
-    // Wenn es keine Suchanfrage oder Filter gibt, den ersten Artikel als Featured nehmen
-    // Andernfalls keinen Featured-Artikel anzeigen
-    if (searchQuery === "" && selectedCategory === null && selectedTag === null && blogArticles.length > 0) {
-      return blogArticles[0]; // Ersten Artikel als Featured nehmen
-    }
-    return null;
-  }, [searchQuery, selectedCategory, selectedTag, blogArticles]);
-
-  const regularArticles = useMemo(() => {
-    if (featuredArticle) {
-      return paginatedArticles.filter(article => article.slug !== featuredArticle.slug);
-    }
-    return paginatedArticles;
-  }, [paginatedArticles, featuredArticle]);
+  // Reguläre Artikel sind einfach die paginierten Artikel
+  const regularArticles = paginatedArticles;
 
   const showNoResults = filteredArticles.length === 0;
 
@@ -178,7 +181,7 @@ const Blog = () => {
                       setSearchQuery("");
                       setSelectedCategory(null);
                       setSelectedTag(null);
-                      setCurrentPage(1);
+                      setCurrentPage(1); // Setze Seite zurück, wenn Filter gelöscht werden
                     }}
                     className="w-full"
                     variant="outline"
@@ -199,7 +202,7 @@ const Blog = () => {
                       setSearchQuery("");
                       setSelectedCategory(null);
                       setSelectedTag(null);
-                      setCurrentPage(1);
+                      setCurrentPage(1); // Setze Seite zurück, wenn Filter gelöscht werden
                     }}
                     className="mt-4"
                   >
@@ -216,8 +219,8 @@ const Blog = () => {
                     </div>
                   )}
 
-                  {/* Regular Articles */}
-                  {paginatedArticles.length > 0 && (
+                  {/* Regular Articles (die restlichen paginierten Artikel) */}
+                  {regularArticles.length > 0 && ( // Nur anzeigen, wenn reguläre Artikel vorhanden sind
                      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                        {regularArticles.map((article) => (
                          <BlogCard key={article.slug} article={article} />
@@ -225,7 +228,7 @@ const Blog = () => {
                      </div>
                    )}
 
-                  {/* Pagination */}
+                  {/* Pagination - nur anzeigen, wenn mehr als eine Seite für die restlichen Artikel existiert */}
                   {totalPages > 1 && (
                     <div className="flex justify-center mt-12">
                       <div className="flex gap-2">
