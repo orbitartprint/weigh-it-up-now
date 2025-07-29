@@ -212,12 +212,12 @@ const Blog = () => {
               ) : (
                 <>
                   {/* Featured Article */}
-                  {featuredArticle && (
+                  {
                     <div className="mb-12">
                       <h2 className="text-2xl md:text-3xl font-bold mb-6">Featured Article</h2>
                       <BlogCard article={featuredArticle} featured={true} />
                     </div>
-                  )}
+                  }
 
                   {/* Regular Articles (die restlichen paginierten Artikel) */}
                   {regularArticles.length > 0 && ( // Nur anzeigen, wenn reguläre Artikel vorhanden sind
