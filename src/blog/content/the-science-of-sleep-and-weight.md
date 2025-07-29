@@ -19,7 +19,7 @@ When you're sleep-deprived, your body produces more **ghrelin**, often called th
 ### 3. Cortisol: The Stress Hormone
 Lack of sleep is a form of stress on the body. This stress triggers the release of **cortisol**, a hormone primarily associated with the "fight or flight" response.
 * **Impact of Sleep Deprivation:** Elevated cortisol levels can increase appetite, promote cravings for sugary and fatty foods, and lead to increased abdominal fat storage (visceral fat), which is particularly detrimental to health.
-    * [Source: Harvard Health Publishing - Stress and the sleep cycle](https://www.health.harvard.edu/staying-healthy/sleep-and-stress)
+    * [Source: National Library of Medicine - The impact of stress on sleep](https://pmc.ncbi.nlm.nih.gov/articles/PMC7045300/)
 
 ## Beyond Hormones: Other Ways Sleep Affects Your Weight
 
@@ -75,7 +75,8 @@ The link between sleep and weight is undeniable and multifaceted. It's not just 
 **External Sources and Further Reading:**
 
 * **National Institutes of Health - Sleep, Hormones and Appetite:** [https://www.ncbi.nlm.nih.gov/pmc/articles/PMC535701/](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC535701/)
-* **National Library of Medicine - Sleep deprivation and obesity in adults:** [https://aasm.org/resources/factsheets/sleepdeprivationobesity.pdf](https://pmc.ncbi.nlm.nih.gov/articles/PMC6196958/)
+* **National Library of Medicine - Sleep deprivation and obesity in adults:** [https://pmc.ncbi.nlm.nih.gov/articles/PMC6196958/](https://pmc.ncbi.nlm.nih.gov/articles/PMC6196958/)
+* **National Library of Medicine - The impact of stress on sleep:** [https://pmc.ncbi.nlm.nih.gov/articles/PMC7045300/]
 * **Diabetes UK - Sleep and diabetes:** [https://www.diabetes.org.uk/guide-to-diabetes/managing-your-diabetes/sleep](https://www.diabetes.org.uk/guide-to-diabetes/life-with-diabetes/sleep-and-diabetes)
 * **Centers for Disease Control and Prevention (CDC) - How Much Sleep Do I Need?:** [https://www.cdc.gov/niosh/work-hour-training-for-nurses/longhours/mod2/08.html](https://www.cdc.gov/niosh/work-hour-training-for-nurses/longhours/mod2/08.html)
 * **Sleep Foundation - How Sleep Affects Your Weight:** [https://www.sleephealthfoundation.org.au/sleep-topics/obesity-and-sleep](https://www.sleephealthfoundation.org.au/sleep-topics/obesity-and-sleep)
