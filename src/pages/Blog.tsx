@@ -5,15 +5,14 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet";
 import BlogCard from "@/components/BlogCard";
-// BlogSearch wird nicht mehr direkt importiert, da die Logik hier aufgeteilt wird
 import { blogArticles } from "@/data/blogArticles";
 
 // UI Components, die für die Filter benötigt werden (vermutlich aus shadcn/ui)
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label"; // Für bessere Barrierefreiheit bei Eingabefeldern
+import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button"; // Für den "Clear Filters" Button
+import { Button } from "@/components/ui/button";
 
 const Blog = () => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
@@ -49,7 +48,7 @@ const Blog = () => {
 
       return matchesSearch && matchesCategory && matchesTag;
     });
-  }, [searchQuery, selectedCategory, selectedTag, blogArticles]); // blogArticles hier als Abhängigkeit hinzufügen
+  }, [searchQuery, selectedCategory, selectedTag, blogArticles]);
 
   const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
 
@@ -88,17 +87,26 @@ const Blog = () => {
       <Navigation />
       <div className="relative isolate px-6 pt-14 lg:px-8">
         <div className="container mx-auto px-4 py-8 md:py-12">
+          {/* NEUE ÜBERSCHRIFTEN START */}
+          <div className="mb-12 text-center md:text-left">
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-4">
+              The WeightVs.com Blog
+            </h1>
+            <p className="mt-4 text-lg leading-8 text-gray-600 max-w-3xl mx-auto md:mx-0">
+              Your comprehensive guide to health, weight management, and well-being.
+              Evidence-based insights to support your wellness journey.
+            </p>
+          </div>
+          {/* NEUE ÜBERSCHRIFTEN END */}
+
           {/* Haupt-Layout mit 2 Spalten - auf Desktop umgedreht */}
-          {/* Mobile: Filter oben (Suche), dann Artikel, dann Pagination, dann Filter unten (Kategorien/Tags) */}
-          {/* Desktop: Artikel links, Filter rechts */}
           <div className="flex flex-col md:flex-row-reverse gap-8">
 
             {/* Rechte Spalte (Desktop) / Filter-Bereich (Mobile: Suchfeld oben, Kategorien/Tags unten) */}
-            {/* order-2 auf mobile, damit er nach der Artikel-Spalte kommt (die order-1 ist) */}
             <div className="md:w-1/4 order-2 md:order-last">
 
               {/* Suchleiste (bleibt oben, auch auf Mobile) */}
-              <div className="mb-6 order-1 md:order-1"> {/* order-1 sorgt dafür, dass die Suche immer zuerst kommt in diesem Block */}
+              <div className="mb-6 order-1 md:order-1">
                 <h3 className="text-lg font-semibold mb-2">Search Articles</h3>
                 <Label htmlFor="search" className="sr-only">Search articles...</Label>
                 <Input
@@ -112,7 +120,7 @@ const Blog = () => {
               </div>
 
               {/* Kategorien-Filter (auf Mobile unter Pagination, auf Desktop unter Suche) */}
-              <div className="mb-6 order-3 md:order-2"> {/* order-3 auf Mobile sorgt dafür, dass es nach Artikeln+Pagination kommt */}
+              <div className="mb-6 order-3 md:order-2">
                 <h3 className="text-lg font-semibold mb-2">Categories</h3>
                 <Select onValueChange={(value) => setSelectedCategory(value === "all" ? null : value)} value={selectedCategory || "all"}>
                   <SelectTrigger className="w-full">
@@ -128,13 +136,13 @@ const Blog = () => {
               </div>
 
               {/* Tag-Filter (auf Mobile unter Pagination, auf Desktop unter Kategorien) */}
-              <div className="order-4 md:order-3"> {/* order-4 auf Mobile sorgt dafür, dass es nach Artikeln+Pagination kommt */}
+              <div className="order-4 md:order-3">
                 <h3 className="text-lg font-semibold mb-2">Tags</h3>
                 <div className="flex flex-wrap gap-2">
                   <Badge
                     onClick={() => setSelectedTag(null)}
                     variant={selectedTag === null ? "default" : "outline"}
-                    className="cursor-pointer px-3 py-1 text-sm hover:bg-muted"
+                    className="cursor-pointer px-2 py-1 text-xs hover:bg-muted !transition-colors" // Hier geändert: text-xs und !transition-colors
                   >
                     All Tags
                   </Badge>
@@ -143,7 +151,7 @@ const Blog = () => {
                       key={tag}
                       onClick={() => setSelectedTag(tag)}
                       variant={selectedTag === tag ? "default" : "outline"}
-                      className="cursor-pointer px-3 py-1 text-sm hover:bg-muted"
+                      className="cursor-pointer px-2 py-1 text-xs hover:bg-muted !transition-colors" // Hier geändert: text-xs und !transition-colors
                     >
                       {tag}
                     </Badge>
@@ -171,7 +179,6 @@ const Blog = () => {
             </div>
 
             {/* Linke Spalte (Desktop) / Artikel-Bereich (Mobile: nach Suche, vor Kategorien/Tags) */}
-            {/* order-1 auf mobile, damit es nach der Suche, aber vor den Kategorien/Tags kommt */}
             <div className="md:w-3/4 order-1 md:order-first">
               {showNoResults ? (
                 <div className="text-center py-12">
@@ -199,7 +206,6 @@ const Blog = () => {
                   )}
 
                   {/* Regular Articles */}
-                  {/* Sicherstellen, dass der Featured-Artikel nicht doppelt erscheint, wenn er auch in den regulären Artikeln wäre */}
                   {paginatedArticles.length > 0 && (
                      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                        {regularArticles.map((article) => (
