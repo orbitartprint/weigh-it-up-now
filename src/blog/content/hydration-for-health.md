@@ -64,7 +64,7 @@ Adequate hydration isn't just about survival; it plays a surprisingly active rol
 
 * **Promoting Satiety:** Drinking a glass of water before meals can help fill your stomach, potentially leading to reduced food intake. Sometimes, the body mistakes thirst for hunger, leading to unnecessary snacking. Staying well-hydrated can help distinguish true hunger from thirst.
 * **Boosting Metabolism:** While not a magic bullet, studies suggest that drinking enough water, especially cold water, can slightly increase your metabolic rate through a process called **water-induced thermogenesis**. Your body expends energy to warm the cold water to body temperature.
-    * [Source: The Journal of Clinical Endocrinology & Metabolism - Water-induced thermogenesis](https://academic.oup.com/jcem/article/88/12/6015/2845667)
+    * [Source: National Institute of Health - Water-induced thermogenesis]([Water-induced thermogenesis](https://pubmed.ncbi.nlm.nih.gov/14671205/))
 * **Aiding Fat Breakdown:** Water is essential for lipolysis, the process by which your body breaks down fat for energy.
 * **Enhancing Exercise Performance:** Proper hydration ensures optimal physical performance, allowing for more effective workouts and greater calorie expenditure. Even a 2% drop in body water can impair performance.
 
@@ -77,5 +77,5 @@ Water is the unsung hero of health. It's a zero-calorie, universally accessible 
 
 1.  **Harvard T.H. Chan School of Public Health - Water:** [https://www.hsph.harvard.edu/nutritionsource/water/](https://www.hsph.harvard.edu/nutritionsource/water/)
 2.  **Mayo Clinic - Water: How much should you drink every day?:** [https://www.mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating/in-depth/water/art-20044256](https://www.mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating/in-depth/water/art-20044256)
-3.  **The Journal of Clinical Endocrinology & Metabolism - Water-induced thermogenesis:** [https://academic.oup.com/jcem/article/88/12/6015/2845667](https://academic.oup.com/jcem/article/88/12/6015/2845667)
+3.  **The Journal of Clinical Endocrinology & Metabolism - Water-induced thermogenesis:** [https://pubmed.ncbi.nlm.nih.gov/14671205/](https://pubmed.ncbi.nlm.nih.gov/14671205/)
 4.  **American Council on Exercise (ACE) - Hydration for Exercise:** [https://www.acefitness.org/education-and-resources/lifestyle/blog/5950/hydration-for-exercise/](https://www.acefitness.org/education-and-resources/lifestyle/blog/5950/hydration-for-exercise/)
