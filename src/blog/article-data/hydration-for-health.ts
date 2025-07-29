@@ -14,3 +14,4 @@ export const hydrationForHealth = {
   content: articleContent,
   readTimeMinutes: calculateReadTime(articleContent),
   publishDate: "2025-08-10",
+  };
