@@ -7,8 +7,6 @@ import { Helmet } from "react-helmet";
 import BlogCard from "@/components/BlogCard";
 import { blogArticles } from "@/data/blogArticles";
 import { cn } from "@/lib/utils";
-
-// UI Components, die für die Filter benötigt werden (vermutlich aus shadcn/ui)
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -212,12 +210,11 @@ const Blog = () => {
               ) : (
                 <>
                   {/* Featured Article */}
-                  {
+                  {featuredArticle && (
                     <div className="mb-12">
-                      <h2 className="text-2xl md:text-3xl font-bold mb-6">Featured Article</h2>
                       <BlogCard article={featuredArticle} featured={true} />
                     </div>
-                  }
+                  )}
 
                   {/* Regular Articles (die restlichen paginierten Artikel) */}
                   {regularArticles.length > 0 && ( // Nur anzeigen, wenn reguläre Artikel vorhanden sind
