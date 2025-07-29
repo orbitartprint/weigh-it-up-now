@@ -10,7 +10,7 @@ Holistic health is based on the principle that the whole is greater than the sum
 
 While not solely defined by weight, physical health is a foundational component. It includes:
 
-* **Nutrition:** A balanced diet rich in whole foods, tailored to individual needs. For more detailed insights, explore our article on [Daily Calorie Needs Explained](/blog/daily-calorie-needs-explained) and learn about [Sustainable Weight Management Tips](/blog/sustainable-weight-management-tips).
+* **Nutrition:** A balanced diet rich in whole foods, tailored to individual needs. For more detailed insights, explore our article on [Daily Calorie Needs Explained](/blog/daily-calorie-needs-explained).
 * **Physical Activity:** Regular movement that suits your body and preferences, promoting strength, flexibility, and cardiovascular health. Read more about integrating [Sustainable Weight Management Tips](/blog/sustainable-weight-management-tips) into your routine.
 * **Sleep:** Adequate, restorative sleep is crucial for physical repair, hormonal balance, and cognitive function.
 * **Hydration:** Sufficient water intake for bodily processes.
