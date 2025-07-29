@@ -94,10 +94,10 @@ const Blog = () => {
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-4">
               The WeightVs.com Blog
             </h1>
-            <h2 className="mt-4 text-lg leading-8 text-gray-600 max-w-3xl mx-auto"> {/* mx-auto für Zentrierung auch bei max-width */}
+            <p className="mt-4 text-lg leading-8 text-gray-600 max-w-3xl mx-auto"> {/* mx-auto für Zentrierung auch bei max-width */}
               Your comprehensive guide to health, weight management, and well-being.
               Evidence-based insights to support your wellness journey.
-            </h2>
+            </p>
           </div>
           {/* NEUE ÜBERSCHRIFTEN END */}
 
