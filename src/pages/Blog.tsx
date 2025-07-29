@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet";
 import BlogCard from "@/components/BlogCard";
 import { blogArticles } from "@/data/blogArticles";
+import { cn } from "@/lib/utils"; // Importiere cn utility für konditionale Klassen
 
 // UI Components, die für die Filter benötigt werden (vermutlich aus shadcn/ui)
 import { Input } from "@/components/ui/input";
@@ -87,12 +88,12 @@ const Blog = () => {
       <Navigation />
       <div className="relative isolate px-6 pt-14 lg:px-8">
         <div className="container mx-auto px-4 py-8 md:py-12">
-          {/* NEUE ÜBERSCHRIFTEN START */}
-          <div className="mb-12 text-center md:text-left">
+          {/* NEUE ÜBERSCHRIFTEN START - jetzt immer zentriert */}
+          <div className="mb-12 text-center"> {/* "md:text-left" entfernt */}
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-4">
               The WeightVs.com Blog
             </h1>
-            <p className="mt-4 text-lg leading-8 text-gray-600 max-w-3xl mx-auto md:mx-0">
+            <p className="mt-4 text-lg leading-8 text-gray-600 max-w-3xl mx-auto"> {/* mx-auto für Zentrierung auch bei max-width */}
               Your comprehensive guide to health, weight management, and well-being.
               Evidence-based insights to support your wellness journey.
             </p>
@@ -140,18 +141,28 @@ const Blog = () => {
                 <h3 className="text-lg font-semibold mb-2">Tags</h3>
                 <div className="flex flex-wrap gap-2">
                   <Badge
-                    onClick={() => setSelectedTag(null)}
+                    onClick={() => setSelectedTag(null)} // Klick auf "All Tags" setzt Auswahl immer zurück
                     variant={selectedTag === null ? "default" : "outline"}
-                    className="cursor-pointer px-2 py-1 text-xs hover:bg-muted !transition-colors" // Hier geändert: text-xs und !transition-colors
+                    className={cn( // cn utility für konditionale Klassen
+                      "cursor-pointer px-2 py-1 text-xs !transition-colors", // text-xs & instant-transition
+                      selectedTag === null
+                        ? "" // Wenn aktiv, keine zusätzlichen Hover-Klassen (bleibt blau)
+                        : "hover:bg-primary hover:text-primary-foreground" // Wenn nicht aktiv, wird blau auf Hover
+                    )}
                   >
                     All Tags
                   </Badge>
                   {allTags.map((tag) => (
                     <Badge
                       key={tag}
-                      onClick={() => setSelectedTag(tag)}
+                      onClick={() => setSelectedTag(selectedTag === tag ? null : tag)} // Toggle-Logik: Aufheben bei erneutem Klick
                       variant={selectedTag === tag ? "default" : "outline"}
-                      className="cursor-pointer px-2 py-1 text-xs hover:bg-muted !transition-colors" // Hier geändert: text-xs und !transition-colors
+                      className={cn( // cn utility für konditionale Klassen
+                        "cursor-pointer px-2 py-1 text-xs !transition-colors", // text-xs & instant-transition
+                        selectedTag === tag
+                          ? "" // Wenn aktiv, keine zusätzlichen Hover-Klassen (bleibt blau)
+                          : "hover:bg-primary hover:text-primary-foreground" // Wenn nicht aktiv, wird blau auf Hover
+                      )}
                     >
                       {tag}
                     </Badge>
