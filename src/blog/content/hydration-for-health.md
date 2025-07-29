@@ -64,7 +64,7 @@ Adequate hydration isn't just about survival; it plays a surprisingly active rol
 
 * **Promoting Satiety:** Drinking a glass of water before meals can help fill your stomach, potentially leading to reduced food intake. Sometimes, the body mistakes thirst for hunger, leading to unnecessary snacking. Staying well-hydrated can help distinguish true hunger from thirst.
 * **Boosting Metabolism:** While not a magic bullet, studies suggest that drinking enough water, especially cold water, can slightly increase your metabolic rate through a process called **water-induced thermogenesis**. Your body expends energy to warm the cold water to body temperature.
-    * [Source: National Institute of Health - Water-induced thermogenesis]([Water-induced thermogenesis](https://pubmed.ncbi.nlm.nih.gov/14671205/))
+    * [Source: National Institute of Health - Water-induced thermogenesis](https://pubmed.ncbi.nlm.nih.gov/14671205/)
 * **Aiding Fat Breakdown:** Water is essential for lipolysis, the process by which your body breaks down fat for energy.
 * **Enhancing Exercise Performance:** Proper hydration ensures optimal physical performance, allowing for more effective workouts and greater calorie expenditure. Even a 2% drop in body water can impair performance.
 
