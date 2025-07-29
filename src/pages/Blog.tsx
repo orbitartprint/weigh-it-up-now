@@ -97,6 +97,7 @@ const Blog = () => {
             <h2 className="mt-4 text-lg leading-8 text-gray-600 max-w-3xl mx-auto"> {/* mx-auto für Zentrierung auch bei max-width */}
               Your comprehensive guide to health, weight management, and well-being.
               Evidence-based insights to support your wellness journey.
+            </h2>
           </div>
           {/* NEUE ÜBERSCHRIFTEN END */}
 
