@@ -14,7 +14,7 @@ When you're sleep-deprived, your body produces more **ghrelin**, often called th
 ### 2. Leptin: The Satiety Hormone
 **Leptin** is the "satiety hormone" that tells your brain when you're full and helps regulate energy balance by reducing appetite.
 * **Impact of Sleep Deprivation:** Insufficient sleep leads to a decrease in leptin levels. This means your brain doesn't receive the "I'm full" signal effectively, making you more likely to overeat.
-    * [Source: American Academy of Sleep Medicine - Sleep Deprivation and Obesity](https://aasm.org/resources/factsheets/sleepdeprivationobesity.pdf)
+    * [Source: National Library of Medicine - Sleep deprivation and obesity in adults](https://pmc.ncbi.nlm.nih.gov/articles/PMC6196958/)
 
 ### 3. Cortisol: The Stress Hormone
 Lack of sleep is a form of stress on the body. This stress triggers the release of **cortisol**, a hormone primarily associated with the "fight or flight" response.
@@ -28,7 +28,7 @@ The hormonal imbalance is significant, but it's not the only way sleep deprivati
 ### 1. Impaired Glucose Metabolism and Insulin Sensitivity
 Poor sleep can make your body less sensitive to insulin, the hormone responsible for moving glucose (sugar) from your bloodstream into your cells for energy.
 * **Impact:** When cells become insulin-resistant, glucose stays in the blood, leading to higher blood sugar levels and increasing the risk of type 2 diabetes and weight gain.
-    * [Source: Diabetes UK - Sleep and diabetes](https://www.diabetes.org.uk/guide-to-diabetes/managing-your-diabetes/sleep)
+    * [Source: Diabetes UK - Sleep and diabetes](https://www.diabetes.org.uk/guide-to-diabetes/life-with-diabetes/sleep-and-diabetes)
 
 ### 2. Changes in Food Choices and Cravings
 When you're tired, your brain's prefrontal cortex (responsible for decision-making and impulse control) is less active, while reward centers become more active.
@@ -53,7 +53,7 @@ It's a two-way street. Just as sleep affects weight, body weight can also impact
 
 Optimizing your sleep is a powerful step towards better weight management and overall health. Here are actionable tips:
 
-1.  **Prioritize Sleep:** Aim for **7-9 hours of quality sleep** for adults, and appropriate amounts for children and adolescents (e.g., [9-12 hours for school-aged children](https://www.cdc.gov/sleep/data_statistics.html)). Make it a non-negotiable part of your routine.
+1.  **Prioritize Sleep:** Aim for **7-9 hours of quality sleep** for adults, and appropriate amounts for children and adolescents (e.g., [9-12 hours for school-aged children](https://www.cdc.gov/physical-activity-education/staying-healthy/sleep.html)). Make it a non-negotiable part of your routine.
 2.  **Establish a Consistent Sleep Schedule:** Go to bed and wake up at roughly the same time every day, even on weekends. This helps regulate your body's natural sleep-wake cycle (circadian rhythm).
 3.  **Create a Relaxing Bedtime Routine:** Wind down an hour before bed. This could include reading, a warm bath, gentle stretching, or meditation. Avoid stimulating activities.
 4.  **Optimize Your Sleep Environment:**
@@ -75,8 +75,7 @@ The link between sleep and weight is undeniable and multifaceted. It's not just 
 **External Sources and Further Reading:**
 
 * **National Institutes of Health - Sleep, Hormones and Appetite:** [https://www.ncbi.nlm.nih.gov/pmc/articles/PMC535701/](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC535701/)
-* **American Academy of Sleep Medicine - Sleep Deprivation and Obesity:** [https://aasm.org/resources/factsheets/sleepdeprivationobesity.pdf](https://aasm.org/resources/factsheets/sleepdeprivationobesity.pdf)
-* **Harvard Health Publishing - Stress and the sleep cycle:** [https://www.health.harvard.edu/staying-healthy/sleep-and-stress](https://www.health.harvard.edu/staying-healthy/sleep-and-stress)
-* **Diabetes UK - Sleep and diabetes:** [https://www.diabetes.org.uk/guide-to-diabetes/managing-your-diabetes/sleep](https://www.diabetes.org.uk/guide-to-diabetes/managing-your-diabetes/sleep)
-* **Centers for Disease Control and Prevention (CDC) - How Much Sleep Do I Need?:** [https://www.cdc.gov/sleep/data_statistics.html](https://www.cdc.gov/sleep/data_statistics.html)
-* **Sleep Foundation - How Sleep Affects Your Weight:** [https://www.sleepfoundation.org/sleep-deprivation/how-sleep-affects-your-weight](https://www.sleepfoundation.org/sleep-deprivation/how-sleep-affects-your-weight)
+* **National Library of Medicine - Sleep deprivation and obesity in adults:** [https://aasm.org/resources/factsheets/sleepdeprivationobesity.pdf](https://pmc.ncbi.nlm.nih.gov/articles/PMC6196958/)
+* **Diabetes UK - Sleep and diabetes:** [https://www.diabetes.org.uk/guide-to-diabetes/managing-your-diabetes/sleep](https://www.diabetes.org.uk/guide-to-diabetes/life-with-diabetes/sleep-and-diabetes)
+* **Centers for Disease Control and Prevention (CDC) - How Much Sleep Do I Need?:** [https://www.cdc.gov/niosh/work-hour-training-for-nurses/longhours/mod2/08.html](https://www.cdc.gov/niosh/work-hour-training-for-nurses/longhours/mod2/08.html)
+* **Sleep Foundation - How Sleep Affects Your Weight:** [https://www.sleephealthfoundation.org.au/sleep-topics/obesity-and-sleep](https://www.sleephealthfoundation.org.au/sleep-topics/obesity-and-sleep)
