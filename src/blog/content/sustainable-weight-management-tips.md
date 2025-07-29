@@ -92,7 +92,7 @@ Moving beyond quick fixes towards a sustainable approach to weight management in
 
 1.  **Harvard T.H. Chan School of Public Health:** [The Benefits of Fiber](https://www.hsph.harvard.edu/nutritionsource/carbohydrates/fiber/)
 2.  **National Institutes of Health (NIH) - Protein and Satiety:** [https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4213388/](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4213388/)
-3.  **Whole Grains Council:** [Health Benefits of Whole Grains](https://wholegrainscouncil.org/whole-grains-101/health-benefits-whole-grains)
+3.  **Whole Grains Council:** [Health Benefits of Whole Grains](https://wholegrainscouncil.org/whole-grains-101/health-studies-health-benefits/whole-grains-important-source-essential-nutrients)
 4.  **American Heart Association:** [Dietary Fats](https://www.heart.org/en/healthy-living/healthy-eating/eat-smart/fats/dietary-fats)
 5.  **National Library of Medicine (PubMed) - Water and Satiety:** [https://pubmed.ncbi.nlm.nih.gov/19661958/](https://pubmed.ncbi.nlm.nih.gov/19661958/)
 6.  **The Journal of Clinical Endocrinology & Metabolism:** [Water-Induced Thermogenesis](https://academic.oup.com/jcem/article/88/12/6015/2845667)
