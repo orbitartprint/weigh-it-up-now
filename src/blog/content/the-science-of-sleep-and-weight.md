@@ -76,7 +76,7 @@ The link between sleep and weight is undeniable and multifaceted. It's not just 
 
 * **National Institutes of Health - Sleep, Hormones and Appetite:** [https://www.ncbi.nlm.nih.gov/pmc/articles/PMC535701/](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC535701/)
 * **National Library of Medicine - Sleep deprivation and obesity in adults:** [https://pmc.ncbi.nlm.nih.gov/articles/PMC6196958/](https://pmc.ncbi.nlm.nih.gov/articles/PMC6196958/)
-* **National Library of Medicine - The impact of stress on sleep:** [https://pmc.ncbi.nlm.nih.gov/articles/PMC7045300/]
+* **National Library of Medicine - The impact of stress on sleep:** [https://pmc.ncbi.nlm.nih.gov/articles/PMC7045300/](https://pmc.ncbi.nlm.nih.gov/articles/PMC7045300/)
 * **Diabetes UK - Sleep and diabetes:** [https://www.diabetes.org.uk/guide-to-diabetes/managing-your-diabetes/sleep](https://www.diabetes.org.uk/guide-to-diabetes/life-with-diabetes/sleep-and-diabetes)
 * **Centers for Disease Control and Prevention (CDC) - How Much Sleep Do I Need?:** [https://www.cdc.gov/niosh/work-hour-training-for-nurses/longhours/mod2/08.html](https://www.cdc.gov/niosh/work-hour-training-for-nurses/longhours/mod2/08.html)
 * **Sleep Foundation - How Sleep Affects Your Weight:** [https://www.sleephealthfoundation.org.au/sleep-topics/obesity-and-sleep](https://www.sleephealthfoundation.org.au/sleep-topics/obesity-and-sleep)
