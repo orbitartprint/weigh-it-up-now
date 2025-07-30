@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Calculator, Rocket, BookOpen, TrendingUp, Users, Heart, Scale } from "lucide-react";
 import { Button } from "@/components/ui/button";
