@@ -28,6 +28,10 @@ const Index = () => {
     }
   ];
 
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scrollt die Seite zur obersten linken Ecke
+  }, []);
+
   const stats = [
     { icon: TrendingUp, value: "1000+", label: "Calculations Daily" },
     { icon: Users, value: "50K+", label: "Happy Users" },
