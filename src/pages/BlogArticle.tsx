@@ -49,7 +49,7 @@ const BlogArticle = () => {
   return (
     <>
       <Helmet>
-        <title>{article.title} - Your Blog Name</title>
+        <title>{article.title} - WeightVs Blog</title>
         <meta name="description" content={article.excerpt} />
         <link rel="canonical" href={`https://www.weightvs.com/blog/${article.slug}`} />
         {/* Google tag (gtag.js) */}
