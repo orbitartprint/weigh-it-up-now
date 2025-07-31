@@ -23,6 +23,7 @@ import { theScienceOfSleepAndWeight } from '../blog/article-data/the-science-of-
 import { understandingMacronutrients } from '../blog/article-data/understanding-macronutrients';
 import { beyondBmi } from '../blog/article-data/beyond-bmi';
 import { hydrationForHealth } from '../blog/article-data/hydration-for-health.ts';
+import { stressAndWeight } from '../blog/article-data/stress-and-weight.ts';
 
 
 // Exportiere das Array aller Blogartikel
@@ -37,7 +38,8 @@ export const blogArticles: BlogArticle[] = [
   theScienceOfSleepAndWeight,
   understandingMacronutrients,
   beyondBmi,
-  hydrationForHealth
+  hydrationForHealth,
+  stressAndWeight
 ].sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime());
 
 // Helper functions (Diese bleiben, da sie auf das blogArticles Array zugreifen)
