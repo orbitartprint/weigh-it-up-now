@@ -361,17 +361,6 @@ const ChildWeightPercentileCalculator = () => {
                 />
               </div>
               
-              <div className="mt-6">
-                <img 
-                  src="/lovable-uploads/percentile-curve.jpg" 
-                  alt="Child growth percentile curves showing different percentile lines" 
-                  className="w-full max-w-md mx-auto rounded-lg shadow-sm"
-                />
-                <p className="text-sm text-gray-600 mt-2 text-center">
-                  Further reading: <a href="/blog/child-weight-percentiles-explained" className="text-blue-600 hover:text-blue-800 underline">For more in-depth information about child weight percentiles</a>
-                </p>
-              </div>
-              
               <div className="space-y-2">
                 <Label>Gender</Label>
                 <RadioGroup value={gender} onValueChange={setGender} className="flex gap-4">
