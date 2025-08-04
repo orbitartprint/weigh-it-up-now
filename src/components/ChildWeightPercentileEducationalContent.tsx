@@ -24,18 +24,22 @@ const ChildWeightPercentileEducationalContent = () => {
               What do the different percentile lines mean?
             </AccordionTrigger>
             <AccordionContent className="pt-4 pb-6">
-              The percentile lines on a weight chart (e.g., 3rd, 15th, 50th, 85th, 97th) represent the percentage of children who fall at or below a certain weight for their age and gender. For example, if your child is on the 50th percentile, it means 50% of children their age and gender weigh less than them, and 50% weigh more.
-              <img 
-                src="/lovable-uploads/percentile-curve.jpg" 
-                alt="A bell curve diagram illustrating percentile distribution, marking 10th, 50th, and 90th percentiles for weight" 
-                className="w-full max-w-2xl mx-auto mt-6 rounded-lg shadow-md"
-              />
-              <div className="mt-4 p-4 bg-blue-100 rounded-lg">
-                <p className="text-sm">
-                  <strong>Further Reading:</strong> For more in-depth information about child weight percentiles, 
-                  explore our comprehensive guide: <a href="/blog/child-weight-percentiles-explained" className="text-blue-600 underline hover:text-blue-800">Understanding Your Child's Weight Percentile: A Guide for Parents (0-5 Years)</a>.
+              <div className="space-y-4 text-gray-700 leading-relaxed">
+                <p>
+                  The percentile lines on a weight chart (e.g., 3rd, 15th, 50th, 85th, 97th) represent the percentage of children who fall at or below a certain weight for their age and gender. For example, if your child is on the 50th percentile, it means 50% of children their age and gender weigh less than them, and 50% weigh more.
                 </p>
-              </div>              
+                <img 
+                  src="/lovable-uploads/percentile-curve.jpg" 
+                  alt="A bell curve diagram illustrating percentile distribution, marking 10th, 50th, and 90th percentiles for weight" 
+                  className="w-full max-w-2xl mx-auto mt-6 rounded-lg shadow-md"
+                />
+                <div className="mt-4 p-4 bg-blue-100 rounded-lg">
+                  <p className="text-sm">
+                    <strong>Further Reading:</strong> For more in-depth information about child weight percentiles, 
+                    explore our comprehensive guide: <a href="/blog/child-weight-percentiles-explained" className="text-blue-600 underline hover:text-blue-800">Understanding Your Child's Weight Percentile: A Guide for Parents (0-5 Years)</a>.
+                  </p>
+                </div>
+              </div>
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="faq-2" className="border rounded-lg px-6">
