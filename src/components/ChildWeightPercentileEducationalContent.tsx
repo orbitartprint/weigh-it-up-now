@@ -24,7 +24,7 @@ const ChildWeightPercentileEducationalContent = () => {
               What do the different percentile lines mean?
             </AccordionTrigger>
             <AccordionContent className="pt-4 pb-6">
-              The percentile lines on a growth chart (e.g., 3rd, 15th, 50th, 85th, 97th) represent the percentage of children who fall at or below a certain weight for their age and gender. For example, if your child is on the 50th percentile, it means 50% of children their age and gender weigh less than them, and 50% weigh more.
+              The percentile lines on a weight chart (e.g., 3rd, 15th, 50th, 85th, 97th) represent the percentage of children who fall at or below a certain weight for their age and gender. For example, if your child is on the 50th percentile, it means 50% of children their age and gender weigh less than them, and 50% weigh more.
               <img 
                 src="/lovable-uploads/percentile-curve.jpg" 
                 alt="A bell curve diagram illustrating percentile distribution, marking 10th, 50th, and 90th percentiles for weight" 
