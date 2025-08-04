@@ -138,6 +138,24 @@ const ChildWeightPercentileCalculator = () => {
         p90: p90Weight,
       });
     }
+
+    // Add the child's current data point if we have results
+    if (result) {
+      const childWeight = weightUnit === "kg" ? Number(weight) : Number(weight) * 0.453592;
+      data.push({
+        age: result.ageInMonths,
+        p10: null,
+        p30: null,
+        p50: null,
+        p70: null,
+        p90: null,
+        currentWeight: childWeight,
+      });
+      
+      // Sort by age to ensure proper order
+      data.sort((a, b) => a.age - b.age);
+    }
+
     return data;
   };
 
@@ -332,7 +350,7 @@ const ChildWeightPercentileCalculator = () => {
         <CardContent className="space-y-6">
           <form onSubmit={calculatePercentiles} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
+            <div className="space-y-2">
                 <Label htmlFor="birth-date">Child's Birth Date</Label>
                 <Input
                   id="birth-date"
@@ -341,6 +359,17 @@ const ChildWeightPercentileCalculator = () => {
                   onChange={(e) => setBirthDate(e.target.value)}
                   max={new Date().toISOString().split('T')[0]}
                 />
+              </div>
+              
+              <div className="mt-6">
+                <img 
+                  src="/lovable-uploads/percentile-curve.jpg" 
+                  alt="Child growth percentile curves showing different percentile lines" 
+                  className="w-full max-w-md mx-auto rounded-lg shadow-sm"
+                />
+                <p className="text-sm text-gray-600 mt-2 text-center">
+                  Further reading: <a href="/blog/child-weight-percentiles-explained" className="text-blue-600 hover:text-blue-800 underline">For more in-depth information about child weight percentiles</a>
+                </p>
               </div>
               
               <div className="space-y-2">
@@ -444,15 +473,7 @@ const ChildWeightPercentileCalculator = () => {
                     <h4 className="text-lg font-semibold mb-3">Growth Chart (Weight)</h4>
                     <div className="h-64">
                       <ResponsiveContainer width="100%" height="100%">
-                        <LineChart data={[...generateGrowthChartData(), {
-                          age: result.ageInMonths,
-                          p10: null,
-                          p30: null,
-                          p50: null,
-                          p70: null,
-                          p90: null,
-                          currentWeight: weightUnit === "kg" ? Number(weight) : Number(weight) * 0.453592
-                        }]}>
+                        <LineChart data={generateGrowthChartData()}>
                           <CartesianGrid strokeDasharray="3 3" />
                           <XAxis 
                             dataKey="age" 
@@ -475,12 +496,14 @@ const ChildWeightPercentileCalculator = () => {
                           <Line type="monotone" dataKey="p50" stroke="#10b981" strokeWidth={3} dot={false} />
                           <Line type="monotone" dataKey="p70" stroke="#f59e0b" strokeWidth={2} dot={false} />
                           <Line type="monotone" dataKey="p90" stroke="#e11d48" strokeWidth={2} dot={false} />
+                          {/* Add the child's current weight as a single point */}
                           <Line 
                             type="monotone" 
-                            dataKey="currentWeight" 
+                            dataKey="currentWeight"
                             stroke="#3b82f6" 
                             strokeWidth={0} 
                             dot={{ r: 6, fill: '#3b82f6', stroke: '#1e40af', strokeWidth: 2 }}
+                            connectNulls={false}
                           />
                         </LineChart>
                       </ResponsiveContainer>

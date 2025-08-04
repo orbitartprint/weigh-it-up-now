@@ -5,11 +5,9 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 
 const ChildWeightPercentileEducationalContent = () => {
   return (
-    <Card className="mt-8">
-      <CardHeader>
-        <CardTitle>Understanding Child Weight Percentiles & FAQs</CardTitle>
-      </CardHeader>
-      <CardContent className="prose dark:prose-invert max-w-none">
+    <div className="mt-8">
+      <h2 className="text-2xl font-bold mb-6">Understanding Child Weight Percentiles & FAQs</h2>
+      <div className="prose dark:prose-invert max-w-none space-y-6">
         <p>
           Child weight percentiles are crucial tools used by healthcare professionals to monitor a child's growth and development. They show how a child's weight compares to other children of the same age and gender, often based on data from organizations like the World Health Organization (WHO) or the Centers for Disease Control and Prevention (CDC).
         </p>
@@ -50,8 +48,8 @@ const ChildWeightPercentileEducationalContent = () => {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 
