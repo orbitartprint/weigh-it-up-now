@@ -99,9 +99,14 @@ const WeightComparison: React.FC<WeightComparisonProps> = ({
   }, [selectedComparisonItems, userWeightSide, weight, useKg]);
 
   const handleWeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseFloat(e.target.value);
-    if (!isNaN(value) && value > 0) {
-      setWeight(value);
+    const value = e.target.value;
+    if (value === "") {
+        setWeight("");
+    } else {
+        const parsedValue = parseFloat(value);
+        if (!isNaN(parsedValue) && parsedValue >= 0) {
+            setWeight(parsedValue);
+        }
     }
   };
 
@@ -343,10 +348,13 @@ const WeightComparison: React.FC<WeightComparisonProps> = ({
     <div className="max-w-4xl mx-auto px-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <WeightInputCard
-          weight={weight}
-          useKg={useKg}
-          onWeightChange={handleWeightChange}
-          onToggleUnit={handleToggleUnit}
+          title="Your weight"
+          value={weight}
+          unit={useKg ? "kg" : "lbs"}
+          onValueChange={handleWeightChange}
+          onUnitToggle={handleToggleUnit}
+          inputMode="decimal"
+          min="0"
         />
 
         <ItemSelectionCard
