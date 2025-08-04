@@ -20,6 +20,7 @@ import CalorieEducationalContent from "@/components/CalorieEducationalContent";
 import WeightPercentileEducationalContent from "@/components/WeightPercentileEducationalContent";
 import WeightComparison from "@/components/WeightComparison";
 import WeightComparisonContent from "@/components/WeightComparisonContent";
+import ChildWeightPercentileCalculator from "@/components/ChildWeightPercentileCalculator";
 import { WeightItem, weightItems, getItemsByCategory } from "@/data/weightItems";
 import { averageWeightMen, averageWeightWomen, getAllCountries } from "@/data/averageWeightData";
 import { calculateWeightPercentile } from "@/utils/statistics";
@@ -418,10 +419,10 @@ const Calculators = () => {
   return (
     <>
       <Helmet>
-        <title>Free Health Calculators - BMI, Calorie Needs, Weight Percentile, Weight Comparison | WeightVs.com</title>
+        <title>Free Health Calculators - BMI, Calorie Needs, Weight Percentile, Child Growth, Weight Comparison | WeightVs.com</title>
         <meta
           name="description"
-          content="Free, accurate health calculators for BMI, daily calorie needs, weight percentiles, and interactive weight comparisons. Get personalized insights and educational content for better health decisions."
+          content="Free, accurate health calculators for BMI, daily calorie needs, weight percentiles, child growth tracking (0-5 years), and interactive weight comparisons. Get personalized insights and educational content for better health decisions."
         />
         {/* Google tag (gtag.js) */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y60WQZCGGY"></script>
@@ -445,15 +446,16 @@ const Calculators = () => {
               Health Calculators
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Get accurate health insights with our free calculators. Calculate your BMI, daily calorie needs, weight percentile, and compare your weight with fun interactive comparisons.
+              Get accurate health insights with our free calculators. Calculate your BMI, daily calorie needs, weight percentiles, track child growth (0-5 years), and compare weights with fun interactive tools.
             </p>
           </div>
           <div className="max-w-4xl mx-auto">
             <Tabs value={activeTab} onValueChange={(value) => {setActiveTab(value); setSearchParams({ tab: value }, { replace: true }); }} className="w-full">
-              <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto">
+              <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 h-auto">
                 <TabsTrigger value="bmi">BMI Calculator</TabsTrigger>
                 <TabsTrigger value="calories">Calorie Calculator</TabsTrigger>
                 <TabsTrigger value="percentile">Weight Percentile</TabsTrigger>
+                <TabsTrigger value="child-percentile">Child Growth</TabsTrigger>
                 <TabsTrigger value="comparison">Weight Comparison</TabsTrigger>
               </TabsList>
 
@@ -834,6 +836,11 @@ const Calculators = () => {
                   </CardContent>
                 </Card>
                 <WeightPercentileEducationalContent />
+              </TabsContent>
+
+              {/* Child Weight Percentile Calculator */}
+              <TabsContent value="child-percentile" className="space-y-4">
+                <ChildWeightPercentileCalculator />
               </TabsContent>
               
               {/* Weight Comparison Tool */}
