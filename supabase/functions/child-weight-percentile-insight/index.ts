@@ -41,7 +41,8 @@ Please provide a helpful, reassuring, and educational insight about these growth
 2. Whether the growth pattern appears typical or if it suggests monitoring
 3. General advice about healthy growth for children this age
 
-Keep the tone warm, informative, and avoid causing unnecessary worry. Remember that most children grow within a wide range of normal patterns.`
+Keep the tone warm, informative, and avoid causing unnecessary worry. Remember that most children grow within a wide range of normal patterns.
+Avoid greetings at the beginning like OK, Hello, Yes, or Absolutely. Start with the answer right away`
 
     const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
