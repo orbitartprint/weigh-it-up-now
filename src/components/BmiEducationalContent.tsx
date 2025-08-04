@@ -16,7 +16,7 @@ const BmiEducationalContent = () => {
       
       <Accordion type="multiple" className="w-full space-y-4">
         <AccordionItem value="understanding-score" className="border rounded-lg px-6">
-          <AccordionTrigger className="text-lg font-semibold">
+          <AccordionTrigger className="text-xl font-semibold text-left hover:no-underline">
             Understanding Your BMI Score
           </AccordionTrigger>
           <AccordionContent className="space-y-4 text-gray-700 leading-relaxed">
@@ -69,7 +69,7 @@ const BmiEducationalContent = () => {
         </AccordionItem>
 
         <AccordionItem value="limitations" className="border rounded-lg px-6">
-          <AccordionTrigger className="text-lg font-semibold">
+          <AccordionTrigger className="text-xl font-semibold text-left hover:no-underline">
             Beyond the Numbers: Limitations of BMI
           </AccordionTrigger>
           <AccordionContent className="space-y-4 text-gray-700 leading-relaxed">
@@ -117,7 +117,7 @@ const BmiEducationalContent = () => {
         </AccordionItem>
 
         <AccordionItem value="holistic-view" className="border rounded-lg px-6">
-          <AccordionTrigger className="text-lg font-semibold">
+          <AccordionTrigger className="text-xl font-semibold text-left hover:no-underline">
             A Holistic View: What Else Matters for Your Health?
           </AccordionTrigger>
           <AccordionContent className="space-y-4 text-gray-700 leading-relaxed">
@@ -174,7 +174,7 @@ const BmiEducationalContent = () => {
         </AccordionItem>
 
         <AccordionItem value="next-steps" className="border rounded-lg px-6">
-          <AccordionTrigger className="text-lg font-semibold">
+          <AccordionTrigger className="text-xl font-semibold text-left hover:no-underline">
             Next Steps for a Healthy Weight Journey
           </AccordionTrigger>
           <AccordionContent className="space-y-4 text-gray-700 leading-relaxed">
