@@ -1,15 +1,14 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { differenceInDays, startOfDay } from 'date-fns';
 import ChildWeightPercentileEducationalContent from "@/components/ChildWeightPercentileEducationalContent";
 
@@ -339,164 +338,206 @@ const ChildWeightPercentileCalculator = () => {
     }
   };
 
-  const chartData = useMemo(() => {
-    if (!result || !DUMMY_PERCENTILE_DATA[gender]) return [];
-    
-    const baseData = DUMMY_PERCENTILE_DATA[gender].weight;
-    const newDataPoint = { ageInMonths: result.ageInMonths, value: weightInKg, isUserPoint: true };
-    
-    // Sortiere alle Datenpunkte nach Alter, um eine durchgängige Linie zu gewährleisten
-    const combinedData = [...baseData, newDataPoint].sort((a, b) => a.ageInMonths - b.ageInMonths);
-    
-    // Füge Lücken-Datenpunkte für die Graphen hinzu (z.B. p3, p15 etc.)
-    return combinedData.map(d => ({
-        ...d,
-        p3: d.p3 || null,
-        p15: d.p15 || null,
-        p50: d.p50 || null,
-        p85: d.p85 || null,
-        p97: d.p97 || null,
-        userWeight: d.isUserPoint ? weightInKg : null,
-    }));
-
   return (
-    <div className="container mx-auto px-4 py-12">
+    <div className="space-y-4">
       <Card>
         <CardHeader>
-          <CardTitle>Child Weight Percentile Calculator</CardTitle>
+          <CardTitle>Child Weight Percentile Calculator (0-5 Years)</CardTitle>
           <CardDescription>
-            Calculate and track your child's weight percentile based on age and gender.
+            Track your child's growth and see how their weight and height compare to standard growth curves from WHO data.
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={(e) => { e.preventDefault(); calculatePercentiles(); }}>
-            {/* ... Formularfelder wie gehabt ... */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="birthDate">Date of Birth</Label>
+        <CardContent className="space-y-6">
+          <form onSubmit={calculatePercentiles} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+                <Label htmlFor="birth-date">Child's Birth Date</Label>
                 <Input
-                  id="birthDate"
+                  id="birth-date"
                   type="date"
                   value={birthDate}
                   onChange={(e) => setBirthDate(e.target.value)}
+                  max={new Date().toISOString().split('T')[0]}
                 />
               </div>
+              
               <div className="space-y-2">
                 <Label>Gender</Label>
-                <RadioGroup onValueChange={setGender} value={gender} className="flex h-10 items-center justify-start gap-4">
+                <RadioGroup value={gender} onValueChange={setGender} className="flex gap-4">
                   <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="male" id="male" />
-                    <Label htmlFor="male">Male</Label>
+                    <RadioGroupItem value="male" id="child-male" />
+                    <Label htmlFor="child-male">Male</Label>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="female" id="female" />
-                    <Label htmlFor="female">Female</Label>
+                    <RadioGroupItem value="female" id="child-female" />
+                    <Label htmlFor="child-female">Female</Label>
                   </div>
                 </RadioGroup>
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="weight">Weight</Label>
-                <div className="flex gap-2">
-                  <Input
-                    id="weight"
-                    type="number"
-                    value={weight}
-                    onChange={(e) => setWeight(e.target.value === "" ? "" : Number(e.target.value))}
-                    className="flex-1"
-                    placeholder="e.g., 8.5"
-                  />
-                  <Select onValueChange={setWeightUnit} value={weightUnit}>
-                    <SelectTrigger className="w-[100px]">
-                      <SelectValue placeholder="Unit" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="kg">kg</SelectItem>
-                      <SelectItem value="lbs">lbs</SelectItem>
-                    </SelectContent>
-                  </Select>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-4">
+                <Label htmlFor="child-weight" className="text-lg font-medium">Weight</Label>
+                <div className="flex flex-col sm:flex-row gap-4 sm:items-end">
+                  <div className="flex-1">
+                    <Input
+                      id="child-weight"
+                      type="number"
+                      step="0.1"
+                      placeholder="Enter child's weight"
+                      value={weight}
+                      onChange={(e) => setWeight(e.target.value === "" ? "" : Number(e.target.value))}
+                      className="text-lg"
+                    />
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Label htmlFor="child-weight-unit" className={cn(weightUnit === "kg" ? "font-bold" : "")}>KG</Label>
+                    <Switch 
+                      id="child-weight-unit"
+                      checked={weightUnit === "lbs"} 
+                      onCheckedChange={(checked) => setWeightUnit(checked ? "lbs" : "kg")} 
+                    />
+                    <Label htmlFor="child-weight-unit" className={cn(weightUnit === "lbs" ? "font-bold" : "")}>LBS</Label>
+                  </div>
                 </div>
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="height">Height (Optional)</Label>
-                <div className="flex gap-2">
-                  <Input
-                    id="height"
-                    type="number"
-                    value={height}
-                    onChange={(e) => setHeight(e.target.value === "" ? "" : Number(e.target.value))}
-                    className="flex-1"
-                    placeholder="e.g., 72"
-                  />
-                  <Select onValueChange={setHeightUnit} value={heightUnit}>
-                    <SelectTrigger className="w-[100px]">
-                      <SelectValue placeholder="Unit" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="cm">cm</SelectItem>
-                      <SelectItem value="in">in</SelectItem>
-                    </SelectContent>
-                  </Select>
+
+              <div className="space-y-4">
+                <Label htmlFor="child-height" className="text-lg font-medium">Height</Label>
+                <div className="flex flex-col sm:flex-row gap-4 sm:items-end">
+                  <div className="flex-1">
+                    <Input
+                      id="child-height"
+                      type="number"
+                      step="0.1"
+                      placeholder="Enter child's height"
+                      value={height}
+                      onChange={(e) => setHeight(e.target.value === "" ? "" : Number(e.target.value))}
+                      className="text-lg"
+                    />
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Label htmlFor="child-height-unit" className={cn(heightUnit === "cm" ? "font-bold" : "")}>CM</Label>
+                    <Switch 
+                      id="child-height-unit"
+                      checked={heightUnit === "in"} 
+                      onCheckedChange={(checked) => setHeightUnit(checked ? "in" : "cm")} 
+                    />
+                    <Label htmlFor="child-height-unit" className={cn(heightUnit === "in" ? "font-bold" : "")}>IN</Label>
+                  </div>
                 </div>
               </div>
             </div>
-            <Button type="submit" className="mt-4 w-full">
-              Calculate Percentile
-            </Button>
-            
-            {result && (
-              <div className="mt-8 space-y-6">
-                <Card className="bg-primary text-primary-foreground">
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-bold mb-2">Your Child's Percentile</h3>
-                    <div className="flex justify-between items-center text-3xl font-extrabold">
-                      <span>Weight:</span>
-                      <span>{result.weightPercentile}%</span>
-                    </div>
-                    <p className="mt-4 text-sm opacity-80">
-                      Your child's weight is at the {result.weightPercentile}th percentile, meaning they weigh more than {result.weightPercentile}% of children their age and gender.
-                    </p>
-                  </CardContent>
-                </Card>
 
-                <div className="space-y-4">
-                  <h3 className="text-lg font-semibold">Weight Percentile Chart</h3>
-                  <div className="w-full h-80">
-                    <ResponsiveContainer>
-                      <LineChart
-                        data={chartData}
-                        margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
-                      >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="ageInMonths" label={{ value: 'Age (Months)', position: 'insideBottom', offset: -5 }} />
-                        <YAxis label={{ value: 'Weight (kg)', angle: -90, position: 'insideLeft' }} />
-                        <Tooltip />
-                        
-                        {/* WICHTIG: Hier sind die Änderungen. Nur eine Line pro Perzentilkurve.
-                           Die "Lücke" ist geschlossen, da der Nutzerwert jetzt ein Teil der Datenreihe ist. */}
-                        <Line type="monotone" dataKey="p3" stroke="#ccc" dot={false} strokeWidth={1} name="3rd Percentile" />
-                        <Line type="monotone" dataKey="p15" stroke="#ccc" dot={false} strokeWidth={1} name="15th Percentile" />
-                        <Line type="monotone" dataKey="p50" stroke="#8884d8" dot={false} strokeWidth={2} name="50th Percentile" />
-                        <Line type="monotone" dataKey="p85" stroke="#ccc" dot={false} strokeWidth={1} name="85th Percentile" />
-                        <Line type="monotone" dataKey="p97" stroke="#ccc" dot={false} strokeWidth={1} name="97th Percentile" />
-                        
-                        {/* Die Linie für den eigenen Messwert wird nun durch eine separate Line-Komponente dargestellt.
-                           Dies sorgt dafür, dass nur dieser eine Punkt sichtbar ist und nicht mit den Perzentilkurven kollidiert. */}
-                        <Line
-                          type="monotone"
-                          dataKey="userWeight"
-                          stroke="transparent" // Transparente Linie, da nur der Punkt wichtig ist
-                          dot={{ r: 6, fill: '#007bff' }} // Blauer Punkt
-                          activeDot={false}
-                          name="Your Child"
-                          strokeWidth={0}
-                        />
-                      </LineChart>
-                    </ResponsiveContainer>
+            <Button type="submit" className="w-full text-lg py-6" size="lg">
+              Calculate Child's Percentiles
+            </Button>
+
+            {result && (
+              <div className="space-y-6 pt-6 border-t">
+                <div className="text-center space-y-2">
+                  <h3 className="text-2xl font-bold">Growth Results</h3>
+                  <p className="text-lg text-gray-600">
+                    Age: {formatAge(result.ageInMonths)}
+                  </p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div className="bg-blue-50 p-4 rounded-lg">
+                      <h4 className="font-semibold">Weight Percentile</h4>
+                      <p className="text-xl font-bold text-blue-600">
+                        {result.weightPercentile.toFixed(1)}%
+                      </p>
+                    </div>
+                    <div className="bg-green-50 p-4 rounded-lg">
+                      <h4 className="font-semibold">Height Percentile</h4>
+                      <p className="text-xl font-bold text-green-600">
+                        {result.heightPercentile.toFixed(1)}%
+                      </p>
+                    </div>
                   </div>
                 </div>
 
-                <div className="space-y-4 text-center">
-                  {/* ... weitere Hinweise und Inhalt ... */}
+                {gender && (
+                <div className="bg-gray-50 p-4 rounded-lg">
+                    <h4 className="text-lg font-semibold mb-3">Growth Chart (Weight)</h4>
+                    <div className="h-64">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <LineChart data={generateGrowthChartData()}>
+                          <CartesianGrid strokeDasharray="3 3" />
+                          <XAxis 
+                            dataKey="age" 
+                            label={{ value: 'Age (months)', position: 'insideBottom', offset: -5 }}
+                          />
+                          <YAxis 
+                            label={{ value: 'Weight (kg)', angle: -90, position: 'insideLeft' }}
+                          />
+                          <Tooltip 
+                            formatter={(value: number, name: string) => [
+                              value ? `${value.toFixed(1)} kg` : 'Current weight',
+                              name === 'p10' ? '10th %ile' : name === 'p30' ? '30th %ile' : 
+                              name === 'p50' ? '50th %ile' : name === 'p70' ? '70th %ile' : 
+                              name === 'p90' ? '90th %ile' : 'Your child'
+                            ]}
+                            labelFormatter={(age) => `Age: ${age} months`}
+                          />
+                          <Line type="monotone" dataKey="p10" stroke="#e11d48" strokeWidth={2} dot={false} />
+                          <Line type="monotone" dataKey="p30" stroke="#f59e0b" strokeWidth={2} dot={false} />
+                          <Line type="monotone" dataKey="p50" stroke="#10b981" strokeWidth={3} dot={false} />
+                          <Line type="monotone" dataKey="p70" stroke="#f59e0b" strokeWidth={2} dot={false} />
+                          <Line type="monotone" dataKey="p90" stroke="#e11d48" strokeWidth={2} dot={false} />
+                          {/* Add the child's current weight as a single point */}
+                          <Line 
+                            type="monotone" 
+                            dataKey="currentWeight"
+                            stroke="#3b82f6" 
+                            strokeWidth={0} 
+                            dot={{ r: 6, fill: '#3b82f6', stroke: '#1e40af', strokeWidth: 2 }}
+                            connectNulls={false}
+                          />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+                    <div className="mt-2 text-sm text-gray-600">
+                      <p>The blue dot represents your child's current measurement.</p>
+                      <p>Lines show: 10th (red), 30th (orange), 50th (green), 70th (orange), 90th (red) percentiles</p>
+                    </div>
+                  </div>
+                )}
+
+                <div className="bg-blue-50 p-6 rounded-lg">
+                  <h4 className="text-lg font-semibold mb-3">Growth Insight</h4>
+                  {isLoadingInsight ? (
+                    <div className="flex items-center gap-2">
+                      <div className="animate-spin w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full"></div>
+                      <span className="text-gray-600">Generating personalized insight...</span>
+                    </div>
+                  ) : (
+                    <div className="space-y-3">
+                      <p className="text-gray-700 leading-relaxed">{result.insight}</p>
+                      <p className="text-xs text-gray-500 italic">
+                        This insight is generated by AI and is for informational purposes only. It is not medical advice. Always consult a healthcare professional for personalized guidance.
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
+                  <p className="text-sm text-gray-700">
+                    <strong>Important:</strong> This calculator provides simplified estimates based on WHO growth standards. 
+                    Growth patterns vary widely among healthy children. For comprehensive growth monitoring and personalized 
+                    advice, always consult your child's pediatrician who can assess growth in context of your child's 
+                    individual health history.
+                  </p>
+                </div>
+
+                <div className="bg-gray-50 border border-gray-200 p-4 rounded-lg">
+                  <p className="text-sm text-gray-600">
+                    <strong>Data Source:</strong> This calculator uses simplified approximations inspired by World Health Organization (WHO) 
+                    growth standards for children aged 0-5 years. For official growth charts and professional monitoring, 
+                    consult: <a href="https://www.who.int/tools/child-growth-standards/standards" 
+                    className="text-blue-600 underline hover:text-blue-800" target="_blank" rel="noopener noreferrer">
+                    WHO Child Growth Standards</a>
+                  </p>
                 </div>
               </div>
             )}
