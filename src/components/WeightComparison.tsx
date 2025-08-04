@@ -40,6 +40,8 @@ interface WeightComparisonProps {
   setCustomObjectUseKg: (useKg: boolean) => void;
 }
 
+const [weight, setWeight] = useState<string>(""); // State als String statt number initialisieren
+
 const WeightComparison: React.FC<WeightComparisonProps> = ({
   weight,
   setWeight,
@@ -100,15 +102,18 @@ const WeightComparison: React.FC<WeightComparisonProps> = ({
 
   const handleWeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
+
+    // Erlaubt das vollständige Löschen des Wertes
     if (value === "") {
         setWeight("");
     } else {
-        const parsedValue = parseFloat(value);
-        if (!isNaN(parsedValue) && parsedValue >= 0) {
-            setWeight(parsedValue);
+        // Erlaubt nur Zahlen und einen Dezimalpunkt
+        if (/^\d*\.?\d*$/.test(value)) {
+            setWeight(value);
         }
     }
   };
+
 
   const handleToggleUnit = () => {
     if (useKg) {
@@ -344,12 +349,16 @@ const WeightComparison: React.FC<WeightComparisonProps> = ({
     }
   };
 
+  // Für Berechnungen musst du den Wert in eine Zahl umwandeln:
+  const userWeight = parseFloat(weight);
+  const isValidWeight = !isNaN(userWeight) && userWeight > 0;
+
   return (
     <div className="max-w-4xl mx-auto px-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <WeightInputCard
           title="Your weight"
-          value={weight}
+          value={weight} // Hier wird der String-State übergeben
           unit={useKg ? "kg" : "lbs"}
           onValueChange={handleWeightChange}
           onUnitToggle={handleToggleUnit}
