@@ -43,42 +43,45 @@ const WeightComparisonContent = () => {
       </div>
 
       <Separator className="my-12" />
-
-      <section className="max-w-4xl mx-auto px-4 mb-16">
         <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
           Frequently Asked Questions about the Weight Comparison Tool
         </h2>
-        <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="item-1">
-            <AccordionTrigger>How accurate are the weight comparisons?</AccordionTrigger>
+        <Accordion type="single" collapsible className="w-full space-y-4">
+          <AccordionItem value="item-1" className="border rounded-lg px-6">
+            <AccordionTrigger className="text-xl font-semibold text-left hover:no-underline">
+              How accurate are the weight comparisons?</AccordionTrigger>
             <AccordionContent>
               All weights in our database are based on average values and reliable sources. While we strive for accuracy, remember that actual weights can vary. For example, individual animals of the same species may have different weights, and celebrity weights are estimates. Our tool is designed for educational and entertainment purposes.
             </AccordionContent>
           </AccordionItem>
 
-          <AccordionItem value="item-2">
-            <AccordionTrigger>Can I compare my weight with multiple items at once?</AccordionTrigger>
+          <AccordionItem value="item-2" className="border rounded-lg px-6">
+            <AccordionTrigger className="text-xl font-semibold text-left hover:no-underline">
+              Can I compare my weight with multiple items at once?</AccordionTrigger>
             <AccordionContent>
               Yes! You can add up to 10 different comparison items simultaneously. Simply select multiple items from our categories or create custom objects. The tool will show all comparisons on the same scale, making it easy to understand relative weight differences.
             </AccordionContent>
           </AccordionItem>
 
-          <AccordionItem value="item-3">
-            <AccordionTrigger>What categories of items can I compare with?</AccordionTrigger>
+          <AccordionItem value="item-3" className="border rounded-lg px-6">
+            <AccordionTrigger className="text-xl font-semibold text-left hover:no-underline">
+              What categories of items can I compare with?</AccordionTrigger>
             <AccordionContent>
               Our database includes animals (from insects to elephants), celebrities and historical figures, vehicles (cars, planes, ships), buildings and landmarks, everyday objects, sports equipment, food items, and much more. You can also create custom objects with specific weights for personalized comparisons.
             </AccordionContent>
           </AccordionItem>
 
-          <AccordionItem value="item-4">
-            <AccordionTrigger>Can I switch between kilograms and pounds?</AccordionTrigger>
+          <AccordionItem value="item-4" className="border rounded-lg px-6">
+            <AccordionTrigger className="text-xl font-semibold text-left hover:no-underline">
+              Can I switch between kilograms and pounds?</AccordionTrigger>
             <AccordionContent>
               Absolutely! Our tool supports both metric (kg) and imperial (lbs) units. Simply use the unit toggle to switch between systems. All comparisons and calculations will automatically adjust to your preferred measurement system.
             </AccordionContent>
           </AccordionItem>
 
-          <AccordionItem value="item-5">
-            <AccordionTrigger>Is this tool suitable for educational purposes?</AccordionTrigger>
+          <AccordionItem value="item-5" className="border rounded-lg px-6">
+            <AccordionTrigger className="text-xl font-semibold text-left hover:no-underline">
+              Is this tool suitable for educational purposes?</AccordionTrigger>
             <AccordionContent>
               Yes! WeightVs.com is perfect for educational use. It helps students and curious minds visualize abstract weight concepts, understand scale relationships, and learn about the physical world in an engaging way. Teachers often use it to make math and science lessons more interactive and memorable.
             </AccordionContent>
@@ -91,10 +94,10 @@ const WeightComparisonContent = () => {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-      </section>
   
     </div>
   );
 };
 
 export default WeightComparisonContent;
+
