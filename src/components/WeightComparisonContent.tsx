@@ -87,8 +87,9 @@ const WeightComparisonContent = () => {
             </AccordionContent>
           </AccordionItem>
 
-          <AccordionItem value="item-6">
-            <AccordionTrigger>How do I create custom objects for comparison?</AccordionTrigger>
+          <AccordionItem value="item-6" className="border rounded-lg px-6">
+            <AccordionTrigger className="text-xl font-semibold text-left hover:no-underline">
+              How do I create custom objects for comparison?</AccordionTrigger>
             <AccordionContent>
               When selecting items to compare, look for the "Create Custom Object" option. Enter a name for your custom item and specify its weight in either kg or lbs. This feature is perfect for comparing with specific objects that aren't in our database, like your pet, furniture, or project materials.
             </AccordionContent>
@@ -100,4 +101,5 @@ const WeightComparisonContent = () => {
 };
 
 export default WeightComparisonContent;
+
 
