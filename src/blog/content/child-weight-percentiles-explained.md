@@ -25,7 +25,7 @@ Globally, two main sets of growth charts are widely used for children aged 0-5 y
 2.  **CDC (Centers for Disease Control and Prevention) Growth Charts:** These charts describe the growth of children in the United States over a specific period. They are considered descriptive, showing how children *did* grow, reflecting typical growth patterns in the U.S. population, including those who are formula-fed. While often used in the U.S., the WHO standards are generally preferred for children under two years.
     * [CDC Growth Charts](https://www.cdc.gov/growthcharts/cdc-growth-charts.htm)
 
-Our **[Child Weight Percentile Calculator](/calculators)** utilizes data based on these widely accepted standards to provide you with an accurate assessment for your little one.
+Our **[Child Weight Percentile Calculator](/calculators?tab=child-percentile)** utilizes data based on these widely accepted standards to provide you with an accurate assessment for your little one.
 
 ## Interpreting Your Child's Weight Percentile
 
@@ -49,7 +49,7 @@ Several factors contribute to your child's weight and growth journey:
 
 ## When to Consult Your Pediatrician
 
-While our [Child Weight Percentile Calculator](/calculators) is a helpful tool, it's essential to consult your pediatrician for professional advice. You should contact them if you notice:
+While our [Child Weight Percentile Calculator](/calculators?tab=child-percentile) is a helpful tool, it's essential to consult your pediatrician for professional advice. You should contact them if you notice:
 
 * **A sudden and significant change in percentile** (e.g., a rapid drop or jump of two major percentile lines).
 * **Your child consistently falls below the 3rd percentile or above the 97th percentile**, even if growth is consistent.
@@ -77,7 +77,7 @@ Your pediatrician has access to your child's complete medical history and can pr
 
 ## Conclusion
 
-Understanding your child's weight percentile is a valuable part of monitoring their healthy development during their crucial early years. It's a tool that empowers you and your pediatrician to track progress, identify potential concerns early, and ensure your child is thriving. Remember, these charts are guides, and every child grows at their own unique pace. Always use our [Child Weight Percentile Calculator](/calculators) in conjunction with the personalized advice of your healthcare professional.
+Understanding your child's weight percentile is a valuable part of monitoring their healthy development during their crucial early years. It's a tool that empowers you and your pediatrician to track progress, identify potential concerns early, and ensure your child is thriving. Remember, these charts are guides, and every child grows at their own unique pace. Always use our [Child Weight Percentile Calculator](/calculators?tab=child-percentile) in conjunction with the personalized advice of your healthcare professional.
 
 ---
 **External Sources and Further Reading:**
