@@ -16,6 +16,7 @@ const ChildWeightPercentileEducationalContent = () => {
         <p>
           These charts help identify if a child is growing as expected, or if there might be concerns about being underweight, overweight, or obese. It's important to look at the trend of a child's growth over time rather than a single measurement.
         </p>
+      </div>
 
         <h3 className="text-xl font-semibold mt-6 mb-4">Frequently Asked Questions</h3>
         <Accordion type="single" collapsible className="w-full space-y-4">
@@ -76,7 +77,6 @@ const ChildWeightPercentileEducationalContent = () => {
           </AccordionItem>
         </Accordion>
       </div>
-    </div>
   );
 };
 
