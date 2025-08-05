@@ -4,7 +4,7 @@ import { WeightItem } from '@/data/weightItems';
 import { cn } from '@/lib/utils';
 
 interface ScaleComparisonProps {
-  userWeight: number;
+  userWeight: string | number;
   compareItem: WeightItem | null;
   comparison: {
     ratio: number;
@@ -25,6 +25,7 @@ const ScaleComparison: React.FC<ScaleComparisonProps> = ({
   selectedItems,
   userWeightSide = 'left'
 }) => {
+  const userWeightValue = typeof userWeight === 'string' ? parseFloat(userWeight) || 0 : userWeight;
   // Calculate rotation angle based on weight difference
   const calculateRotationAngle = () => {
     if (!comparison) return 0;

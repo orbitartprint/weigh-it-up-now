@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 
 interface WeightInputCardProps {
-  weight: number | "";
+  weight: string | number | "";
   useKg: boolean;
   onWeightChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onToggleUnit: () => void;

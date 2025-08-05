@@ -424,12 +424,12 @@ const WeightComparison: React.FC<WeightComparisonProps> = ({
                 </h4>
                 <div className="space-y-2 min-h-[100px] p-4 bg-green-50 rounded-lg">
                   {userWeightSide === 'right' && (
-                    <UserWeightWidget
-                      weight={weight}
-                      useKg={useKg}
-                      side="right"
-                      onToggleSide={handleToggleUserSide}
-                    />
+                  <UserWeightWidget
+                    weight={weight}
+                    useKg={useKg}
+                    side="right"
+                    onToggleSide={handleToggleUserSide}
+                  />
                   )}
                   {selectedComparisonItems
                     .filter(item => item.side === 'right')

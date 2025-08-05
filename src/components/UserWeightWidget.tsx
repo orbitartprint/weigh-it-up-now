@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 
 interface UserWeightWidgetProps {
-  weight: number;
+  weight: string;
   useKg: boolean;
   side: 'left' | 'right';
   onToggleSide: () => void;
@@ -17,7 +17,8 @@ const UserWeightWidget: React.FC<UserWeightWidgetProps> = ({
   side,
   onToggleSide
 }) => {
-  const displayWeight = useKg ? weight : (weight * 2.20462);
+  const weightValue = parseFloat(weight) || 0;
+  const displayWeight = useKg ? weightValue : (weightValue * 2.20462);
   const unit = useKg ? 'kg' : 'lbs';
 
   return (

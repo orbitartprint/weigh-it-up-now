@@ -73,7 +73,7 @@ const Calculators = () => {
   const [isLoadingPercentileInsight, setIsLoadingPercentileInsight] = useState(false);
 
   // Weight Comparison State - lifted up to persist across tab changes
-  const [comparisonWeight, setComparisonWeight] = useState<number>(70);
+  const [comparisonWeight, setComparisonWeight] = useState<string>("70");
   const [comparisonUseKg, setComparisonUseKg] = useState<boolean>(true);
   const [comparisonSelectedCategory, setComparisonSelectedCategory] = useState<string>("animals");
   const [compareToId, setCompareToId] = useState<string>("wolf");

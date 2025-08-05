@@ -15,7 +15,7 @@ interface ComparisonResultProps {
   comparisonMessage: string;
   funFact: string | null;
   useKg: boolean;
-  weight: number;
+  weight: string;
   userWeightSide: 'left' | 'right';
   onToggleScale: () => void;
   onSharePlatform: (platform: string) => void;
