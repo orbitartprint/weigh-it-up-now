@@ -122,38 +122,25 @@ const ChildWeightPercentileCalculator = () => {
   // Generate growth chart data
   const generateGrowthChartData = () => {
     const data = [];
-    for (let months = 0; months <= 60; months += 6) {
-      const p10Weight = getWeightAtPercentile(months, 10, gender);
-      const p30Weight = getWeightAtPercentile(months, 30, gender);
-      const p50Weight = getWeightAtPercentile(months, 50, gender);
-      const p70Weight = getWeightAtPercentile(months, 70, gender);
-      const p90Weight = getWeightAtPercentile(months, 90, gender);
-
-      data.push({
+    const childWeight = result ? (weightUnit === "kg" ? Number(weight) : Number(weight) * 0.453592) : null;
+    
+    // Generate data points for every month from 0 to 60
+    for (let months = 0; months <= 60; months++) {
+      const dataPoint: any = {
         age: months,
-        p10: p10Weight,
-        p30: p30Weight,
-        p50: p50Weight,
-        p70: p70Weight,
-        p90: p90Weight,
-      });
-    }
-
-    // Add the child's current data point if we have results
-    if (result) {
-      const childWeight = weightUnit === "kg" ? Number(weight) : Number(weight) * 0.453592;
-      data.push({
-        age: result.ageInMonths,
-        p10: null,
-        p30: null,
-        p50: null,
-        p70: null,
-        p90: null,
-        currentWeight: childWeight,
-      });
+        p10: getWeightAtPercentile(months, 10, gender),
+        p30: getWeightAtPercentile(months, 30, gender),
+        p50: getWeightAtPercentile(months, 50, gender),
+        p70: getWeightAtPercentile(months, 70, gender),
+        p90: getWeightAtPercentile(months, 90, gender),
+      };
       
-      // Sort by age to ensure proper order
-      data.sort((a, b) => a.age - b.age);
+      // If this month matches the child's age (within 0.5 months), add their weight
+      if (result && childWeight && Math.abs(months - result.ageInMonths) < 0.5) {
+        dataPoint.currentWeight = childWeight;
+      }
+      
+      data.push(dataPoint);
     }
 
     return data;
@@ -462,11 +449,14 @@ const ChildWeightPercentileCalculator = () => {
                     <h4 className="text-lg font-semibold mb-3">Growth Chart (Weight)</h4>
                     <div className="h-64">
                       <ResponsiveContainer width="100%" height="100%">
-                        <LineChart data={generateGrowthChartData()}>
+                        <LineChart 
+                          data={generateGrowthChartData()}
+                          margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
+                        >
                           <CartesianGrid strokeDasharray="3 3" />
                           <XAxis 
                             dataKey="age" 
-                            label={{ value: 'Age (months)', position: 'insideBottom', offset: -5 }}
+                            label={{ value: 'Age (months)', position: 'insideBottom', offset: -40 }}
                           />
                           <YAxis 
                             label={{ value: 'Weight (kg)', angle: -90, position: 'insideLeft' }}
@@ -480,11 +470,11 @@ const ChildWeightPercentileCalculator = () => {
                             ]}
                             labelFormatter={(age) => `Age: ${age} months`}
                           />
-                          <Line type="monotone" dataKey="p10" stroke="#e11d48" strokeWidth={2} dot={false} />
-                          <Line type="monotone" dataKey="p30" stroke="#f59e0b" strokeWidth={2} dot={false} />
-                          <Line type="monotone" dataKey="p50" stroke="#10b981" strokeWidth={3} dot={false} />
-                          <Line type="monotone" dataKey="p70" stroke="#f59e0b" strokeWidth={2} dot={false} />
-                          <Line type="monotone" dataKey="p90" stroke="#e11d48" strokeWidth={2} dot={false} />
+                          <Line type="monotone" dataKey="p10" stroke="#e11d48" strokeWidth={2} dot={false} connectNulls />
+                          <Line type="monotone" dataKey="p30" stroke="#f59e0b" strokeWidth={2} dot={false} connectNulls />
+                          <Line type="monotone" dataKey="p50" stroke="#10b981" strokeWidth={3} dot={false} connectNulls />
+                          <Line type="monotone" dataKey="p70" stroke="#f59e0b" strokeWidth={2} dot={false} connectNulls />
+                          <Line type="monotone" dataKey="p90" stroke="#e11d48" strokeWidth={2} dot={false} connectNulls />
                           {/* Add the child's current weight as a single point */}
                           <Line 
                             type="monotone" 
