@@ -86,14 +86,15 @@ const WeightComparison: React.FC<WeightComparisonProps> = ({
     }
   }, [selectedCategory, customObjects, compareToItems.length, compareToId, setCompareToItems, setCompareToId]);
 
-  /// Calculate total weight for both sides
+  /// Calculate total weight for both sides (always in kg internally)
   useEffect(() => {
     const leftItems = selectedComparisonItems.filter(item => item.side === 'left');
     const rightItems = selectedComparisonItems.filter(item => item.side === 'right');
     
-    // Verwende die neue getUserWeight-Funktion
-    const leftTotal = leftItems.reduce((sum, item) => sum + item.weight, 0) + (userWeightSide === 'left' ? getUserWeight() : 0);
-    const rightTotal = rightItems.reduce((sum, item) => sum + item.weight, 0) + (userWeightSide === 'right' ? getUserWeight() : 0);
+    // Get user weight in kg for internal calculations
+    const userWeightInKg = getUserWeightInKg();
+    const leftTotal = leftItems.reduce((sum, item) => sum + item.weight, 0) + (userWeightSide === 'left' ? userWeightInKg : 0);
+    const rightTotal = rightItems.reduce((sum, item) => sum + item.weight, 0) + (userWeightSide === 'right' ? userWeightInKg : 0);
     
     setTotalWeightLeft(leftTotal);
     setTotalWeightRight(rightTotal);
@@ -108,9 +109,8 @@ const WeightComparison: React.FC<WeightComparisonProps> = ({
     }
   };
 
-
   const handleToggleUnit = () => {
-    const currentWeight = parseFloat(weight) || 0; // Parse den String und behandle leere Werte als 0
+    const currentWeight = parseFloat(weight) || 0;
     if (useKg) {
       // Convert kg to lbs
       setWeight((currentWeight * 2.20462).toFixed(1));
@@ -218,6 +218,15 @@ const WeightComparison: React.FC<WeightComparisonProps> = ({
   const handleRemoveItem = (id: string) => {
     setSelectedComparisonItems(prev => prev.filter(item => item.id !== id));
     toast.success("Item removed from comparison!");
+  };
+
+  // Get user weight in kg for internal calculations
+  const getUserWeightInKg = () => {
+    const parsedWeight = parseFloat(weight);
+    if (isNaN(parsedWeight)) return 0;
+    
+    // Convert to kg if currently in lbs
+    return useKg ? parsedWeight : parsedWeight * 0.453592;
   };
 
   const getUserWeight = () => {
@@ -345,6 +354,12 @@ const WeightComparison: React.FC<WeightComparisonProps> = ({
     }
   };
 
+  // Helper function to convert kg to display unit
+  const convertWeight = (weightInKg: number) => {
+    return useKg ? weightInKg : weightInKg * 2.20462;
+  };
+
+  const getWeightUnit = () => useKg ? 'kg' : 'lbs';
 
   return (
     <div className="max-w-4xl mx-auto px-4">
@@ -387,7 +402,7 @@ const WeightComparison: React.FC<WeightComparisonProps> = ({
               {/* Left Side */}
               <div>
                 <h4 className="font-semibold mb-3 text-center">
-                  Left Side ({totalWeightLeft.toFixed(1)} kg)
+                  Left Side ({convertWeight(totalWeightLeft).toFixed(1)} {getWeightUnit()})
                 </h4>
                 <div className="space-y-2 min-h-[100px] p-4 bg-blue-50 rounded-lg">
                   {userWeightSide === 'left' && (
@@ -420,7 +435,7 @@ const WeightComparison: React.FC<WeightComparisonProps> = ({
               {/* Right Side */}
               <div>
                 <h4 className="font-semibold mb-3 text-center">
-                  Right Side ({totalWeightRight.toFixed(1)} kg)
+                  Right Side ({convertWeight(totalWeightRight).toFixed(1)} {getWeightUnit()})
                 </h4>
                 <div className="space-y-2 min-h-[100px] p-4 bg-green-50 rounded-lg">
                   {userWeightSide === 'right' && (
@@ -468,7 +483,7 @@ const WeightComparison: React.FC<WeightComparisonProps> = ({
           onToggleScale={() => setShowScale(!showScale)}
           onSharePlatform={handleSharePlatform}
           onNativeShare={handleNativeShare}
-          getUserWeight={getUserWeight}
+          getUserWeight={getUserWeightInKg}
         />
       )}
     </div>

@@ -38,6 +38,13 @@ const ComparisonResult: React.FC<ComparisonResultProps> = ({
   onNativeShare,
   getUserWeight
 }) => {
+  // Helper function to convert kg to display unit
+  const convertWeight = (weightInKg: number) => {
+    return useKg ? weightInKg : weightInKg * 2.20462;
+  };
+
+  const getWeightUnit = () => useKg ? 'kg' : 'lbs';
+
   return (
     <Card className="mb-8 scale-appear">
       <CardHeader className="flex flex-row items-center justify-between">
@@ -72,7 +79,7 @@ const ComparisonResult: React.FC<ComparisonResultProps> = ({
             </p>
           )}
           <p className="text-muted-foreground text-center">
-            Left side: {totalWeightLeft.toFixed(1)} kg vs Right side: {totalWeightRight.toFixed(1)} kg
+            Left side: {convertWeight(totalWeightLeft).toFixed(1)} {getWeightUnit()} vs Right side: {convertWeight(totalWeightRight).toFixed(1)} {getWeightUnit()}
           </p>
         </div>
 
@@ -90,8 +97,7 @@ const ComparisonResult: React.FC<ComparisonResultProps> = ({
               <div className="bar-label">
                 <span className="font-bold">Left Side</span>
                 <br />
-                {totalWeightLeft.toFixed(1)} kg
-                {!useKg && ` (${(totalWeightLeft * 2.20462).toFixed(1)} lbs)`}
+                {convertWeight(totalWeightLeft).toFixed(1)} {getWeightUnit()}
               </div>
             </div>
             <div
@@ -105,8 +111,7 @@ const ComparisonResult: React.FC<ComparisonResultProps> = ({
               <div className="bar-label">
                 <span className="font-bold">Right Side</span>
                 <br />
-                {totalWeightRight.toFixed(1)} kg
-                {!useKg && ` (${(totalWeightRight * 2.20462).toFixed(1)} lbs)`}
+                {convertWeight(totalWeightRight).toFixed(1)} {getWeightUnit()}
               </div>
             </div>
           </div>

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { ArrowLeft, ArrowRight, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -17,8 +18,8 @@ const UserWeightWidget: React.FC<UserWeightWidgetProps> = ({
   side,
   onToggleSide
 }) => {
+  // Weight is already in the correct unit from the parent component
   const weightValue = parseFloat(weight) || 0;
-  const displayWeight = useKg ? weightValue : (weightValue * 2.20462);
   const unit = useKg ? 'kg' : 'lbs';
 
   return (
@@ -30,7 +31,7 @@ const UserWeightWidget: React.FC<UserWeightWidgetProps> = ({
       <div className="flex-1 min-w-0">
         <div className="font-medium text-sm text-blue-700">Your Weight</div>
         <div className="text-xs text-blue-600">
-          {displayWeight.toFixed(1)} {unit}
+          {weightValue.toFixed(1)} {unit}
         </div>
       </div>
       
