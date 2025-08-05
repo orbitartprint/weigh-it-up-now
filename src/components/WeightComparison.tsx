@@ -10,8 +10,8 @@ import ComparisonItemWidget from "./ComparisonItemWidget";
 import UserWeightWidget from "./UserWeightWidget";
 
 interface WeightComparisonProps {
-  weight: number;
-  setWeight: (weight: number) => void;
+  weight: string;
+  setWeight: (weight: string) => void;
   useKg: boolean;
   setUseKg: (useKg: boolean) => void;
   selectedCategory: string;
@@ -86,11 +86,12 @@ const WeightComparison: React.FC<WeightComparisonProps> = ({
     }
   }, [selectedCategory, customObjects, compareToItems.length, compareToId, setCompareToItems, setCompareToId]);
 
-  // Calculate total weight for both sides
+  /// Calculate total weight for both sides
   useEffect(() => {
     const leftItems = selectedComparisonItems.filter(item => item.side === 'left');
     const rightItems = selectedComparisonItems.filter(item => item.side === 'right');
     
+    // Verwende die neue getUserWeight-Funktion
     const leftTotal = leftItems.reduce((sum, item) => sum + item.weight, 0) + (userWeightSide === 'left' ? getUserWeight() : 0);
     const rightTotal = rightItems.reduce((sum, item) => sum + item.weight, 0) + (userWeightSide === 'right' ? getUserWeight() : 0);
     
@@ -101,24 +102,21 @@ const WeightComparison: React.FC<WeightComparisonProps> = ({
   const handleWeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     
-    if (value === "") {
-        setWeight(0);
-    } else {
-        const parsedValue = parseFloat(value);
-        if (!isNaN(parsedValue) && parsedValue >= 0) {
-            setWeight(parsedValue);
-        }
+    // Erlaubt einen leeren String oder Zahlen (mit optionalem Dezimalpunkt)
+    if (value === "" || /^\d*\.?\d*$/.test(value)) {
+        setWeight(value);
     }
   };
 
 
   const handleToggleUnit = () => {
+    const currentWeight = parseFloat(weight) || 0; // Parse den String und behandle leere Werte als 0
     if (useKg) {
       // Convert kg to lbs
-      setWeight(parseFloat((weight * 2.20462).toFixed(1)));
+      setWeight((currentWeight * 2.20462).toFixed(1));
     } else {
       // Convert lbs to kg
-      setWeight(parseFloat((weight / 2.20462).toFixed(1)));
+      setWeight((currentWeight / 2.20462).toFixed(1));
     }
     setUseKg(!useKg);
   };
@@ -223,7 +221,8 @@ const WeightComparison: React.FC<WeightComparisonProps> = ({
   };
 
   const getUserWeight = () => {
-    return useKg ? weight : weight * 0.453592;
+    const parsedWeight = parseFloat(weight);
+    return isNaN(parsedWeight) ? 0 : parsedWeight;
   };
 
   const formatSmallPercentage = (percentage: number): string => {
