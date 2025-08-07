@@ -129,11 +129,11 @@ const ChildWeightPercentileCalculator = () => {
     for (let months = 0; months <= 60; months++) {
       const dataPoint: any = {
         age: months,
-        p10: getWeightAtPercentile(months, 10, gender),
-        p25: getWeightAtPercentile(months, 25, gender),
+        p3: getWeightAtPercentile(months, 3, gender),
+        p15: getWeightAtPercentile(months, 15, gender),
         p50: getWeightAtPercentile(months, 50, gender),
-        p75: getWeightAtPercentile(months, 75, gender),
-        p90: getWeightAtPercentile(months, 90, gender),
+        p85: getWeightAtPercentile(months, 85, gender),
+        p97: getWeightAtPercentile(months, 97, gender),
       };
       
       // Add the child's weight point at their exact age
@@ -170,7 +170,7 @@ const ChildWeightPercentileCalculator = () => {
 
     const stdDev = p50Weight * 0.15;
     const zScore = getZScoreFromPercentile(percentile);
-    return p50Weight + (zScore * stdDev);
+    return Math.max(0.5, p50Weight + (zScore * stdDev)); // Ensure minimum weight
   };
 
   const getZScoreFromPercentile = (percentile: number): number => {
@@ -465,7 +465,7 @@ const ChildWeightPercentileCalculator = () => {
                 {gender && (
                 <div className="bg-gray-50 p-4 rounded-lg">
                     <h4 className="text-lg font-semibold mb-3">Growth Chart (Weight)</h4>
-                    <div className="h-64">
+                    <div className="h-96">
                       <ResponsiveContainer width="100%" height="100%">
                         <LineChart 
                           data={generateGrowthChartData()}
@@ -482,32 +482,33 @@ const ChildWeightPercentileCalculator = () => {
                           <Tooltip 
                             formatter={(value: number, name: string) => [
                               value ? `${value.toFixed(1)} kg` : 'Current weight',
-                              name === 'p10' ? '10th percentile' : name === 'p25' ? '25th percentile' : 
-                              name === 'p50' ? '50th percentile (median)' : name === 'p75' ? '75th percentile' : 
-                              name === 'p90' ? '90th percentile' : 'Your child'
+                              name === 'p3' ? '3rd percentile' : name === 'p15' ? '15th percentile' : 
+                              name === 'p50' ? '50th percentile (median)' : name === 'p85' ? '85th percentile' : 
+                              name === 'p97' ? '97th percentile' : 'Your child'
                             ]}
                             labelFormatter={(age) => `Age: ${age} months`}
                           />
-                          <Line type="monotone" dataKey="p10" stroke="#e11d48" strokeWidth={2} dot={false} connectNulls />
-                          <Line type="monotone" dataKey="p25" stroke="#f59e0b" strokeWidth={2} dot={false} connectNulls />
-                          <Line type="monotone" dataKey="p50" stroke="#10b981" strokeWidth={3} dot={false} connectNulls />
-                          <Line type="monotone" dataKey="p75" stroke="#f59e0b" strokeWidth={2} dot={false} connectNulls />
-                          <Line type="monotone" dataKey="p90" stroke="#e11d48" strokeWidth={2} dot={false} connectNulls />
+                          <Line type="monotone" dataKey="p3" stroke="#dc2626" strokeWidth={2} dot={false} connectNulls strokeDasharray="5,5" />
+                          <Line type="monotone" dataKey="p15" stroke="#ea580c" strokeWidth={2} dot={false} connectNulls />
+                          <Line type="monotone" dataKey="p50" stroke="#16a34a" strokeWidth={3} dot={false} connectNulls />
+                          <Line type="monotone" dataKey="p85" stroke="#ea580c" strokeWidth={2} dot={false} connectNulls />
+                          <Line type="monotone" dataKey="p97" stroke="#dc2626" strokeWidth={2} dot={false} connectNulls strokeDasharray="5,5" />
                           {/* Add the child's current weight as a single point */}
                           <Line 
                             type="monotone" 
                             dataKey="currentWeight"
-                            stroke="#3b82f6" 
+                            stroke="#2563eb" 
                             strokeWidth={0} 
-                            dot={{ r: 6, fill: '#3b82f6', stroke: '#1e40af', strokeWidth: 2 }}
+                            dot={{ r: 8, fill: '#2563eb', stroke: '#1e40af', strokeWidth: 3 }}
                             connectNulls={false}
                           />
                         </LineChart>
                       </ResponsiveContainer>
                     </div>
                     <div className="mt-2 text-sm text-gray-600">
-                      <p>The blue dot represents your child's current measurement.</p>
-                      <p>Lines show: 10th (red), 25th (orange), 50th (green), 75th (orange), 90th (red) percentiles</p>
+                      <p className="font-medium">The blue dot represents your child's current measurement.</p>
+                      <p>Growth curves show: 3rd (red dashed), 15th (orange), 50th (green), 85th (orange), 97th (red dashed) percentiles</p>
+                      <p className="text-xs mt-1">Most children grow between the 15th and 85th percentiles.</p>
                     </div>
                   </div>
                 )}
