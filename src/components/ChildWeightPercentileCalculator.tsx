@@ -123,20 +123,21 @@ const ChildWeightPercentileCalculator = () => {
   const generateGrowthChartData = () => {
     const data = [];
     const childWeight = result ? (weightUnit === "kg" ? Number(weight) : Number(weight) * 0.453592) : null;
+    const childAgeInMonths = result?.ageInMonths || 0;
     
     // Generate data points for every month from 0 to 60
     for (let months = 0; months <= 60; months++) {
       const dataPoint: any = {
         age: months,
         p10: getWeightAtPercentile(months, 10, gender),
-        p30: getWeightAtPercentile(months, 30, gender),
+        p25: getWeightAtPercentile(months, 25, gender),
         p50: getWeightAtPercentile(months, 50, gender),
-        p70: getWeightAtPercentile(months, 70, gender),
+        p75: getWeightAtPercentile(months, 75, gender),
         p90: getWeightAtPercentile(months, 90, gender),
       };
       
-      // If this month matches the child's age (within 0.5 months), add their weight
-      if (result && childWeight && Math.abs(months - result.ageInMonths) < 0.5) {
+      // Add the child's weight point at their exact age
+      if (result && childWeight && months === Math.round(childAgeInMonths)) {
         dataPoint.currentWeight = childWeight;
       }
       
@@ -173,15 +174,32 @@ const ChildWeightPercentileCalculator = () => {
   };
 
   const getZScoreFromPercentile = (percentile: number): number => {
-    // Inverse normal distribution approximation
+    // More accurate inverse normal distribution approximation
     const p = percentile / 100;
     if (p === 0.5) return 0;
     
-    // Simplified approximation
-    if (p < 0.5) {
-      return -Math.sqrt(-2 * Math.log(p));
+    // Beasley-Springer-Moro approximation
+    if (p <= 0 || p >= 1) return 0;
+    
+    const c0 = 2.515517;
+    const c1 = 0.802853;
+    const c2 = 0.010328;
+    const d1 = 1.432788;
+    const d2 = 0.189269;
+    const d3 = 0.001308;
+    
+    let t, numerator, denominator;
+    
+    if (p <= 0.5) {
+      t = Math.sqrt(-2 * Math.log(p));
+      numerator = c0 + c1 * t + c2 * t * t;
+      denominator = 1 + d1 * t + d2 * t * t + d3 * t * t * t;
+      return -(numerator / denominator);
     } else {
-      return Math.sqrt(-2 * Math.log(1 - p));
+      t = Math.sqrt(-2 * Math.log(1 - p));
+      numerator = c0 + c1 * t + c2 * t * t;
+      denominator = 1 + d1 * t + d2 * t * t + d3 * t * t * t;
+      return numerator / denominator;
     }
   };
 
@@ -464,16 +482,16 @@ const ChildWeightPercentileCalculator = () => {
                           <Tooltip 
                             formatter={(value: number, name: string) => [
                               value ? `${value.toFixed(1)} kg` : 'Current weight',
-                              name === 'p10' ? '10th %ile' : name === 'p30' ? '30th %ile' : 
-                              name === 'p50' ? '50th %ile' : name === 'p70' ? '70th %ile' : 
-                              name === 'p90' ? '90th %ile' : 'Your child'
+                              name === 'p10' ? '10th percentile' : name === 'p25' ? '25th percentile' : 
+                              name === 'p50' ? '50th percentile (median)' : name === 'p75' ? '75th percentile' : 
+                              name === 'p90' ? '90th percentile' : 'Your child'
                             ]}
                             labelFormatter={(age) => `Age: ${age} months`}
                           />
                           <Line type="monotone" dataKey="p10" stroke="#e11d48" strokeWidth={2} dot={false} connectNulls />
-                          <Line type="monotone" dataKey="p30" stroke="#f59e0b" strokeWidth={2} dot={false} connectNulls />
+                          <Line type="monotone" dataKey="p25" stroke="#f59e0b" strokeWidth={2} dot={false} connectNulls />
                           <Line type="monotone" dataKey="p50" stroke="#10b981" strokeWidth={3} dot={false} connectNulls />
-                          <Line type="monotone" dataKey="p70" stroke="#f59e0b" strokeWidth={2} dot={false} connectNulls />
+                          <Line type="monotone" dataKey="p75" stroke="#f59e0b" strokeWidth={2} dot={false} connectNulls />
                           <Line type="monotone" dataKey="p90" stroke="#e11d48" strokeWidth={2} dot={false} connectNulls />
                           {/* Add the child's current weight as a single point */}
                           <Line 
@@ -489,7 +507,7 @@ const ChildWeightPercentileCalculator = () => {
                     </div>
                     <div className="mt-2 text-sm text-gray-600">
                       <p>The blue dot represents your child's current measurement.</p>
-                      <p>Lines show: 10th (red), 30th (orange), 50th (green), 70th (orange), 90th (red) percentiles</p>
+                      <p>Lines show: 10th (red), 25th (orange), 50th (green), 75th (orange), 90th (red) percentiles</p>
                     </div>
                   </div>
                 )}
