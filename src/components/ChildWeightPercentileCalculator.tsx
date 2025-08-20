@@ -170,17 +170,32 @@ const ChildWeightPercentileCalculator = () => {
 
     const stdDev = p50Weight * 0.15;
     const zScore = getZScoreFromPercentile(percentile);
-    return Math.max(0.5, p50Weight + (zScore * stdDev)); // Ensure minimum weight
+    return Math.max(0.5, p50Weight + (zScore * stdDev));
   };
 
   const getZScoreFromPercentile = (percentile: number): number => {
-    // More accurate inverse normal distribution approximation
     const p = percentile / 100;
     if (p === 0.5) return 0;
     
-    // Beasley-Springer-Moro approximation
+    // More accurate inverse normal distribution approximation
     if (p <= 0 || p >= 1) return 0;
     
+    // For common percentiles, use pre-calculated z-scores for better accuracy
+    const percentileToZScore: { [key: number]: number } = {
+      3: -1.8808,    // 3rd percentile
+      15: -1.0364,   // 15th percentile  
+      25: -0.6745,   // 25th percentile
+      50: 0,         // 50th percentile (median)
+      75: 0.6745,    // 75th percentile
+      85: 1.0364,    // 85th percentile
+      97: 1.8808     // 97th percentile
+    };
+    
+    if (percentileToZScore[percentile] !== undefined) {
+      return percentileToZScore[percentile];
+    }
+    
+    // Beasley-Springer-Moro approximation for other percentiles
     const c0 = 2.515517;
     const c1 = 0.802853;
     const c2 = 0.010328;
