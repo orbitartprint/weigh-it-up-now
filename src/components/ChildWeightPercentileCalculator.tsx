@@ -465,7 +465,7 @@ const ChildWeightPercentileCalculator = () => {
                 {gender && (
                 <div className="bg-gray-50 p-4 rounded-lg">
                     <h4 className="text-lg font-semibold mb-3">Growth Chart (Weight)</h4>
-                    <div className="h-96">
+                    <div className="h-[500px]">
                       <ResponsiveContainer width="100%" height="100%">
                         <LineChart 
                           data={generateGrowthChartData()}
@@ -499,7 +499,7 @@ const ChildWeightPercentileCalculator = () => {
                             dataKey="currentWeight"
                             stroke="#2563eb" 
                             strokeWidth={0} 
-                            dot={{ r: 8, fill: '#2563eb', stroke: '#1e40af', strokeWidth: 3 }}
+                            dot={{ r: 10, fill: '#2563eb', stroke: '#1e40af', strokeWidth: 4 }}
                             connectNulls={false}
                           />
                         </LineChart>
